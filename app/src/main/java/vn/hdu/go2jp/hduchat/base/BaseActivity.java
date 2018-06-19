@@ -1,4 +1,4 @@
-package vn.hdu.j2pteam.mobile.hduchat.base;
+package vn.hdu.go2jp.hduchat.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,24 +9,21 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
 
-import vn.hdu.j2pteam.mobile.hduchat.utils.DialogUtils;
-
-/**
- * Created by Admin on 7/17/2017.
- */
+import vn.hdu.go2jp.hduchat.listener.OnBackPressListener;
+import vn.hdu.go2jp.hduchat.util.DialogHelper;
 
 public class BaseActivity extends AppCompatActivity {
 
-    private DialogUtils mDialogHelper;
+    private DialogHelper dialog;
 
-    public DialogUtils getDialoger() {
-        return mDialogHelper;
+    public DialogHelper getDialog() {
+        return dialog;
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDialogHelper = new DialogUtils(this);
+        dialog = new DialogHelper(this);
     }
 
     @Override

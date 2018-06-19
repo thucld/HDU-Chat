@@ -1,4 +1,4 @@
-package vn.hdu.j2pteam.mobile.hduchat.base;
+package vn.hdu.go2jp.hduchat.base;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,37 +11,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import vn.hdu.j2pteam.mobile.hduchat.utils.DialogUtils;
-
-
-/**
- * Created by Admin on 7/17/2017.
- */
+import vn.hdu.go2jp.hduchat.listener.OnBackPressListener;
+import vn.hdu.go2jp.hduchat.util.DialogHelper;
 
 public abstract class BaseFragment extends Fragment implements OnBackPressListener {
 
     private Activity baseActivity;
-    private DialogUtils mDialogHelper;
-    private boolean mIsKeepView;
-    private View mContentView;
+    private DialogHelper dialog;
+    private boolean isKeepView;
+    private View contentView;
 
     public BaseFragment() {
-        mIsKeepView = true;
+        isKeepView = true;
     }
 
     private boolean isKeepView() {
-        return mIsKeepView;
+        return isKeepView;
     }
 
-    public void setKeepView(boolean mIsKeepView) {
-        this.mIsKeepView = mIsKeepView;
-        if (!mIsKeepView) {
-            mContentView = null;
+    public void setKeepView(boolean isKeepView) {
+        this.isKeepView = isKeepView;
+        if (!isKeepView) {
+            contentView = null;
         }
     }
 
-    protected DialogUtils getDialoger() {
-        return mDialogHelper;
+    protected DialogHelper getDialog() {
+        return dialog;
     }
 
     @Override
@@ -56,7 +52,7 @@ public abstract class BaseFragment extends Fragment implements OnBackPressListen
         super.onAttach(context);
         baseActivity = (Activity) context;
         if (baseActivity instanceof BaseActivity) {
-            mDialogHelper = ((BaseActivity) baseActivity).getDialoger();
+            dialog = ((BaseActivity) baseActivity).getDialog();
         }
     }
 
@@ -68,7 +64,7 @@ public abstract class BaseFragment extends Fragment implements OnBackPressListen
     @Nullable
     @Override
     public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View contentView = mContentView;
+        View contentView = this.contentView;
         if (contentView == null) {
             contentView = createView(inflater, container, savedInstanceState);
         }
@@ -81,7 +77,7 @@ public abstract class BaseFragment extends Fragment implements OnBackPressListen
     public final void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (isKeepView()) {
-            mContentView = view;
+            contentView = view;
         }
     }
 
@@ -89,18 +85,20 @@ public abstract class BaseFragment extends Fragment implements OnBackPressListen
     public void onDetach() {
         super.onDetach();
         baseActivity = null;
-        if (mDialogHelper != null) {
-            mDialogHelper.dismissDialog();
+        if (dialog != null) {
+            dialog.dismissDialog();
         }
     }
 
     protected void handleOnBackPress() {
         FragmentManager fragmentManager = getFragmentManager();
-        if (fragmentManager.getBackStackEntryCount() == 0) {
-            // we can finish the base activity since we have no other fragments
-            baseActivity.finish();
-        } else {
-            fragmentManager.popBackStackImmediate();
+        if (fragmentManager != null) {
+            if (fragmentManager.getBackStackEntryCount() == 0) {
+                // we can finish the base activity since we have no other fragments
+                baseActivity.finish();
+            } else {
+                fragmentManager.popBackStackImmediate();
+            }
         }
     }
 

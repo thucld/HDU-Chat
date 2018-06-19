@@ -1,5 +1,4 @@
-package vn.hdu.j2pteam.mobile.hduchat.fragment;
-
+package vn.hdu.go2jp.hduchat.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,18 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import vn.hdu.j2pteam.mobile.hduchat.R;
+import vn.hdu.j2p.mobile.hduchat.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ChatListFragment extends Fragment {
 
-
     public ChatListFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

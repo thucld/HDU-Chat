@@ -1,4 +1,4 @@
-package vn.hdu.j2pteam.mobile.hduchat.fragment;
+package vn.hdu.go2jp.hduchat.fragment;
 
 
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import vn.hdu.j2pteam.mobile.hduchat.R;
+import vn.hdu.j2p.mobile.hduchat.R;
 
 /**
  * A simple {@link Fragment} subclass.
