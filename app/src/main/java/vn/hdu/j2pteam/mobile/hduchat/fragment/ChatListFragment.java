@@ -1,4 +1,4 @@
-package vn.hdu.j2pteam.mobile.hduchat.Fragment;
+package vn.hdu.j2pteam.mobile.hduchat.fragment;
 
 
 import android.os.Bundle;
