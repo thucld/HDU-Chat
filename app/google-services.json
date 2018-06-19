@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "100834445020",
+    "firebase_url": "https://hdu-chat.firebaseio.com",
+    "project_id": "hdu-chat",
+    "storage_bucket": "hdu-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100834445020:android:337cbec57f1944f0",
+        "android_client_info": {
+          "package_name": "vn.hdu.j2pteam.mobile.hduchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "100834445020-7e28f84o24t1c5ij001gto5f1s2pq8rr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vn.hdu.j2pteam.mobile.hduchat",
+            "certificate_hash": "886029010febb1cfc2ded7c1e8232ebc187bcff3"
+          }
+        },
+        {
+          "client_id": "100834445020-f89b0p99j2e283q19gofgju1neeru1aa.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "100834445020-f89b0p99j2e283q19gofgju1neeru1aa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTSDGYqrjS0rLCUWjEtmt0UFj2pC6V3WM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "100834445020-f89b0p99j2e283q19gofgju1neeru1aa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
