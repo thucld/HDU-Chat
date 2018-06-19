@@ -1,7 +1,9 @@
-package vn.hdu.j2pteam.mobile.hduchat;
+package vn.hdu.j2pteam.mobile.hduchat.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import vn.hdu.j2pteam.mobile.hduchat.R;
 
 public class MainActivity extends AppCompatActivity {
 
