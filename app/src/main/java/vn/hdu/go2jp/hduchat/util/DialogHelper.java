@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
-import vn.hdu.j2p.mobile.hduchat.R;
+import vn.hdu.go2jp.hduchat.R;
 
 import static android.content.DialogInterface.BUTTON_NEGATIVE;
 import static android.content.DialogInterface.BUTTON_POSITIVE;
