@@ -7,7 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import vn.hdu.j2p.mobile.hduchat.R;
+import vn.hdu.go2jp.hduchat.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
