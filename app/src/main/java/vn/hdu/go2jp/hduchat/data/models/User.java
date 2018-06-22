@@ -13,6 +13,18 @@ public class User {
     private String avatarPath;
     private String note;
 
+    public User(String userId, String passWord, String userName, List<String> listRoomId, String phoneNumber, String email, List<String> contactId, String avatarPath, String note) {
+        this.userId = userId;
+        this.passWord = passWord;
+        this.userName = userName;
+        this.listRoomId = listRoomId;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.contactId = contactId;
+        this.avatarPath = avatarPath;
+        this.note = note;
+    }
+
     public String getUserId() {
         return userId;
     }
@@ -84,7 +96,4 @@ public class User {
     public void setNote(String note) {
         this.note = note;
     }
-
-
-
 }
