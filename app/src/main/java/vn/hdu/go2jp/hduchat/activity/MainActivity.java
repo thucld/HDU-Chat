@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
 import android.view.MenuItem;
-import android.widget.Toast;
 import android.view.Menu;
 
 import java.util.ArrayList;
@@ -20,6 +19,7 @@ import vn.hdu.go2jp.hduchat.fragment.ChatBoxFragment;
 import vn.hdu.go2jp.hduchat.fragment.ChatListFragment;
 import vn.hdu.go2jp.hduchat.fragment.ContactsFragment;
 import vn.hdu.go2jp.hduchat.fragment.MoreFragment;
+import vn.hdu.go2jp.hduchat.util.ToastUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,11 +42,11 @@ public class MainActivity extends AppCompatActivity {
         setupViewPager();
         findViewById(R.id.search).setOnClickListener(v -> {
             toolbar.setTitle("search clicked");
-            Toast.makeText(getApplicationContext(), "clicked!", Toast.LENGTH_LONG).show();
+            new ToastUtil().showLong(getApplicationContext(), "search clicked!");
         });
         findViewById(R.id.addPerson).setOnClickListener(v -> {
             toolbar.setTitle("addPerson clicked");
-            Toast.makeText(getApplicationContext(), "clicked!", Toast.LENGTH_LONG).show();
+            new ToastUtil().showShort(getApplicationContext(), "addPerson clicked!");
         });
 
     }
