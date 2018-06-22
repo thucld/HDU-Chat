@@ -1,11 +1,14 @@
 package vn.hdu.go2jp.hduchat.util;
 
-import android.util.Log;
+import android.support.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import vn.hdu.go2jp.hduchat.base.OnResult;
 
 public class FireBaseUtil {
     private static FirebaseUser user;
@@ -32,14 +35,26 @@ public class FireBaseUtil {
         }
     }
 
-    public static void signInWithEmail(String email, String password) {
+    public static void signInWithEmail(String email, String password, OnResult<Boolean> onResult) {
         setData();
-        auth.signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        Log.i("LOGIN:", "Login successful");
-                    }
-                });
+//        auth.signInWithEmailAndPassword(email, password)
+//                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+//                    @Override
+//                    public void onSuccess(AuthResult authResult) {
+//                        Log.i("LOGIN:", "Login successful");
+//                        onResult.onResult(true);
+//                    }
+//                });
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful() == true) {
+                    onResult.onResult(true);
+                } else {
+                    onResult.onResult(false);
+                }
+            }
+        });
     }
+
 }

@@ -1,9 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="vn.hdu.go2jp.hduchat.activity.LoginActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <EditText
+        android:id="@+id/edEmail"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:hint="Email Address" />
+
+    <EditText
+        android:id="@+id/edPassword"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/edEmail"
+        android:layout_centerHorizontal="true"
+        android:hint="Password" />
+
+    <TextView
+        android:id="@+id/tvForgetPassword"
+        android:layout_width="350dp"
+        android:layout_height="25dp"
+        android:layout_below="@id/edPassword"
+        android:layout_centerHorizontal="true"
+        android:text="Forget your password ?" />
+
+    <Button
+        android:id="@+id/btnSignIn"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/btnSignUp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:text="OK" />
+
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/btnSignInWithFacebook"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:background="#505C72"
+        android:text="No registered email" />
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/btnSignInWithFacebook"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="#aba8a8" />
+
+    <TextView
+        android:id="@+id/btnSignInWithFacebook"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Log in with Facebook"
+        android:textColor="@color/colorPrimary"
+        android:gravity="center"
+        android:textSize="20dp" />
+
+</RelativeLayout>
