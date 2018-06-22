@@ -25,11 +25,11 @@ public class DialogHelper {
         showOkDialog(progressDialog.getContext().getString(messageId));
     }
 
-    public void showOkDialog(String message) {
+    private void showOkDialog(String message) {
         showOkDialog("", message);
     }
 
-    public void showOkDialog(String title, String message) {
+    private void showOkDialog(String title, String message) {
         showOkDialog(title, message, (dialogInterface, i) -> dialogInterface.dismiss());
     }
 
@@ -37,7 +37,7 @@ public class DialogHelper {
         showOkDialog("", message, clickListener);
     }
 
-    public void showOkDialog(String title, String message, DialogInterface.OnClickListener clickListener) {
+    private void showOkDialog(String title, String message, DialogInterface.OnClickListener clickListener) {
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
@@ -69,11 +69,11 @@ public class DialogHelper {
         showProgressDialog(progressDialog.getContext().getString(messageId));
     }
 
-    public void showProgressDialog(String message) {
+    private void showProgressDialog(String message) {
         showProgressDialog("", message);
     }
 
-    public void showProgressDialog(String title, String message) {
+    private void showProgressDialog(String title, String message) {
         if (alertDialog.isShowing()) {
             alertDialog.dismiss();
         }

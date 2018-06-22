@@ -8,9 +8,8 @@ import android.view.ViewGroup;
 
 import vn.hdu.go2jp.hduchat.R;
 
-
 /**
- * A simple {@link Fragment} subclass.
+ * Where to show chat rooms.
  */
 public class ChatListFragment extends Fragment {
 

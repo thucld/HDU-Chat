@@ -3,7 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vn.hdu.go2jp.hduchat.fragment.ContactListFragment">
+    tools:context="vn.hdu.go2jp.hduchat.fragment.ContactsFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="ContactsFragment" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_contact"
