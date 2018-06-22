@@ -1,15 +1,13 @@
 package vn.hdu.go2jp.hduchat.activity;
 
 import android.os.Bundle;
-import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v4.content.ContextCompat;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
-import android.view.MenuItem;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 
@@ -55,17 +53,18 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Recent");
-        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_settings_white_24dp);
-        toolbar.setOverflowIcon(drawable);
+//        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.header_ic_setting);
+//        toolbar.setOverflowIcon(drawable);
     }
 
     private void setupViewPager() {
         final ViewPager viewPager = findViewById(R.id.viewPager);
 
         ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(new ContactsFragment());
+        fragments.add(new ChatListFragment());
         fragments.add(new ChatListFragment());
         fragments.add(new ChatBoxFragment());
-        fragments.add(new ContactsFragment());
         fragments.add(new MoreFragment());
 
         final PagerAdapter adapter = new PagerAdapter
@@ -95,10 +94,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupTabLayout() {
         tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_contacts).setTag("Contacts"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_chats).setTag("Chats"));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_history_white_24dp).setTag("Recent"));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_chat_white_24dp).setTag("Chats"));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_contacts_white_24dp).setTag("Contacts"));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_more_horiz_white_24dp).setTag("More..."));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_calls).setTag("Calls"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_more).setTag("More..."));
     }
 
     @Override
