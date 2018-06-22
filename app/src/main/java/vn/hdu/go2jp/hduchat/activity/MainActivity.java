@@ -109,9 +109,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        return id == R.id.setting || super.onOptionsItemSelected(item);
 
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.setting:
+                new ToastUtil().showShort(getApplicationContext(), "Setting");
+                return true;
+            case R.id.about:
+                new ToastUtil().showShort(getApplicationContext(), "About");
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
