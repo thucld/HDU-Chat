@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupTabLayout() {
         tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_contacts).setTag("Contacts"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_contacts_white).setTag("Contacts"));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_chats).setTag("Chats"));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_history_white_24dp).setTag("Recent"));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_calls).setTag("Calls"));

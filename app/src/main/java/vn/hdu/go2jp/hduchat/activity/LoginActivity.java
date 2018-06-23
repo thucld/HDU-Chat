@@ -26,6 +26,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initEvents() {
+        if (FireBaseUtil.getInstance().isLogin()) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
         btnSignIn.setOnClickListener(view -> {
             String email = edEmail.getText().toString();
             String password = edPassword.getText().toString();

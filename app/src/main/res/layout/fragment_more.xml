@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vn.hdu.go2jp.hduchat.fragment.ContactsFragment">
+    tools:context="vn.hdu.go2jp.hduchat.fragment.ContactListFragment">
 
     <TextView
         android:layout_width="wrap_content"
