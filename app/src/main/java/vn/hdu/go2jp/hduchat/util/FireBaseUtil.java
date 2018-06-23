@@ -44,6 +44,7 @@ public class FireBaseUtil {
 //                        Log.i("LOGIN:", "Login successful");
 //                        onResult.onResult(true);
 //                    }
+//
 //                });
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override

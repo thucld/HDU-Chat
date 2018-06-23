@@ -6,11 +6,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-import vn.hdu.go2jp.hduchat.fragment.ChatBoxFragment;
-import vn.hdu.go2jp.hduchat.fragment.ChatListFragment;
-import vn.hdu.go2jp.hduchat.fragment.ContactsFragment;
-import vn.hdu.go2jp.hduchat.fragment.MoreFragment;
-
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
     private int mNumOfTabs;
@@ -36,7 +31,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 //            case 1:
 //                return new ChatBoxFragment();
 //            case 2:
-//                return new ContactsFragment();
+//                return new ContactListFragment();
 //            case 3:
 //                return new MoreFragment();
 //            default:

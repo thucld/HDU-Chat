@@ -26,6 +26,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initEvents() {
+        if (FireBaseUtil.isLogin()) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,11 +41,11 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onResult(Boolean aBoolean) {
                             if (aBoolean) {
-                                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
                             } else {
-                                    //message log in fail
+                                //message log in fail
                             }
                         }
                     });

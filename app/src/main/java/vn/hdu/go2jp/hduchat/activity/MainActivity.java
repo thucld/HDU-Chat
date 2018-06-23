@@ -15,7 +15,7 @@ import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.PagerAdapter;
 import vn.hdu.go2jp.hduchat.fragment.ChatBoxFragment;
 import vn.hdu.go2jp.hduchat.fragment.ChatListFragment;
-import vn.hdu.go2jp.hduchat.fragment.ContactsFragment;
+import vn.hdu.go2jp.hduchat.fragment.ContactListFragment;
 import vn.hdu.go2jp.hduchat.fragment.MoreFragment;
 import vn.hdu.go2jp.hduchat.util.ToastUtil;
 
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         final ViewPager viewPager = findViewById(R.id.viewPager);
 
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new ContactsFragment());
+        fragments.add(new ContactListFragment());
         fragments.add(new ChatListFragment());
         fragments.add(new ChatListFragment());
         fragments.add(new ChatBoxFragment());
