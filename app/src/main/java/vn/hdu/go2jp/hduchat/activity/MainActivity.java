@@ -17,6 +17,7 @@ import vn.hdu.go2jp.hduchat.fragment.ChatBoxFragment;
 import vn.hdu.go2jp.hduchat.fragment.ChatListFragment;
 import vn.hdu.go2jp.hduchat.fragment.ContactsFragment;
 import vn.hdu.go2jp.hduchat.fragment.MoreFragment;
+import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 import vn.hdu.go2jp.hduchat.util.ToastUtil;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initial();
-
+        FireBaseUtil.test();
     }
 
     private void initial() {

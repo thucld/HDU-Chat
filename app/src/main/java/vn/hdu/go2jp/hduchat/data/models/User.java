@@ -13,6 +13,9 @@ public class User {
     private String avatarPath;
     private String note;
 
+    public User() {
+    }
+
     public User(String userId, String passWord, String userName, List<String> listRoomId, String phoneNumber, String email, List<String> contactId, String avatarPath, String note) {
         this.userId = userId;
         this.passWord = passWord;
