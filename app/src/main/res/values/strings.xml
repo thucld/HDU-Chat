@@ -7,5 +7,6 @@
     // constant
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
+    <string name="log_in_fail">Log In failure!</string>
 
 </resources>

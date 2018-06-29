@@ -16,7 +16,7 @@ import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.PagerAdapter;
 import vn.hdu.go2jp.hduchat.fragment.ChatBoxFragment;
 import vn.hdu.go2jp.hduchat.fragment.ChatListFragment;
-import vn.hdu.go2jp.hduchat.fragment.ContactsFragment;
+import vn.hdu.go2jp.hduchat.fragment.ContactListFragment;
 import vn.hdu.go2jp.hduchat.fragment.MoreFragment;
 import vn.hdu.go2jp.hduchat.services.ChatService;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         final ViewPager viewPager = findViewById(R.id.viewPager);
 
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new ContactsFragment());
+        fragments.add(new ContactListFragment());
         fragments.add(new ChatListFragment());
         fragments.add(new ChatListFragment());
         fragments.add(new ChatBoxFragment());
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupTabLayout() {
         tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_contacts).setTag("Contacts"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_contacts_white).setTag("Contacts"));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_chats).setTag("Chats"));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_history_white_24dp).setTag("Recent"));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_calls).setTag("Calls"));
@@ -113,9 +113,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        return id == R.id.setting || super.onOptionsItemSelected(item);
 
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.setting:
+                new ToastUtil().showShort(getApplicationContext(), "Setting");
+                return true;
+            case R.id.about:
+                new ToastUtil().showShort(getApplicationContext(), "About");
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
