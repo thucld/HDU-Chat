@@ -24,30 +24,31 @@ import vn.hdu.go2jp.hduchat.base.OnResult;
 import vn.hdu.go2jp.hduchat.data.models.User;
 
 public class FireBaseUtil {
-    private static final String TAG = "my_";
     private static FirebaseUser user;
     private static FirebaseAuth auth;
     private static DatabaseReference mDatabase;
-    private static DatabaseReference mUser;
     private static ArrayList<User> listUserInfo;
+    private static FireBaseUtil instance;
 
-    private static void setData() {
+    public static synchronized FireBaseUtil getInstance() {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         listUserInfo = new ArrayList<User>();
+
+        if (instance == null) {
+            instance = new FireBaseUtil();
+        }
+        return instance;
     }
 
     public static boolean isLogin() {
-        setData();
         return user != null;
     }
 
     public static boolean signOut() {
-        setData();
         try {
             auth.signOut();
-            Log.i("my_SignOut", "SignOut Successful");
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,31 +57,24 @@ public class FireBaseUtil {
     }
 
     public static void signUpWithEmail(String email, String password, OnResult<Boolean> onResult) {
-        setData();
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         onResult.onResult(task.isSuccessful());
-                        if(task.isSuccessful()){
-                            setData();
-                            writeNewUser(user.getUid(),password,null,null,null,email,null,null,null);
+                        if (task.isSuccessful()) {
+                            writeNewUser(user.getUid(), password, null, null, null, email, null, null, null);
                         }
                     }
                 });
     }
 
     public static void signInWithEmail(String email, String password, OnResult<Boolean> onResult) {
-        setData();
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            onResult.onResult(true);
-                        } else {
-                            onResult.onResult(false);
-                        }
+                        onResult.onResult(task.isSuccessful());
                     }
                 });
     }
@@ -91,12 +85,10 @@ public class FireBaseUtil {
     }
 
     public static void addContact(String uId) {
-        setData();
         mDatabase.child("users").child(user.getUid()).child("contacts").push().setValue(uId);
     }
 
     public static void getListContact() {
-        setData();
         mDatabase.child("users").child(user.getUid()).child("contacts")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -105,7 +97,7 @@ public class FireBaseUtil {
                         if (dataSnapshot.getValue() != null) {
                             HashMap mapRecord = (HashMap) dataSnapshot.getValue();
                             //Log.i("my_HashMap", mapRecord.toString());
-                            for(Object contactId : mapRecord.values()){
+                            for (Object contactId : mapRecord.values()) {
                                 User userInfo = getContactsInfo(contactId.toString());
                                 listUserInfo.add(userInfo);
                             }
@@ -144,14 +136,13 @@ public class FireBaseUtil {
         return userInfo;
     }
 
-    public static ArrayList<String> getListRoom(OnResult<ArrayList<String>> onResult){
-        setData();
+    public static void getListRoom(OnResult<ArrayList<String>> onResult) {
         ArrayList<String> listRooms = new ArrayList<>();
         mDatabase.child("users").child(user.getUid()).child("roomsId").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 HashMap mapRoom = (HashMap) dataSnapshot.getValue();
-                for(Object roomId : mapRoom.values()){
+                for (Object roomId : mapRoom.values()) {
                     listRooms.add(roomId.toString());
                 }
                 onResult.onResult(listRooms);
@@ -162,7 +153,6 @@ public class FireBaseUtil {
 
             }
         });
-        return listRooms;
     }
 
 

@@ -26,7 +26,7 @@ public class ChatService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        FireBaseUtil.getListRoom(new OnResult<ArrayList<String>>() {
+        FireBaseUtil.getInstance().getListRoom(new OnResult<ArrayList<String>>() {
             @Override
             public void onResult(ArrayList<String> listRoom) {
                 for (String roomId : listRoom) {
@@ -34,27 +34,27 @@ public class ChatService extends Service {
                             .addChildEventListener(new ChildEventListener() {
                                 @Override
                                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                                    Log.i("my_message", "\n"+roomId+":\n"+dataSnapshot.getValue().toString());
+                                    Log.i("my_message", "\n" + roomId + ":\n" + dataSnapshot.getValue().toString());
                                 }
 
                                 @Override
                                 public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                                    Log.i("my_message","onChildChanged");
+                                    Log.i("my_message", "onChildChanged");
                                 }
 
                                 @Override
                                 public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                                    Log.i("my_message","onChildRemoved");
+                                    Log.i("my_message", "onChildRemoved");
                                 }
 
                                 @Override
                                 public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                                    Log.i("my_message","onChildMoved");
+                                    Log.i("my_message", "onChildMoved");
                                 }
 
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    Log.i("my_message","onCancelled");
+                                    Log.i("my_message", "onCancelled");
                                 }
                             });
                 }
