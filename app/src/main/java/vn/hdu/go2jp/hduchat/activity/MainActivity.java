@@ -1,5 +1,6 @@
 package vn.hdu.go2jp.hduchat.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import vn.hdu.go2jp.hduchat.fragment.ChatBoxFragment;
 import vn.hdu.go2jp.hduchat.fragment.ChatListFragment;
 import vn.hdu.go2jp.hduchat.fragment.ContactsFragment;
 import vn.hdu.go2jp.hduchat.fragment.MoreFragment;
+import vn.hdu.go2jp.hduchat.services.ChatService;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 import vn.hdu.go2jp.hduchat.util.ToastUtil;
 
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         initial();
         FireBaseUtil.test();
+        startService(new Intent(this,ChatService.class));
     }
 
     private void initial() {

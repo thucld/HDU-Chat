@@ -20,6 +20,11 @@
         <activity android:name="vn.hdu.go2jp.hduchat.activity.MainActivity">
 
         </activity>
+        <service
+            android:name=".services.ChatService"
+            android:exported="false"
+            android:persistent="true"
+            />
     </application>
 
 </manifest>
