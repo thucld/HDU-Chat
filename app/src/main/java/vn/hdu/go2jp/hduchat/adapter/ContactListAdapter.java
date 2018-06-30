@@ -2,6 +2,7 @@ package vn.hdu.go2jp.hduchat.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,9 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         User item = mDataSet.get(position);
         holder.tvName.setText(item.getUserName());
+        if(TextUtils.isEmpty(item.getNote())){
+            holder.tvNote.setVisibility(View.GONE);
+        }
 //        int resId = R.drawable.ic_files_bad;
 //        if (ItemRepository.isGood(this.mInsRecordId, item.getId())) {
 //            resId = R.drawable.ic_files_good;

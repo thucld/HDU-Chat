@@ -88,7 +88,8 @@ public class FireBaseUtil {
         mDatabase.child("users").child(user.getUid()).child("contacts").push().setValue(uId);
     }
 
-    public static void getListContact() {
+    public static void getListContact(OnResult<List<User>> onResult) {
+        List<User> userList = new ArrayList<>();
         mDatabase.child("users").child(user.getUid()).child("contacts")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -99,16 +100,19 @@ public class FireBaseUtil {
                             //Log.i("my_HashMap", mapRecord.toString());
                             for (Object contactId : mapRecord.values()) {
                                 User userInfo = getContactsInfo(contactId.toString());
-                                listUserInfo.add(userInfo);
+                                userList.add(userInfo);
                             }
+                            onResult.onResult(userList);
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                        onResult.onResult(userList);
                     }
                 });
+
     }
 
     public static User getContactsInfo(String uId) {
@@ -157,6 +161,6 @@ public class FireBaseUtil {
 
 
     public static void test() {
-        getListContact();
+//        getListContact();
     }
 }
