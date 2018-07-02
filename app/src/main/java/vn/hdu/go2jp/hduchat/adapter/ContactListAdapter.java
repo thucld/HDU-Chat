@@ -41,10 +41,10 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         User item = mDataSet.get(position);
-        holder.tvName.setText(item.getUserName());
         if(TextUtils.isEmpty(item.getNote())){
             holder.tvNote.setVisibility(View.GONE);
         }
+        holder.tvName.setText(item.getUserName());
 //        int resId = R.drawable.ic_files_bad;
 //        if (ItemRepository.isGood(this.mInsRecordId, item.getId())) {
 //            resId = R.drawable.ic_files_good;

@@ -19,13 +19,13 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AAAA" />
+            />
 
         <TextView
             android:id="@+id/tvNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AAAA" />
+            />
     </LinearLayout>
 
 </LinearLayout>
