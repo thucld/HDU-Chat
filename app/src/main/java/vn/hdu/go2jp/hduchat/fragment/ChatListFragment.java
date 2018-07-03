@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
@@ -31,7 +32,7 @@ public class ChatListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_chat_list, container, false);
-
+        listRoom = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             RoomChat user = new RoomChat();
             user.setTitle("Room " + i);
