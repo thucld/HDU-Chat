@@ -11,7 +11,6 @@ import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 import vn.hdu.go2jp.hduchat.util.ToastUtil;
 
-
 public class LoginActivity extends AppCompatActivity {
     private EditText edEmail;
     private EditText edPassword;
@@ -35,9 +34,8 @@ public class LoginActivity extends AppCompatActivity {
             String email = edEmail.getText().toString();
             String password = edPassword.getText().toString();
             if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-                FireBaseUtil.signInWithEmail(email, password, isSuccess -> {
+                FireBaseUtil.getInstance().signInWithEmail(email, password, isSuccess -> {
                     if (isSuccess) {
-                        FireBaseUtil.getInstance();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
