@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.base.OnResult;
@@ -28,6 +29,7 @@ public class FireBaseUtil {
     private static FirebaseAuth auth;
     private static DatabaseReference mDatabase;
     private static ArrayList<User> listUserInfo;
+    private static ArrayList<String> listFriendID = null;
     private static FireBaseUtil instance;
 
     public static synchronized FireBaseUtil getInstance() {
@@ -115,6 +117,7 @@ public class FireBaseUtil {
      * Truy cap bang user lay thong tin id nguoi dung
      */
     private static ArrayList<User> dataContacts = null;
+
     private static void getContactsInfo(final int index) {
         if (index == listFriendID.size()) {
             //save list friend
