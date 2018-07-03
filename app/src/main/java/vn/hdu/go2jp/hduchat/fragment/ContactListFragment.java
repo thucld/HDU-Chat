@@ -51,7 +51,7 @@ public class ContactListFragment extends Fragment {
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
                         LinearLayoutManager.VERTICAL, false);
                 contactListAdapter = new ContactListAdapter(getContext(), userList
-                        , "", new ContactListAdapter.PostItemListener() {
+                        , new ContactListAdapter.PostItemListener() {
                     @Override
                     public void onPostClick(User item) {
 

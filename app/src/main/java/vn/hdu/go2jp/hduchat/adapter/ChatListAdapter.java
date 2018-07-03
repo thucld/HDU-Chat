@@ -2,7 +2,6 @@ package vn.hdu.go2jp.hduchat.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +11,15 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
-import vn.hdu.go2jp.hduchat.data.models.User;
+import vn.hdu.go2jp.hduchat.data.models.RoomChat;
 
-public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ViewHolder> implements View.OnClickListener {
+public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> implements View.OnClickListener {
     private Context mContext;
-    private List<User> mDataSet;
+    private List<RoomChat> mDataSet;
     private PostItemListener mItemListener;
     private static int mSelectedItem = -1;
 
-    public ContactListAdapter(Context context, List<User> dataSet,  PostItemListener itemListener) {
+    public ChatListAdapter(Context context, List<RoomChat> dataSet, PostItemListener itemListener) {
         this.mContext = context;
         this.mDataSet = dataSet;
         this.mItemListener = itemListener;
@@ -28,21 +27,21 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     }
 
     @Override
-    public ContactListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ChatListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflatedView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_contact_list, parent, false);
-        return new ContactListAdapter.ViewHolder(inflatedView, this.mItemListener);
+                .inflate(R.layout.item_chat_list, parent, false);
+        return new ChatListAdapter.ViewHolder(inflatedView, this.mItemListener);
     }
 
 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        User item = mDataSet.get(position);
-        if(TextUtils.isEmpty(item.getNote())){
-            holder.tvNote.setVisibility(View.GONE);
-        }
-        holder.tvName.setText(item.getUserName());
+        RoomChat item = mDataSet.get(position);
+//        if(TextUtils.isEmpty(item.getTitle())){
+//            holder.tvNote.setVisibility(View.GONE);
+//        }
+        holder.tvName.setText(item.getTitle());
 //        int resId = R.drawable.ic_files_bad;
 //        if (ItemRepository.isGood(this.mInsRecordId, item.getId())) {
 //            resId = R.drawable.ic_files_good;
@@ -94,7 +93,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         return mDataSet.size();
     }
 
-    private User getItem(int adapterPosition) {
+    private RoomChat getItem(int adapterPosition) {
         return mDataSet.get(adapterPosition);
     }
 
@@ -108,6 +107,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         ImageView imAvatar;
         TextView tvName;
         TextView tvNote;
+        TextView tvLastModified;
         private PostItemListener mItemListener;
 
         ViewHolder(View itemView, PostItemListener postItemListener) {
@@ -115,6 +115,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             imAvatar = itemView.findViewById(R.id.imAvatar);
             tvName = itemView.findViewById(R.id.tvName);
             tvNote = itemView.findViewById(R.id.tvNote);
+            tvLastModified = itemView.findViewById(R.id.tvLastModified);
             mItemListener = postItemListener;
             itemView.setOnClickListener(this);
         }
@@ -125,13 +126,13 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             if (mSelectedItem < 0 || mSelectedItem >= mDataSet.size()) {
                 return;
             }
-            User item = getItem(mSelectedItem);
+            RoomChat item = getItem(mSelectedItem);
             this.mItemListener.onPostClick(item);
             notifyDataSetChanged();
         }
     }
 
     public interface PostItemListener {
-        void onPostClick(User item);
+        void onPostClick(RoomChat item);
     }
 }
