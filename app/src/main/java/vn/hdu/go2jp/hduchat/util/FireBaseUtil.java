@@ -42,7 +42,7 @@ public class FireBaseUtil {
         return instance;
     }
 
-    public boolean isLogin() {
+    public static boolean isLogin() {
         return user != null;
     }
 
@@ -69,9 +69,14 @@ public class FireBaseUtil {
                 });
     }
 
-    public void signInWithEmail(String email, String password, OnResult<Boolean> onResult) {
+    public static void signInWithEmail(String email, String password, OnResult<Boolean> onResult) {
         auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(task -> onResult.onResult(task.isSuccessful()));
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        onResult.onResult(task.isSuccessful());
+                    }
+                });
     }
 
     public static void writeNewUser(String userId, String passWord, String userName, List<String> listRoomId, String phoneNumber, String email, List<String> contactId, String avatarPath, String note) {
@@ -83,74 +88,120 @@ public class FireBaseUtil {
         mDatabase.child("users").child(user.getUid()).child("contacts").push().setValue(uId);
     }
 
-    public static void getListContact(OnResult<List<User>> onResult) {
-        List<User> userList = new ArrayList<>();
+    public static void getListContact() {
         mDatabase.child("users").child(user.getUid()).child("contacts")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.getValue() != null) {
                             HashMap mapRecord = (HashMap) dataSnapshot.getValue();
-                            //Log.i("my_HashMap", mapRecord.toString());
-                            for (Object contactId : mapRecord.values()) {
-                                userList.add(getContactsInfo(contactId.toString(), result -> {
-
-//                                    if (result.getValue() != null) {
-//                                        User userInfo = new User();
-//                                        HashMap mapUserInfo = (HashMap) result.getValue();
-//                                        userInfo.setEmail((String) mapUserInfo.get("email"));
-//                                        userInfo.setUserId((String) mapUserInfo.get("userId"));
-//                                        userInfo.setAvatarPath((String) mapUserInfo.get("avatarPath"));
-//                                        userInfo.setNote((String) mapUserInfo.get("note"));
-//                                        userInfo.setPhoneNumber((String) mapUserInfo.get("phoneNumber"));
-//                                        userInfo.setUserName((String) mapUserInfo.get("userName"));
-//                                        //Log.i("my_mapUserInfo", mapUserInfo.toString());
-//
-//                                        userList.add(userInfo);
-//                                    }
-                                }));
+                            Iterator listKey = mapRecord.keySet().iterator();
+                            while (listKey.hasNext()) {
+                                String key = listKey.next().toString();
+                                listFriendID.add(mapRecord.get(key).toString());
                             }
-                            onResult.onResult(userList);
+                            getContactsInfo(0);
+                        } else {
                         }
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        onResult.onResult(userList);
+                    public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-
     }
 
-    private static User getContactsInfo(String uId, final OnResult<DataSnapshot> onResult) {
-        User userInfo = new User();
-        mDatabase.child("users").child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                onResult.onResult(dataSnapshot);
-                if (dataSnapshot.getValue() != null) {
-                    HashMap mapUserInfo = (HashMap) dataSnapshot.getValue();
-                    userInfo.setEmail((String) mapUserInfo.get("email"));
-                    userInfo.setUserId((String) mapUserInfo.get("userId"));
-                    userInfo.setAvatarPath((String) mapUserInfo.get("avatarPath"));
-                    userInfo.setNote((String) mapUserInfo.get("note"));
-                    userInfo.setPhoneNumber((String) mapUserInfo.get("phoneNumber"));
-                    userInfo.setUserName((String) mapUserInfo.get("userName"));
-                    //Log.i("my_mapUserInfo", mapUserInfo.toString());
-                }
-            }
+    /**
+     * Truy cap bang user lay thong tin id nguoi dung
+     */
+    private static ArrayList<User> dataContacts = null;
+    private static void getContactsInfo(final int index) {
+        if (index == listFriendID.size()) {
+            //save list friend
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("getContactInfo", databaseError.toString());
+        } else {
+            final String id = listFriendID.get(index);
+            mDatabase.child("user").child(id)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue() != null) {
+                                User userInfo = new User();
+                                HashMap mapUserInfo = (HashMap) dataSnapshot.getValue();
+                                userInfo.setEmail((String) mapUserInfo.get("email"));
+                                userInfo.setUserId((String) mapUserInfo.get("userId"));
+                                userInfo.setAvatarPath((String) mapUserInfo.get("avatarPath"));
+                                userInfo.setNote((String) mapUserInfo.get("note"));
+                                userInfo.setPhoneNumber((String) mapUserInfo.get("phoneNumber"));
+                                userInfo.setUserName((String) mapUserInfo.get("userName"));
+                                dataContacts.add(userInfo);
+                            }
+                            getContactsInfo(index + 1);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+        }
+    }
+//    public static void getListContact(OnResult<List<User>> onResult) {
+//        List<User> userList = new ArrayList<>();
+//        mDatabase.child("users").child(user.getUid()).child("contacts")
+//                .addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @RequiresApi(api = Build.VERSION_CODES.N)
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        if (dataSnapshot.getValue() != null) {
+//                            HashMap mapRecord = (HashMap) dataSnapshot.getValue();
+//                            //Log.i("my_HashMap", mapRecord.toString());
+//                            for (Object contactId : mapRecord.values()) {
+//                                getContactsInfo(contactId.toString(), userInfo -> {
+//                                    userList.add(userInfo);
+//                                });
+//                            }
+//                            Log.i("my_userList", String.valueOf(userList.size()));
+//                            onResult.onResult(userList);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                        onResult.onResult(userList);
+//                    }
+//                });
+//
+//    }
+//
+//    public static void getContactsInfo(String uId, OnResult<User> onResult) {
+//        mDatabase.child("users").child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.getValue() != null) {
+//                    User userInfo = new User();
+//                    HashMap mapUserInfo = (HashMap) dataSnapshot.getValue();
+//                    userInfo.setEmail((String) mapUserInfo.get("email"));
+//                    userInfo.setUserId((String) mapUserInfo.get("userId"));
+//                    userInfo.setAvatarPath((String) mapUserInfo.get("avatarPath"));
+//                    userInfo.setNote((String) mapUserInfo.get("note"));
+//                    userInfo.setPhoneNumber((String) mapUserInfo.get("phoneNumber"));
+//                    userInfo.setUserName((String) mapUserInfo.get("userName"));
+//                    Log.i("my_mapUserInfo", mapUserInfo.toString());
+//                    onResult.onResult(userInfo);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.e("getContactInfo", databaseError.toString());
 //                onResult.onResult(null);
-            }
-        });
-        return userInfo;
-    }
+//            }
+//        });
+//    }
 
-    public void getListRoom(OnResult<ArrayList<String>> onResult) {
+    public static void getListRoom(OnResult<ArrayList<String>> onResult) {
         ArrayList<String> listRooms = new ArrayList<>();
         mDatabase.child("users").child(user.getUid()).child("roomsId").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
