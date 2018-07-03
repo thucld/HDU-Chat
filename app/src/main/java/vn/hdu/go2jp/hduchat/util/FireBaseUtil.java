@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.base.OnResult;
@@ -28,7 +29,7 @@ public class FireBaseUtil {
     private static FirebaseAuth auth;
     private static DatabaseReference mDatabase;
     private static ArrayList<User> listUserInfo;
-    private static ArrayList<String> listFriendID = null;
+    private static List<String> listFriendID = new ArrayList<>();
     private static FireBaseUtil instance;
 
     public static synchronized FireBaseUtil getInstance() {
@@ -115,39 +116,53 @@ public class FireBaseUtil {
     /**
      * Truy cap bang user lay thong tin id nguoi dung
      */
-//    private static ArrayList<User> dataContacts = null;
-//
-//    private static void getContactsInfo(final int index) {
-//        if (index == listFriendID.size()) {
-//            //save list friend
-//
-//        } else {
-//            final String id = listFriendID.get(index);
-//            mDatabase.child("user").child(id)
-//                    .addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//                            if (dataSnapshot.getValue() != null) {
-//                                User userInfo = new User();
-//                                HashMap mapUserInfo = (HashMap) dataSnapshot.getValue();
-//                                userInfo.setEmail((String) mapUserInfo.get("email"));
-//                                userInfo.setUserId((String) mapUserInfo.get("userId"));
-//                                userInfo.setAvatarPath((String) mapUserInfo.get("avatarPath"));
-//                                userInfo.setNote((String) mapUserInfo.get("note"));
-//                                userInfo.setPhoneNumber((String) mapUserInfo.get("phoneNumber"));
-//                                userInfo.setUserName((String) mapUserInfo.get("userName"));
-//                                dataContacts.add(userInfo);
-//                            }
-//                            getContactsInfo(index + 1);
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//        }
-//    }
+    private static List<User> dataContacts = new ArrayList<>();
+
+    private static void getContactsInfo(final int index, OnResult<Boolean> onResult) {
+        if (index == listFriendID.size()) {
+            onResult.onResult(true);
+            return;
+            //save list friend
+
+        } else {
+            final String id = listFriendID.get(index);
+            mDatabase.child("user").child(id)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue() != null) {
+                                User userInfo = new User();
+                                HashMap mapUserInfo = (HashMap) dataSnapshot.getValue();
+                                userInfo.setEmail((String) mapUserInfo.get("email"));
+                                userInfo.setUserId((String) mapUserInfo.get("userId"));
+                                userInfo.setAvatarPath((String) mapUserInfo.get("avatarPath"));
+                                userInfo.setNote((String) mapUserInfo.get("note"));
+                                userInfo.setPhoneNumber((String) mapUserInfo.get("phoneNumber"));
+                                userInfo.setUserName((String) mapUserInfo.get("userName"));
+                                dataContacts.add(userInfo);
+                            }
+                            getContactsInfo(index + 1, new OnResult<Boolean>() {
+                                @Override
+                                public void onResult(Boolean aBoolean) {
+//                                    onResult.onResult(false);
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                            getContactsInfo(index + 1, new OnResult<Boolean>() {
+                                @Override
+                                public void onResult(Boolean aBoolean) {
+//                                    onResult.onResult(false);
+                                }
+                            });
+                        }
+                    });
+        }
+    }
+
     public static void getListContact(OnResult<List<User>> onResult) {
         List<User> userList = new ArrayList<>();
         mDatabase.child("users").child(user.getUid()).child("contacts")
@@ -157,16 +172,21 @@ public class FireBaseUtil {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.getValue() != null) {
                             HashMap mapRecord = (HashMap) dataSnapshot.getValue();
-                            //Log.i("my_HashMap", mapRecord.toString());
-                            int d= mapRecord.size();
-//                            while ()
-                            for (Object contactId : mapRecord.values()) {
-                                getContactsInfo(contactId.toString(), userInfo -> {
-                                    userList.add(userInfo);
+
+                            Iterator listKey = mapRecord.keySet().iterator();
+                            while (listKey.hasNext()) {
+                                String key = listKey.next().toString();
+                                listFriendID.add(mapRecord.get(key).toString());
+                            }
+                            List<String> newList = new ArrayList<>(listFriendID);
+                            while (listFriendID.size() > 0) {
+                                getContactsInfo(listFriendID, user -> {
+                                    userList.add(user);
+                                    if (userList.size() == newList.size()) {
+                                        onResult.onResult(userList);
+                                    }
                                 });
                             }
-                            Log.i("my_userList", String.valueOf(userList.size()));
-                            onResult.onResult(userList);
                         }
                     }
 
@@ -179,8 +199,11 @@ public class FireBaseUtil {
 
     }
 
-    public static void getContactsInfo(String uId, OnResult<User> onResult) {
-        mDatabase.child("users").child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
+    public static void getContactsInfo(List<String> ids, OnResult<User> onResult) {
+
+//        final String id = listFriendID.get(index)
+        String id = ids.remove(0);
+        mDatabase.child("users").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
