@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/imAvatar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/layout_size_50dp"
+        android:layout_height="@dimen/layout_size_50dp"
         android:src="@drawable/header_ic_addfriend" />
 
     <LinearLayout
@@ -18,14 +18,19 @@
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_4dp"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/tvNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:layout_margin="@dimen/margin_4dp"
+            android:gravity="center"
+            android:textSize="18dp" />
     </LinearLayout>
 
 </LinearLayout>

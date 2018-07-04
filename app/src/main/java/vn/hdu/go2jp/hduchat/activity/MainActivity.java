@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         initial();
         FireBaseUtil.test();
-        startService(new Intent(this,ChatService.class));
+        startService(new Intent(this, ChatService.class));
     }
 
     private void initial() {
@@ -98,11 +99,26 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupTabLayout() {
         tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_contacts_white).setTag("Contacts"));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_chats).setTag("Chats"));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_history_white_24dp).setTag("Recent"));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_calls).setTag("Calls"));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_more).setTag("More..."));
+//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_contacts_white).setTag("Contacts"));
+//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_chats).setTag("Chats"));
+//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_history_white_24dp).setTag("Recent"));
+//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_calls).setTag("Calls"));
+//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_ic_more).setTag("More..."));
+        View view1 = getLayoutInflater().inflate(R.layout.custom_tab_layout, null);
+        view1.findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_ic_contacts_white);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(view1).setTag("Contacts"));
+        View view2 = getLayoutInflater().inflate(R.layout.custom_tab_layout, null);
+        view2.findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_ic_chats);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(view2).setTag("Contacts"));
+        View view3 = getLayoutInflater().inflate(R.layout.custom_tab_layout, null);
+        view3.findViewById(R.id.icon).setBackgroundResource(R.drawable.ic_history_white_24dp);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(view3).setTag("Contacts"));
+        View view4 = getLayoutInflater().inflate(R.layout.custom_tab_layout, null);
+        view4.findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_ic_calls);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(view4).setTag("Contacts"));
+        View view5 = getLayoutInflater().inflate(R.layout.custom_tab_layout, null);
+        view5.findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_ic_more);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(view5).setTag("Contacts"));
     }
 
     @Override
