@@ -13,10 +13,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import vn.hdu.go2jp.hduchat.R;
 
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class UserDialog {
     private TextView txtv_name,txtv_id;
-    private LinearLayout btn_edit, btn_home, btn_keep, btn_chat, btn_call, btn_video;
+    private LinearLayout btn_edit, btn_home, btn_keep, btn_chat, btn_call, btn_video, friend_follow;
 
     private void findControl(Dialog dialog){
         txtv_name = (TextView) dialog.findViewById(R.id.name_dialog);
@@ -28,21 +27,28 @@ public class UserDialog {
         btn_chat = (LinearLayout) dialog.findViewById(R.id.btn_chat);
         btn_call = (LinearLayout) dialog.findViewById(R.id.btn_call);
         btn_video = (LinearLayout) dialog.findViewById(R.id.btn_video);
+        friend_follow = (LinearLayout) dialog.findViewById(R.id.friend_follow);
     }
 
     private void showUserAction(){
         btn_keep.setVisibility(View.VISIBLE);
         btn_home.setVisibility(View.VISIBLE);
         btn_edit.setVisibility(View.VISIBLE);
+        txtv_id.setVisibility(View.VISIBLE);
+
+        friend_follow.setVisibility(View.GONE);
         btn_chat.setVisibility(View.GONE);
         btn_call.setVisibility(View.GONE);
         btn_video.setVisibility(View.GONE);
     }
 
-    private void showContactAction(){
+    private void showFriendAction(){
         btn_keep.setVisibility(View.GONE);
         btn_home.setVisibility(View.GONE);
         btn_edit.setVisibility(View.GONE);
+        txtv_id.setVisibility(View.GONE);
+
+        friend_follow.setVisibility(View.VISIBLE);
         btn_chat.setVisibility(View.VISIBLE);
         btn_call.setVisibility(View.VISIBLE);
         btn_video.setVisibility(View.VISIBLE);
@@ -80,7 +86,7 @@ public class UserDialog {
                 }
             });
         }else{
-            showContactAction();
+            showFriendAction();
             btn_chat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

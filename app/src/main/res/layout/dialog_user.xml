@@ -7,18 +7,18 @@
 
     <android.support.v7.widget.CardView
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
         android:id="@+id/image_card"
-        app:cardCornerRadius="75dp"
+        app:cardCornerRadius="50dp"
         android:layout_centerHorizontal="true">
         <ImageView
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:scaleType="fitXY"
             android:id="@+id/image_dialog"
-            android:src="@mipmap/ic_logo">
+            android:src="@drawable/user_thumbnail_large_03">
         </ImageView>
     </android.support.v7.widget.CardView>
 
@@ -27,11 +27,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/name_dialog"
         android:layout_below="@+id/image_card"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:text="Default"
         android:textStyle="bold"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textColor="#4A4E5C"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal" />
@@ -40,11 +40,40 @@
         android:layout_height="wrap_content"
         android:id="@+id/uId_dialog"
         android:layout_below="@id/name_dialog"
+        android:drawableLeft="@drawable/profile_popup_id"
+        android:drawablePadding="2dp"
         android:text="Default"
         android:textSize="12sp"
         android:textColor="#9BA2B0"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:id="@+id/friend_follow"
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_below="@id/uId_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:clickable="true"
+            android:id="@+id/btn_star_friend"
+            android:layout_marginRight="8dp"
+            android:padding="3dp"
+            android:src="@drawable/profile_popup_ic_like_normal"
+            android:background="#F4F5F7"
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
+        <ImageView
+            android:clickable="true"
+            android:padding="3dp"
+            android:id="@+id/btn_home_friend"
+            android:src="@drawable/profile_popup_ic_userhome_normal"
+            android:background="#F4F5F7"
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -67,17 +96,19 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:padding="5dp"
+            android:padding="15dp"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/ic_edit_dialog"
+                android:src="@drawable/profile_popup_ic_profileedit"
+                android:padding="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="35dp" />
             <TextView
                 android:text="Edit Profile"
+                android:textSize="12sp"
                 android:textAlignment="center"
                 android:layout_width="match_parent"
-                android:layout_height="20sp" />
+                android:layout_height="15dp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/btn_home"
@@ -85,17 +116,19 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:padding="5dp"
+            android:padding="15dp"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/ic_home_dialog"
+                android:src="@drawable/profile_popup_ic_home"
+                android:padding="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="35dp" />
             <TextView
                 android:text="Home"
+                android:textSize="12sp"
                 android:textAlignment="center"
                 android:layout_width="match_parent"
-                android:layout_height="20sp" />
+                android:layout_height="15dp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/btn_keep"
@@ -103,17 +136,19 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:padding="5dp"
+            android:padding="15dp"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/ic_keep_dialog"
+                android:src="@drawable/profile_popup_ic_keep"
+                android:padding="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="35dp" />
             <TextView
                 android:text="Keep"
                 android:textAlignment="center"
+                android:textSize="12sp"
                 android:layout_width="match_parent"
-                android:layout_height="20sp" />
+                android:layout_height="15dp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/btn_chat"
@@ -122,17 +157,19 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:padding="5dp"
+            android:padding="15dp"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/ic_chat_dialog"
+                android:src="@drawable/profile_popup_ic_chat"
+                android:padding="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="35dp" />
             <TextView
                 android:text="Chat"
+                android:textSize="12sp"
                 android:textAlignment="center"
                 android:layout_width="match_parent"
-                android:layout_height="20sp" />
+                android:layout_height="15dp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/btn_call"
@@ -141,17 +178,19 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:padding="5dp"
+            android:padding="15dp"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/ic_call_dialog"
+                android:src="@drawable/profile_popup_ic_freecall"
+                android:padding="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="35dp" />
             <TextView
                 android:text="Free Call"
+                android:textSize="12sp"
                 android:textAlignment="center"
                 android:layout_width="match_parent"
-                android:layout_height="20sp" />
+                android:layout_height="15dp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/btn_video"
@@ -160,17 +199,19 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:padding="5dp"
+            android:padding="15dp"
             android:orientation="vertical">
             <ImageView
-                android:src="@drawable/ic_video_dialog"
+                android:src="@drawable/profile_popup_ic_videocall"
+                android:padding="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="35dp" />
             <TextView
                 android:text="Video Call"
+                android:textSize="12sp"
                 android:textAlignment="center"
                 android:layout_width="match_parent"
-                android:layout_height="20sp" />
+                android:layout_height="15dp" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
