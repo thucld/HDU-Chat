@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="300dp"
+    android:layout_height="400dp"
+    android:background="#ffffffff">
+
+    <android.support.v7.widget.CardView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/image_card"
+        app:cardCornerRadius="75dp"
+        android:layout_centerHorizontal="true">
+        <ImageView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            android:id="@+id/image_dialog"
+            android:src="@mipmap/ic_logo">
+        </ImageView>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/name_dialog"
+        android:layout_below="@+id/image_card"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:text="Default"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="#4A4E5C"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/uId_dialog"
+        android:layout_below="@id/name_dialog"
+        android:text="Default"
+        android:textSize="12sp"
+        android:textColor="#9BA2B0"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/hr"
+        android:layout_above="@id/btn_group"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="5dp"
+        android:background="#F0F0F0" />
+
+    <LinearLayout
+        android:id="@+id/btn_group"
+        android:orientation = "horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <LinearLayout
+            android:id="@+id/btn_edit"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:orientation="vertical">
+            <ImageView
+                android:src="@drawable/ic_edit_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+            <TextView
+                android:text="Edit Profile"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="20sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/btn_home"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:orientation="vertical">
+            <ImageView
+                android:src="@drawable/ic_home_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+            <TextView
+                android:text="Home"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="20sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/btn_keep"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:orientation="vertical">
+            <ImageView
+                android:src="@drawable/ic_keep_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+            <TextView
+                android:text="Keep"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="20sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/btn_chat"
+            android:clickable="true"
+            android:visibility="gone"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:orientation="vertical">
+            <ImageView
+                android:src="@drawable/ic_chat_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+            <TextView
+                android:text="Chat"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="20sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/btn_call"
+            android:visibility="gone"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:orientation="vertical">
+            <ImageView
+                android:src="@drawable/ic_call_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+            <TextView
+                android:text="Free Call"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="20sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/btn_video"
+            android:visibility="gone"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:orientation="vertical">
+            <ImageView
+                android:src="@drawable/ic_video_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+            <TextView
+                android:text="Video Call"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
+    <!--android:gravity="center_vertical|center_horizontal"-->
