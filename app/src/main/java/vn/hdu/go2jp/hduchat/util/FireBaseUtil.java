@@ -22,6 +22,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.base.OnResult;
+import vn.hdu.go2jp.hduchat.model.data.Message;
+import vn.hdu.go2jp.hduchat.model.data.Room;
+import vn.hdu.go2jp.hduchat.model.data.User;
 
 public class FireBaseUtil {
     private static User thisUser;

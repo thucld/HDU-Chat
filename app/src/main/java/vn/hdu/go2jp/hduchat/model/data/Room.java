@@ -1,12 +1,17 @@
 package vn.hdu.go2jp.hduchat.model.data;
 
-import java.util.List;
 
-public class RoomChat {
+import java.util.HashMap;
+
+public class Room {
     private String roomId;
     private String title;
-    private List<Message> messageList;
-    private List<String> userId;
+    private String lastMessage;
+    private HashMap<String, Message> messages;
+    private HashMap<String, String> contacts;
+
+    public Room() {
+    }
 
     public String getRoomId() {
         return roomId;
@@ -24,19 +29,28 @@ public class RoomChat {
         this.title = title;
     }
 
-    public List<Message> getMessageList() {
-        return messageList;
+    public String getLastMessage() {
+        return lastMessage;
     }
 
-    public void setMessageList(List<Message> messageList) {
-        this.messageList = messageList;
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
     }
 
-    public List<String> getUserId() {
-        return userId;
+    public HashMap<String, Message> getMessages() {
+        return messages;
     }
 
-    public void setUserId(List<String> userId) {
-        this.userId = userId;
+    public void setMessages(HashMap<String, Message> messages) {
+        this.messages = messages;
+    }
+
+    public HashMap<String, String> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(HashMap<String, String> contacts) {
+        this.contacts = contacts;
     }
 }
+

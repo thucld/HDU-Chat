@@ -16,7 +16,7 @@ import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.activity.ChatBoxActivity;
 import vn.hdu.go2jp.hduchat.adapter.ChatListAdapter;
 import vn.hdu.go2jp.hduchat.common.AppConst;
-import vn.hdu.go2jp.hduchat.model.data.RoomChat;
+import vn.hdu.go2jp.hduchat.model.data.Room;
 
 /**
  * Where to show chat rooms.
@@ -32,9 +32,9 @@ public class ChatListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_chat_list, container, false);
-        List<RoomChat> listRoom = new ArrayList<>();
+        List<Room> listRoom = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
-            RoomChat user = new RoomChat();
+            Room user = new Room();
             user.setTitle("Room " + i);
             listRoom.add(user);
         }

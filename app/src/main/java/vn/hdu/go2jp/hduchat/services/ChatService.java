@@ -12,11 +12,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.base.OnResult;
-import vn.hdu.go2jp.hduchat.data.models.Room;
+import vn.hdu.go2jp.hduchat.model.data.Room;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
 public class ChatService extends Service {
