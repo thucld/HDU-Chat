@@ -22,7 +22,7 @@
             android:layout_margin="@dimen/margin_4dp"
             android:gravity="center"
             android:textColor="@color/colorBlack"
-            android:textSize="18dp" />
+            android:textSize="@dimen/text_size_18dp" />
 
         <TextView
             android:id="@+id/tvNote"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_4dp"
             android:gravity="center"
-            android:textSize="18dp" />
+            android:textSize="@dimen/text_size_18dp" />
     </LinearLayout>
 
 </LinearLayout>
