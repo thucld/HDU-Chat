@@ -1,4 +1,4 @@
-package vn.hdu.go2jp.hduchat.data.models;
+package vn.hdu.go2jp.hduchat.model.data;
 
 import java.util.List;
 

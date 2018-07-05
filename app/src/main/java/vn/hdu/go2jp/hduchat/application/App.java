@@ -1,0 +1,22 @@
+package vn.hdu.go2jp.hduchat.application;
+
+import android.app.Application;
+import android.os.Handler;
+
+public class App extends Application {
+
+    private static App instance;
+    public static volatile Handler applicationHandler = null;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        instance = this;
+        applicationHandler = new Handler(getInstance().getMainLooper());
+    }
+
+    public static App getInstance() {
+        return instance;
+    }
+}

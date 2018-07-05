@@ -22,9 +22,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.base.OnResult;
-import vn.hdu.go2jp.hduchat.data.models.Message;
-import vn.hdu.go2jp.hduchat.data.models.Room;
-import vn.hdu.go2jp.hduchat.data.models.User;
 
 public class FireBaseUtil {
     private static User thisUser;
@@ -74,7 +71,7 @@ public class FireBaseUtil {
         }
     }
 
-    public static void signUpWithEmail(String email, String password, OnResult<Boolean> onResult) {
+    public void signUpWithEmail(String email, String password, OnResult<Boolean> onResult) {
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -87,7 +84,7 @@ public class FireBaseUtil {
                 });
     }
 
-    public static void signInWithEmail(String email, String password, OnResult<Boolean> onResult) {
+    public void signInWithEmail(String email, String password, OnResult<Boolean> onResult) {
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

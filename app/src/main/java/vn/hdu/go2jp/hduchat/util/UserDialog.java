@@ -10,26 +10,26 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import vn.hdu.go2jp.hduchat.R;
-import vn.hdu.go2jp.hduchat.data.models.User;
+import vn.hdu.go2jp.hduchat.model.data.User;
 
 public class UserDialog {
-    private TextView txtv_name,txtv_id;
+    private TextView txtv_name, txtv_id;
     private LinearLayout btn_edit, btn_home, btn_keep, btn_chat, btn_call, btn_video, friend_follow;
 
-    private void findControl(Dialog dialog){
-        txtv_name = (TextView) dialog.findViewById(R.id.name_dialog);
-        txtv_id = (TextView) dialog.findViewById(R.id.uId_dialog);
+    private void findControl(Dialog dialog) {
+        txtv_name = dialog.findViewById(R.id.name_dialog);
+        txtv_id = dialog.findViewById(R.id.uId_dialog);
 
-        btn_edit = (LinearLayout) dialog.findViewById(R.id.btn_edit);
-        btn_home = (LinearLayout) dialog.findViewById(R.id.btn_home);
-        btn_keep = (LinearLayout) dialog.findViewById(R.id.btn_keep);
-        btn_chat = (LinearLayout) dialog.findViewById(R.id.btn_chat);
-        btn_call = (LinearLayout) dialog.findViewById(R.id.btn_call);
-        btn_video = (LinearLayout) dialog.findViewById(R.id.btn_video);
-        friend_follow = (LinearLayout) dialog.findViewById(R.id.friend_follow);
+        btn_edit = dialog.findViewById(R.id.btn_edit);
+        btn_home = dialog.findViewById(R.id.btn_home);
+        btn_keep = dialog.findViewById(R.id.btn_keep);
+        btn_chat = dialog.findViewById(R.id.btn_chat);
+        btn_call = dialog.findViewById(R.id.btn_call);
+        btn_video = dialog.findViewById(R.id.btn_video);
+        friend_follow = dialog.findViewById(R.id.friend_follow);
     }
 
-    private void showUserAction(){
+    private void showUserAction() {
         btn_keep.setVisibility(View.VISIBLE);
         btn_home.setVisibility(View.VISIBLE);
         btn_edit.setVisibility(View.VISIBLE);
@@ -41,7 +41,7 @@ public class UserDialog {
         btn_video.setVisibility(View.GONE);
     }
 
-    private void showFriendAction(){
+    private void showFriendAction() {
         btn_keep.setVisibility(View.GONE);
         btn_home.setVisibility(View.GONE);
         btn_edit.setVisibility(View.GONE);
@@ -64,46 +64,16 @@ public class UserDialog {
         txtv_name.setText(user.getUserName());
         txtv_id.setText(user.getUserId());
 
-        if(user.getUserId().equals(FirebaseAuth.getInstance().getUid())){
+        if (user.getUserId().equals(FirebaseAuth.getInstance().getUid())) {
             showUserAction();
-            btn_keep.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new ToastUtil().showShort(dialog.getContext(),"Keep clicked");
-                }
-            });
-            btn_home.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new ToastUtil().showShort(dialog.getContext(),"Home clicked");
-                }
-            });
-            btn_edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new ToastUtil().showShort(dialog.getContext(),"Edit clicked");
-                }
-            });
-        }else{
+            btn_keep.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Keep clicked"));
+            btn_home.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Home clicked"));
+            btn_edit.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Edit clicked"));
+        } else {
             showFriendAction();
-            btn_chat.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new ToastUtil().showShort(dialog.getContext(),"Chat clicked");
-                }
-            });
-            btn_call.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new ToastUtil().showShort(dialog.getContext(),"Call clicked");
-                }
-            });
-            btn_video.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new ToastUtil().showShort(dialog.getContext(),"Video clicked");
-                }
-            });
+            btn_chat.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Chat clicked"));
+            btn_call.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Call clicked"));
+            btn_video.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Video clicked"));
         }
         dialog.show();
     }
