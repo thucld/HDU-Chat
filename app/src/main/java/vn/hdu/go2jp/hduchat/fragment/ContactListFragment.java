@@ -16,6 +16,7 @@ import vn.hdu.go2jp.hduchat.adapter.ContactListAdapter;
 import vn.hdu.go2jp.hduchat.base.OnResult;
 import vn.hdu.go2jp.hduchat.model.data.User;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
+import vn.hdu.go2jp.hduchat.util.UserDialog;
 
 /**
  * Where to show contacts.
@@ -32,34 +33,18 @@ public class ContactListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-//        for (int i = 0; i < 9; i++) {
-//            User user = new User();
-//            user.setAvatarPath("aa" + i);
-//            user.setUserName("User " + i);
-//            user.setNote("aa" + i);
-//            userList.add(user);
-//        }
 
         View view = inflater.inflate(R.layout.fragment_contact_list, container, false);
 
-        FireBaseUtil.getListContact(new OnResult<List<User>>() {
-            @Override
-            public void onResult(List<User> users) {
-                userList = users;
-                contactsRecycler = view.findViewById(R.id.rv_contact);
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
-                        LinearLayoutManager.VERTICAL, false);
-                contactListAdapter = new ContactListAdapter(getContext(), userList
-                        , new ContactListAdapter.PostItemListener() {
-                    @Override
-                    public void onPostClick(User item) {
-
-                    }
-                });
-                contactsRecycler.setLayoutManager(layoutManager);
-                contactsRecycler.setAdapter(contactListAdapter);
-            }
+        FireBaseUtil.getListContact(users -> {
+            userList = users;
+            contactsRecycler = view.findViewById(R.id.rv_contact);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.VERTICAL, false);
+            contactListAdapter = new ContactListAdapter(getContext(), userList
+                    , item -> new UserDialog().showDialog(getActivity(), item));
+            contactsRecycler.setLayoutManager(layoutManager);
+            contactsRecycler.setAdapter(contactListAdapter);
         });
 
         return view;
