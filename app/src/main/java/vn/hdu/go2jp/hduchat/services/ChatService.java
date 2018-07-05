@@ -13,8 +13,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vn.hdu.go2jp.hduchat.base.OnResult;
+import vn.hdu.go2jp.hduchat.data.models.Room;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
 public class ChatService extends Service {
@@ -26,11 +28,11 @@ public class ChatService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        FireBaseUtil.getInstance().getListRoom(new OnResult<ArrayList<String>>() {
+        FireBaseUtil.getInstance().getListRoom(new OnResult<List<Room>>() {
             @Override
-            public void onResult(ArrayList<String> listRoom) {
-                for (String roomId : listRoom) {
-                    FirebaseDatabase.getInstance().getReference().child("rooms").child(roomId).child("messages")
+            public void onResult(List<Room> listRoom) {
+                for (Room roomId : listRoom) {
+                    FirebaseDatabase.getInstance().getReference().child("rooms").child(roomId.getRoomId()).child("messages")
                             .addChildEventListener(new ChildEventListener() {
                                 @Override
                                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

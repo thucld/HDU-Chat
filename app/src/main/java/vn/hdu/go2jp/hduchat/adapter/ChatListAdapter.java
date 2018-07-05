@@ -11,15 +11,15 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
-import vn.hdu.go2jp.hduchat.data.models.RoomChat;
+import vn.hdu.go2jp.hduchat.data.models.Room;
 
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> implements View.OnClickListener {
     private Context mContext;
-    private List<RoomChat> mDataSet;
+    private List<Room> mDataSet;
     private PostItemListener mItemListener;
     private static int mSelectedItem = -1;
 
-    public ChatListAdapter(Context context, List<RoomChat> dataSet, PostItemListener itemListener) {
+    public ChatListAdapter(Context context, List<Room> dataSet, PostItemListener itemListener) {
         this.mContext = context;
         this.mDataSet = dataSet;
         this.mItemListener = itemListener;
@@ -37,7 +37,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        RoomChat item = mDataSet.get(position);
+        Room item = mDataSet.get(position);
 //        if(TextUtils.isEmpty(item.getTitle())){
 //            holder.tvNote.setVisibility(View.GONE);
 //        }
@@ -93,7 +93,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
         return mDataSet.size();
     }
 
-    private RoomChat getItem(int adapterPosition) {
+    private Room getItem(int adapterPosition) {
         return mDataSet.get(adapterPosition);
     }
 
@@ -126,13 +126,13 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             if (mSelectedItem < 0 || mSelectedItem >= mDataSet.size()) {
                 return;
             }
-            RoomChat item = getItem(mSelectedItem);
+            Room item = getItem(mSelectedItem);
             this.mItemListener.onPostClick(item);
             notifyDataSetChanged();
         }
     }
 
     public interface PostItemListener {
-        void onPostClick(RoomChat item);
+        void onPostClick(Room item);
     }
 }

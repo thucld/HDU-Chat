@@ -13,7 +13,7 @@ import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.ChatListAdapter;
-import vn.hdu.go2jp.hduchat.data.models.RoomChat;
+import vn.hdu.go2jp.hduchat.data.models.Room;
 
 /**
  * Where to show chat rooms.
@@ -21,7 +21,7 @@ import vn.hdu.go2jp.hduchat.data.models.RoomChat;
 public class ChatListFragment extends Fragment {
     private RecyclerView chatsRecyclerView;
     private ChatListAdapter chatListAdapter;
-    private List<RoomChat> listRoom;
+    private List<Room> listRoom;
 
     public ChatListFragment() {
         // Required empty public constructor
@@ -34,7 +34,7 @@ public class ChatListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chat_list, container, false);
         listRoom = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
-            RoomChat user = new RoomChat();
+            Room user = new Room();
             user.setTitle("Room " + i);
             listRoom.add(user);
         }
@@ -44,7 +44,7 @@ public class ChatListFragment extends Fragment {
         chatListAdapter = new ChatListAdapter(getContext(), listRoom
                 , new ChatListAdapter.PostItemListener() {
             @Override
-            public void onPostClick(RoomChat item) {
+            public void onPostClick(Room item) {
 
             }
         });

@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 import vn.hdu.go2jp.hduchat.util.ToastUtil;
@@ -20,6 +22,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         initView();
         initEvents();
     }

@@ -22,21 +22,37 @@ import java.util.Iterator;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.base.OnResult;
+import vn.hdu.go2jp.hduchat.data.models.Message;
+import vn.hdu.go2jp.hduchat.data.models.Room;
 import vn.hdu.go2jp.hduchat.data.models.User;
 
 public class FireBaseUtil {
+    private static User thisUser;
     private static FirebaseUser user;
     private static FirebaseAuth auth;
     private static DatabaseReference mDatabase;
-    private static ArrayList<User> listUserInfo;
-    private static List<String> listFriendID = new ArrayList<>();
+    private static List<String> listContactID = new ArrayList<>();
+    private static List<String> listRoomID = new ArrayList<>();
     private static FireBaseUtil instance;
+
+    public static User getThisUser() {
+        if (thisUser == null) {
+            List<String> id = new ArrayList<>();
+            id.add(user.getUid());
+            getContactInfo(id, new OnResult<User>() {
+                @Override
+                public void onResult(User user) {
+                    thisUser = user;
+                }
+            });
+        }
+        return thisUser;
+    }
 
     public static synchronized FireBaseUtil getInstance() {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        listUserInfo = new ArrayList<User>();
 
         if (instance == null) {
             instance = new FireBaseUtil();
@@ -90,81 +106,8 @@ public class FireBaseUtil {
         mDatabase.child("users").child(user.getUid()).child("contacts").push().setValue(uId);
     }
 
-//    public static void getListContact() {
-//        mDatabase.child("users").child(user.getUid()).child("contacts")
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        if (dataSnapshot.getValue() != null) {
-//                            HashMap mapRecord = (HashMap) dataSnapshot.getValue();
-//                            Iterator listKey = mapRecord.keySet().iterator();
-//                            while (listKey.hasNext()) {
-//                                String key = listKey.next().toString();
-//                                listFriendID.add(mapRecord.get(key).toString());
-//                            }
-//                            getContactsInfo(0);
-//                        } else {
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//                    }
-//                });
-//    }
-
-    /**
-     * Truy cap bang user lay thong tin id nguoi dung
-     */
-    private static List<User> dataContacts = new ArrayList<>();
-
-    private static void getContactsInfo(final int index, OnResult<Boolean> onResult) {
-        if (index == listFriendID.size()) {
-            onResult.onResult(true);
-            return;
-            //save list friend
-
-        } else {
-            final String id = listFriendID.get(index);
-            mDatabase.child("user").child(id)
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.getValue() != null) {
-                                User userInfo = new User();
-                                HashMap mapUserInfo = (HashMap) dataSnapshot.getValue();
-                                userInfo.setEmail((String) mapUserInfo.get("email"));
-                                userInfo.setUserId((String) mapUserInfo.get("userId"));
-                                userInfo.setAvatarPath((String) mapUserInfo.get("avatarPath"));
-                                userInfo.setNote((String) mapUserInfo.get("note"));
-                                userInfo.setPhoneNumber((String) mapUserInfo.get("phoneNumber"));
-                                userInfo.setUserName((String) mapUserInfo.get("userName"));
-                                dataContacts.add(userInfo);
-                            }
-                            getContactsInfo(index + 1, new OnResult<Boolean>() {
-                                @Override
-                                public void onResult(Boolean aBoolean) {
-//                                    onResult.onResult(false);
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                            getContactsInfo(index + 1, new OnResult<Boolean>() {
-                                @Override
-                                public void onResult(Boolean aBoolean) {
-//                                    onResult.onResult(false);
-                                }
-                            });
-                        }
-                    });
-        }
-    }
-
     public static void getListContact(OnResult<List<User>> onResult) {
-        List<User> userList = new ArrayList<>();
+        List<User> listUser = new ArrayList<>();
         mDatabase.child("users").child(user.getUid()).child("contacts")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -176,14 +119,14 @@ public class FireBaseUtil {
                             Iterator listKey = mapRecord.keySet().iterator();
                             while (listKey.hasNext()) {
                                 String key = listKey.next().toString();
-                                listFriendID.add(mapRecord.get(key).toString());
+                                listContactID.add(mapRecord.get(key).toString());
                             }
-                            List<String> newList = new ArrayList<>(listFriendID);
-                            while (listFriendID.size() > 0) {
-                                getContactsInfo(listFriendID, user -> {
-                                    userList.add(user);
-                                    if (userList.size() == newList.size()) {
-                                        onResult.onResult(userList);
+                            List<String> newList = new ArrayList<>(listContactID);
+                            while (listContactID.size() > 0) {
+                                getContactInfo(listContactID, user -> {
+                                    listUser.add(user);
+                                    if (listUser.size() == newList.size()) {
+                                        onResult.onResult(listUser);
                                     }
                                 });
                             }
@@ -193,15 +136,47 @@ public class FireBaseUtil {
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        onResult.onResult(userList);
+                        onResult.onResult(listUser);
                     }
                 });
 
     }
 
-    public static void getContactsInfo(List<String> ids, OnResult<User> onResult) {
+    public static void getListRoom(OnResult<List<Room>> onResult) {
+        List<Room> listRoom = new ArrayList<>();
+        mDatabase.child("users").child(user.getUid()).child("roomsId")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-//        final String id = listFriendID.get(index)
+                        if (dataSnapshot.getValue() != null) {
+                            HashMap mapRecord = (HashMap) dataSnapshot.getValue();
+
+                            Iterator listKey = mapRecord.keySet().iterator();
+                            while (listKey.hasNext()) {
+                                String key = listKey.next().toString();
+                                listRoomID.add(mapRecord.get(key).toString());
+                            }
+                            List<String> newList = new ArrayList<>(listRoomID);
+                            while (listRoomID.size() > 0) {
+                                getRoomInfo(listRoomID, room -> {
+                                    listRoom.add(room);
+                                    if (listRoom.size() == newList.size()) {
+                                        onResult.onResult(listRoom);
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        onResult.onResult(listRoom);
+                    }
+                });
+    }
+
+    public static void getContactInfo(List<String> ids, OnResult<User> onResult) {
         String id = ids.remove(0);
         mDatabase.child("users").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -228,21 +203,28 @@ public class FireBaseUtil {
         });
     }
 
-    public static void getListRoom(OnResult<ArrayList<String>> onResult) {
-        ArrayList<String> listRooms = new ArrayList<>();
-        mDatabase.child("users").child(user.getUid()).child("roomsId").addListenerForSingleValueEvent(new ValueEventListener() {
+    public static void getRoomInfo(List<String> ids, OnResult<Room> onResult) {
+        String id = ids.remove(0);
+        mDatabase.child("rooms").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                HashMap mapRoom = (HashMap) dataSnapshot.getValue();
-                for (Object roomId : mapRoom.values()) {
-                    listRooms.add(roomId.toString());
+                if (dataSnapshot.getValue() != null) {
+                    Room roomInfo = new Room();
+                    HashMap mapRoomInfo = (HashMap) dataSnapshot.getValue();
+                    roomInfo.setRoomId((String) mapRoomInfo.get("roomId"));
+                    roomInfo.setTitle((String) mapRoomInfo.get("title"));
+                    roomInfo.setLastMessage((String) mapRoomInfo.get("lastMessage"));
+                    roomInfo.setContacts((HashMap<String, String>) mapRoomInfo.get("contacts"));
+                    roomInfo.setMessages((HashMap<String, Message>) mapRoomInfo.get("messages"));
+                    Log.i("my_mapUserInfo", mapRoomInfo.toString());
+                    onResult.onResult(roomInfo);
                 }
-                onResult.onResult(listRooms);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.e("getRoomInfo", databaseError.toString());
+                onResult.onResult(null);
             }
         });
     }
@@ -250,5 +232,13 @@ public class FireBaseUtil {
 
     public static void test() {
 //        getListContact();
+        getListRoom(new OnResult<List<Room>>() {
+            @Override
+            public void onResult(List<Room> rooms) {
+                for (Room room : rooms) {
+                    Log.i("my_room_getListRoom", room.getRoomId());
+                }
+            }
+        });
     }
 }
