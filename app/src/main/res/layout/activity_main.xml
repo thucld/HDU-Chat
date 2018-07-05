@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="#464E65"
-        android:elevation="6dp"
+        android:background="@color/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
@@ -23,16 +22,14 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="end"
-            android:background="@drawable/header_ic_search"
-            />
+            android:background="@drawable/header_ic_search" />
 
         <Button
             android:id="@+id/addPerson"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="end"
-            android:background="@drawable/header_ic_addfriend"
-            />
+            android:background="@drawable/header_ic_addfriend" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -41,8 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:background="#464E65"
-        android:elevation="6dp"
+        android:background="@color/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 

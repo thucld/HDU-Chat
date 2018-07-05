@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
-import vn.hdu.go2jp.hduchat.data.models.RoomChat;
+import vn.hdu.go2jp.hduchat.model.data.RoomChat;
 
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> implements View.OnClickListener {
     private Context mContext;

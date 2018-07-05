@@ -8,5 +8,6 @@
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
     <string name="log_in_fail">Log In failure!</string>
+    <string name="type_your_message">Soạn tin nhắn mới…</string>
 
 </resources>
