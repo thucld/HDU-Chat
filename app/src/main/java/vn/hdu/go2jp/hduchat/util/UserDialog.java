@@ -2,8 +2,6 @@ package vn.hdu.go2jp.hduchat.util;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -12,6 +10,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import vn.hdu.go2jp.hduchat.R;
+import vn.hdu.go2jp.hduchat.data.models.User;
 
 public class UserDialog {
     private TextView txtv_name,txtv_id;
@@ -54,7 +53,7 @@ public class UserDialog {
         btn_video.setVisibility(View.VISIBLE);
     }
 
-    public void showDialog(Activity activity, String uId) {
+    public void showDialog(Activity activity, User user) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
@@ -62,10 +61,10 @@ public class UserDialog {
 
         findControl(dialog);
 
-        txtv_name.setText(uId);
-        txtv_id.setText(uId);
+        txtv_name.setText(user.getUserName());
+        txtv_id.setText(user.getUserId());
 
-        if(uId.equals(FirebaseAuth.getInstance().getUid())){
+        if(user.getUserId().equals(FirebaseAuth.getInstance().getUid())){
             showUserAction();
             btn_keep.setOnClickListener(new View.OnClickListener() {
                 @Override
