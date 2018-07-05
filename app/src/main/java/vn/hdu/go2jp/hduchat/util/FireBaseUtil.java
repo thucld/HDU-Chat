@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.base.OnResult;
-import vn.hdu.go2jp.hduchat.data.models.User;
+import vn.hdu.go2jp.hduchat.model.data.User;
 
 public class FireBaseUtil {
     private static FirebaseUser user;
@@ -57,7 +57,7 @@ public class FireBaseUtil {
         }
     }
 
-    public static void signUpWithEmail(String email, String password, OnResult<Boolean> onResult) {
+    public void signUpWithEmail(String email, String password, OnResult<Boolean> onResult) {
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -70,7 +70,7 @@ public class FireBaseUtil {
                 });
     }
 
-    public static void signInWithEmail(String email, String password, OnResult<Boolean> onResult) {
+    public void signInWithEmail(String email, String password, OnResult<Boolean> onResult) {
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

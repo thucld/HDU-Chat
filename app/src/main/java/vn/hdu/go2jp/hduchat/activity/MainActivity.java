@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         initial();
         FireBaseUtil.test();
-        startService(new Intent(this,ChatService.class));
+        startService(new Intent(this, ChatService.class));
     }
 
     private void initial() {
