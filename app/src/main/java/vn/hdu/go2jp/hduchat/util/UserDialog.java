@@ -2,6 +2,9 @@ package vn.hdu.go2jp.hduchat.util;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -10,6 +13,8 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import vn.hdu.go2jp.hduchat.R;
+import vn.hdu.go2jp.hduchat.activity.ChatBoxActivity;
+import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.model.data.User;
 
 public class UserDialog {
@@ -53,6 +58,12 @@ public class UserDialog {
         btn_video.setVisibility(View.VISIBLE);
     }
 
+    private String getRoomId(User user) {
+        String ownerId = FirebaseAuth.getInstance().getUid();
+        String friendId = user.getUserId();
+        return ownerId.compareTo(friendId) < 0 ? ownerId + friendId : friendId + ownerId;
+    }
+
     public void showDialog(Activity activity, User user) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -71,7 +82,15 @@ public class UserDialog {
             btn_edit.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Edit clicked"));
         } else {
             showFriendAction();
-            btn_chat.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Chat clicked"));
+            btn_chat.setOnClickListener(v -> {
+                Log.i("my_getRoomId",getRoomId(user));
+                Intent intent = new Intent(activity, ChatBoxActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(AppConst.KEY_ROOM_ID, getRoomId(user));
+                bundle.putString(AppConst.KEY_ROOM_TITLE, user.getUserName());
+                intent.putExtras(bundle);
+                activity.startActivity(intent);
+            });
             btn_call.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Call clicked"));
             btn_video.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Video clicked"));
         }

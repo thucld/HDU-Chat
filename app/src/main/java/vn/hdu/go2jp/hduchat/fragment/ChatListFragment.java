@@ -17,11 +17,14 @@ import vn.hdu.go2jp.hduchat.activity.ChatBoxActivity;
 import vn.hdu.go2jp.hduchat.adapter.ChatListAdapter;
 import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.model.data.Room;
+import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
 /**
  * Where to show chat rooms.
  */
 public class ChatListFragment extends Fragment {
+    private List<Room> listRoom = new ArrayList<>();
+    private ChatListAdapter chatListAdapter;
 
     public ChatListFragment() {
         // Required empty public constructor
@@ -32,25 +35,27 @@ public class ChatListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_chat_list, container, false);
-        List<Room> listRoom = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
-            Room user = new Room();
-            user.setTitle("Room " + i);
-            listRoom.add(user);
-        }
+//        for (int i = 0; i < 15; i++) {
+//            Room user = new Room();
+//            user.setTitle("Room " + i);
+//            listRoom.add(user);
+//        }
         RecyclerView chatsRecyclerView = view.findViewById(R.id.rv_chat_list);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
-                LinearLayoutManager.VERTICAL, false);
-        ChatListAdapter chatListAdapter = new ChatListAdapter(getContext(), listRoom, roomChat -> {
-            Intent intent = new Intent(getContext(), ChatBoxActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString(AppConst.KEY_ROOM_ID, roomChat.getRoomId());
-            bundle.putString(AppConst.KEY_ROOM_TITLE, roomChat.getTitle());
-            intent.putExtras(bundle);
-            startActivity(intent);
+        FireBaseUtil.getListRoom(rooms -> {
+            listRoom = rooms;
+            chatListAdapter = new ChatListAdapter(getContext(), listRoom, roomChat -> {
+                Intent intent = new Intent(getContext(), ChatBoxActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(AppConst.KEY_ROOM_ID, roomChat.getRoomId());
+                bundle.putString(AppConst.KEY_ROOM_TITLE, roomChat.getTitle());
+                intent.putExtras(bundle);
+                startActivity(intent);
+            });
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.VERTICAL, false);
+            chatsRecyclerView.setLayoutManager(layoutManager);
+            chatsRecyclerView.setAdapter(chatListAdapter);
         });
-        chatsRecyclerView.setLayoutManager(layoutManager);
-        chatsRecyclerView.setAdapter(chatListAdapter);
         return view;
     }
 

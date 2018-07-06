@@ -35,18 +35,17 @@ public class FireBaseUtil {
     private static List<String> listRoomID = new ArrayList<>();
     private static FireBaseUtil instance;
 
-    public static User getThisUser() {
+    public static void getThisUser(final OnResult<User> onResult) {
         if (thisUser == null) {
             List<String> id = new ArrayList<>();
             id.add(user.getUid());
-            getContactInfo(id, new OnResult<User>() {
-                @Override
-                public void onResult(User user) {
-                    thisUser = user;
-                }
+            getContactInfo(id, user -> {
+                thisUser = user;
+                onResult.onResult(thisUser);
             });
+        } else {
+            onResult.onResult(thisUser);
         }
-        return thisUser;
     }
 
     public static synchronized FireBaseUtil getInstance() {
@@ -232,13 +231,13 @@ public class FireBaseUtil {
 
     public static void test() {
 //        getListContact();
-        getListRoom(new OnResult<List<Room>>() {
-            @Override
-            public void onResult(List<Room> rooms) {
-                for (Room room : rooms) {
-                    Log.i("my_room_getListRoom", room.getRoomId());
-                }
-            }
-        });
+//        getListRoom(new OnResult<List<Room>>() {
+//            @Override
+//            public void onResult(List<Room> rooms) {
+//                for (Room room : rooms) {
+//                    Log.i("my_room_getListRoom", room.getRoomId());
+//                }
+//            }
+//        });
     }
 }
