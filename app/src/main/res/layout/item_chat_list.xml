@@ -7,7 +7,7 @@
         android:id="@+id/imAvatar"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/header_ic_addfriend" />
+        android:src="@drawable/tab_ic_contacts1" />
 
     <LinearLayout
         android:layout_width="wrap_content"
