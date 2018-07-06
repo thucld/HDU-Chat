@@ -6,6 +6,8 @@ import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,11 +19,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.base.OnResult;
+import vn.hdu.go2jp.hduchat.model.constant.Status;
+import vn.hdu.go2jp.hduchat.model.constant.UserType;
 import vn.hdu.go2jp.hduchat.model.data.Message;
 import vn.hdu.go2jp.hduchat.model.data.Room;
 import vn.hdu.go2jp.hduchat.model.data.User;
@@ -103,6 +108,16 @@ public class FireBaseUtil {
 
     public static void addContact(String uId) {
         mDatabase.child("users").child(user.getUid()).child("contacts").push().setValue(uId);
+    }
+
+    public static void sendMessage(String roomId, Message message, OnResult<Boolean> status) {
+        mDatabase.child("rooms").child(roomId).child("messages").push().setValue(message)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        status.onResult(task.isSuccessful());
+                    }
+                });
     }
 
     public static void getListContact(OnResult<List<User>> onResult) {
@@ -230,14 +245,14 @@ public class FireBaseUtil {
 
 
     public static void test() {
-//        getListContact();
-//        getListRoom(new OnResult<List<Room>>() {
-//            @Override
-//            public void onResult(List<Room> rooms) {
-//                for (Room room : rooms) {
-//                    Log.i("my_room_getListRoom", room.getRoomId());
-//                }
-//            }
-//        });
+        String uId = FirebaseAuth.getInstance().getUid();
+        sendMessage("abcwdkft", new Message("Test function", new Date(), UserType.SELF, Status.SENT), new OnResult<Boolean>() {
+            @Override
+            public void onResult(Boolean aBoolean) {
+                if(aBoolean){
+                    Log.i("my_sendMessage","Successful");
+                }
+            }
+        });
     }
 }

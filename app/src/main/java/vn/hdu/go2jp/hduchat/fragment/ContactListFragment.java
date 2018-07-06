@@ -18,7 +18,7 @@ import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.ContactListAdapter;
 import vn.hdu.go2jp.hduchat.model.data.User;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
-import vn.hdu.go2jp.hduchat.util.UserDialog;
+import vn.hdu.go2jp.hduchat.widget.UserDialog;
 
 /**
  * Where to show contacts.

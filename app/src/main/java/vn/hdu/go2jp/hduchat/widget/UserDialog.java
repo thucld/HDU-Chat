@@ -1,4 +1,4 @@
-package vn.hdu.go2jp.hduchat.util;
+package vn.hdu.go2jp.hduchat.widget;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -16,6 +16,7 @@ import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.activity.ChatBoxActivity;
 import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.model.data.User;
+import vn.hdu.go2jp.hduchat.util.ToastUtil;
 
 public class UserDialog {
     private TextView txtv_name, txtv_id;
@@ -83,7 +84,6 @@ public class UserDialog {
         } else {
             showFriendAction();
             btn_chat.setOnClickListener(v -> {
-                Log.i("my_getRoomId",getRoomId(user));
                 Intent intent = new Intent(activity, ChatBoxActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(AppConst.KEY_ROOM_ID, getRoomId(user));
