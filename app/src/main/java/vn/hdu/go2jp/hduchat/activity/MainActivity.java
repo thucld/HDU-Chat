@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.PagerAdapter;
+import vn.hdu.go2jp.hduchat.common.Tag;
 import vn.hdu.go2jp.hduchat.fragment.ChatBoxFragment;
 import vn.hdu.go2jp.hduchat.fragment.ChatListFragment;
 import vn.hdu.go2jp.hduchat.fragment.ContactListFragment;
@@ -81,54 +82,60 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                if (tab.getTag() != null) {
-                    toolbar.setTitle(tab.getTag().toString());
+                Tag tag = (Tag) tab.getTag();
+                if (tag != null) {
+                    toolbar.setTitle(tag.toString());
+                    if (tab.getCustomView() != null) {
+                        View view = tab.getCustomView().findViewById(R.id.icon);
+                        switch (tag) {
+                            case CONTACT:
+                                view.setBackgroundResource(R.drawable.tab_ic_contacts_selected);
+                                break;
+                            case CHAT:
+                                view.setBackgroundResource(R.drawable.tab_ic_chats_selected);
+                                break;
+                            case TIMELINE:
+                                view.setBackgroundResource(R.drawable.tab_ic_timeline_selected);
+                                break;
+                            case CALL:
+                                view.setBackgroundResource(R.drawable.tab_ic_calls_selected);
+                                break;
+                            case MORE:
+                                view.setBackgroundResource(R.drawable.tab_ic_more_selected);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
 
-                if ("Contacts".equals(tab.getTag().toString())) {
-                    View view = tab.getCustomView();
-                    view.findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_ic_contacts_selected);
-                }
-                if ("Chats".equals(tab.getTag().toString())) {
-                    View view = tab.getCustomView();
-                    view.findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_ic_chats_selected);
-                }
-                if ("Timeline".equals(tab.getTag().toString())) {
-                    View view = tab.getCustomView();
-                    view.findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_ic_timeline_selected);
-                }
-                if ("Calls".equals(tab.getTag().toString())) {
-                    View view = tab.getCustomView();
-                    view.findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_ic_calls_selected);
-                }
-                if ("More...".equals(tab.getTag().toString())) {
-                    View view = tab.getCustomView();
-                    view.findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_ic_more_selected);
-                }
             }
 
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                if ("Contacts".equals(tab.getTag().toString())) {
-                    View view = tab.getCustomView();
-                    view.findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_ic_contacts1);
-                }
-                if ("Chats".equals(tab.getTag().toString())) {
-                    View view = tab.getCustomView();
-                    view.findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_ic_chats1);
-                }
-                if ("Timeline".equals(tab.getTag().toString())) {
-                    View view = tab.getCustomView();
-                    view.findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_ic_timeline2);
-                }
-                if ("Calls".equals(tab.getTag().toString())) {
-                    View view = tab.getCustomView();
-                    view.findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_ic_calls);
-                }
-                if ("More...".equals(tab.getTag().toString())) {
-                    View view = tab.getCustomView();
-                    view.findViewById(R.id.icon).setBackgroundResource(R.drawable.tab_ic_more);
+                Tag tag = (Tag) tab.getTag();
+                if (tab.getCustomView() != null && tag != null) {
+                    View view = tab.getCustomView().findViewById(R.id.icon);
+                    switch (tag) {
+                        case CONTACT:
+                            view.setBackgroundResource(R.drawable.tab_ic_contacts1);
+                            break;
+                        case CHAT:
+                            view.setBackgroundResource(R.drawable.tab_ic_chats1);
+                            break;
+                        case TIMELINE:
+                            view.setBackgroundResource(R.drawable.tab_ic_timeline2);
+                            break;
+                        case CALL:
+                            view.setBackgroundResource(R.drawable.tab_ic_calls);
+                            break;
+                        case MORE:
+                            view.setBackgroundResource(R.drawable.tab_ic_more);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
 
@@ -141,11 +148,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupTabLayout() {
         tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(R.drawable.tab_ic_contacts_selected)).setTag("Contacts"));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(R.drawable.tab_ic_chats1)).setTag("Chats"));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(R.drawable.tab_ic_timeline2)).setTag("Timeline"));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(R.drawable.tab_ic_calls)).setTag("Calls"));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(R.drawable.tab_ic_more)).setTag("More..."));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(R.drawable.tab_ic_contacts_selected)).setTag(Tag.CONTACT));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(R.drawable.tab_ic_chats1)).setTag(Tag.CHAT));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(R.drawable.tab_ic_timeline2)).setTag(Tag.TIMELINE));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(R.drawable.tab_ic_calls)).setTag(Tag.CALL));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(R.drawable.tab_ic_more)).setTag(Tag.MORE));
     }
 
     @NonNull
