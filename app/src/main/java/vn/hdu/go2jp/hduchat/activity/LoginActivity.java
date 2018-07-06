@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 
 import vn.hdu.go2jp.hduchat.R;
@@ -22,8 +24,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         initView();
         initEvents();
     }
@@ -33,6 +33,9 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
+        }else{
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            Log.i("my_Persistence","True");
         }
         btnSignIn.setOnClickListener(view -> {
             String email = edEmail.getText().toString();

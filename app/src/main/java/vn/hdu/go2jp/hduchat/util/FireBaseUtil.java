@@ -235,8 +235,10 @@ public class FireBaseUtil {
         getListRoom(new OnResult<List<Room>>() {
             @Override
             public void onResult(List<Room> rooms) {
-                for (Room room : rooms) {
-                    Log.i("my_room_getListRoom", room.getRoomId());
+                if(!rooms.isEmpty()){
+                    for (Room room : rooms) {
+                        Log.i("my_room_getListRoom", room.getRoomId());
+                    }
                 }
             }
         });
