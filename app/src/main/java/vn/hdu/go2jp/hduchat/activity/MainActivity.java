@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.PagerAdapter;
-import vn.hdu.go2jp.hduchat.common.Tag;
+import vn.hdu.go2jp.hduchat.common.TAB;
 import vn.hdu.go2jp.hduchat.fragment.ChatBoxFragment;
 import vn.hdu.go2jp.hduchat.fragment.ChatListFragment;
 import vn.hdu.go2jp.hduchat.fragment.ContactListFragment;
@@ -82,30 +82,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                Tag tag = (Tag) tab.getTag();
-                if (tag != null) {
-                    toolbar.setTitle(tag.toString());
+                TAB tabTag = (TAB) tab.getTag();
+                if (tabTag != null) {
+                    toolbar.setTitle(tabTag.getValue());
                     if (tab.getCustomView() != null) {
                         View view = tab.getCustomView().findViewById(R.id.icon);
-                        switch (tag) {
-                            case CONTACT:
-                                view.setBackgroundResource(R.drawable.tab_ic_contacts_selected);
-                                break;
-                            case CHAT:
-                                view.setBackgroundResource(R.drawable.tab_ic_chats_selected);
-                                break;
-                            case TIMELINE:
-                                view.setBackgroundResource(R.drawable.tab_ic_timeline_selected);
-                                break;
-                            case CALL:
-                                view.setBackgroundResource(R.drawable.tab_ic_calls_selected);
-                                break;
-                            case MORE:
-                                view.setBackgroundResource(R.drawable.tab_ic_more_selected);
-                                break;
-                            default:
-                                break;
-                        }
+                        view.setBackgroundResource(tabTag.getIconSelected());
                     }
                 }
 
@@ -114,28 +96,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                Tag tag = (Tag) tab.getTag();
-                if (tab.getCustomView() != null && tag != null) {
+                TAB tabTag = (TAB) tab.getTag();
+                if (tab.getCustomView() != null && tabTag != null) {
                     View view = tab.getCustomView().findViewById(R.id.icon);
-                    switch (tag) {
-                        case CONTACT:
-                            view.setBackgroundResource(R.drawable.tab_ic_contacts1);
-                            break;
-                        case CHAT:
-                            view.setBackgroundResource(R.drawable.tab_ic_chats1);
-                            break;
-                        case TIMELINE:
-                            view.setBackgroundResource(R.drawable.tab_ic_timeline2);
-                            break;
-                        case CALL:
-                            view.setBackgroundResource(R.drawable.tab_ic_calls);
-                            break;
-                        case MORE:
-                            view.setBackgroundResource(R.drawable.tab_ic_more);
-                            break;
-                        default:
-                            break;
-                    }
+                    view.setBackgroundResource(tabTag.getIcon());
                 }
             }
 
@@ -148,11 +112,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupTabLayout() {
         tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(R.drawable.tab_ic_contacts_selected)).setTag(Tag.CONTACT));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(R.drawable.tab_ic_chats1)).setTag(Tag.CHAT));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(R.drawable.tab_ic_timeline2)).setTag(Tag.TIMELINE));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(R.drawable.tab_ic_calls)).setTag(Tag.CALL));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(R.drawable.tab_ic_more)).setTag(Tag.MORE));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.CONTACT.getIconSelected())).setTag(TAB.CONTACT));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.CHAT.getIcon())).setTag(TAB.CHAT));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.TIMELINE.getIcon())).setTag(TAB.TIMELINE));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.CALL.getIcon())).setTag(TAB.CALL));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.MORE.getIcon())).setTag(TAB.MORE));
     }
 
     @NonNull
