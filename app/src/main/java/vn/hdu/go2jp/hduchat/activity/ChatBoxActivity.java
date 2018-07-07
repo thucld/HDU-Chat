@@ -78,8 +78,8 @@ public class ChatBoxActivity extends AppCompatActivity{
     }
 
     private void fakeMessages() {
-        chatMessages.add(new Message("dfjsdk", "hajimemashite. hau desu. shitsuredesuga onamaeha.", new Date(), UserType.OTHER, Status.DELIVERED));
-        chatMessages.add(new Message("dfjsdl", "hajimemashite. tuan desu.", new Date(), UserType.SELF, Status.SENT));
+        chatMessages.add(new Message("hajimemashite. hau desu. shitsuredesuga onamaeha.", new Date(), UserType.OTHER, Status.DELIVERED));
+        chatMessages.add(new Message( "hajimemashite. tuan desu.", new Date(), UserType.SELF, Status.SENT));
     }
 
     private void extractBundle() {

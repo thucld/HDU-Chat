@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -87,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
                 if (tabTag != null) {
                     toolbar.setTitle(tabTag.getValue());
                     if (tab.getCustomView() != null) {
-                        View view = tab.getCustomView().findViewById(R.id.icon);
-                        view.setBackgroundResource(tabTag.getIconSelected());
+                        ImageView view = tab.getCustomView().findViewById(R.id.icon);
+                        view.setImageResource(tabTag.getIconSelected());
                     }
                 }
 
@@ -99,8 +100,10 @@ public class MainActivity extends AppCompatActivity {
             public void onTabUnselected(TabLayout.Tab tab) {
                 TAB tabTag = (TAB) tab.getTag();
                 if (tab.getCustomView() != null && tabTag != null) {
-                    View view = tab.getCustomView().findViewById(R.id.icon);
-                    view.setBackgroundResource(tabTag.getIcon());
+//                    View view = tab.getCustomView().findViewById(R.id.icon);
+                    ImageView view = tab.getCustomView().findViewById(R.id.icon);
+
+                    view.setImageResource(tabTag.getIcon());
                 }
             }
 
@@ -123,7 +126,8 @@ public class MainActivity extends AppCompatActivity {
     @NonNull
     private View getView(int icon) {
         View view1 = getLayoutInflater().inflate(R.layout.custom_tab_layout, null);
-        view1.findViewById(R.id.icon).setBackgroundResource(icon);
+        ImageView imageView = view1.findViewById(R.id.icon);
+        imageView.setImageResource(icon);
         return view1;
     }
 

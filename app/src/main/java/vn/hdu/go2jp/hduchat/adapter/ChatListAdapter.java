@@ -34,7 +34,6 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     }
 
 
-
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Room item = mDataSet.get(position);
@@ -42,6 +41,17 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 //            holder.tvNote.setVisibility(View.GONE);
 //        }
         holder.tvName.setText(item.getTitle());
+
+//        Map<String, Message> map = item.getMessages();
+//        Set<Map.Entry<String,Message>> entrySet = map.entrySet();
+//        List<Map.Entry<String, Message>> entryList =
+//                new ArrayList<>(entrySet);
+//        Map.Entry<String, Message> lastEntry =
+//                entryList.get(entryList.size() - 1);
+//        holder.tvNote.setText(lastEntry.getValue().getMessage());
+//        holder.tvLastModified.setText(lastEntry.getValue().getTime().toString());
+
+
 //        int resId = R.drawable.ic_files_bad;
 //        if (ItemRepository.isGood(this.mInsRecordId, item.getId())) {
 //            resId = R.drawable.ic_files_good;

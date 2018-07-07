@@ -20,7 +20,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     private PostItemListener mItemListener;
     private static int mSelectedItem = -1;
 
-    public ContactListAdapter(Context context, List<User> dataSet,  PostItemListener itemListener) {
+    public ContactListAdapter(Context context, List<User> dataSet, PostItemListener itemListener) {
         this.mContext = context;
         this.mDataSet = dataSet;
         this.mItemListener = itemListener;
@@ -28,18 +28,30 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     }
 
     @Override
-    public ContactListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View inflatedView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_contact_list, parent, false);
-        return new ContactListAdapter.ViewHolder(inflatedView, this.mItemListener);
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return 1;
+        } else return 0;
     }
 
+    @Override
+    public ContactListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View inflatedView;
+        if (viewType == 1) {
+            inflatedView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_contact_current_user, parent, false);
+        } else {
+            inflatedView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_contact_list, parent, false);
+        }
+        return new ContactListAdapter.ViewHolder(inflatedView, this.mItemListener);
+    }
 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         User item = mDataSet.get(position);
-        if(TextUtils.isEmpty(item.getNote())){
+        if (TextUtils.isEmpty(item.getNote())) {
             holder.tvNote.setVisibility(View.GONE);
         }
         holder.tvName.setText(item.getUserName());

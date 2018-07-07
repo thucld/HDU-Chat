@@ -6,7 +6,6 @@ import vn.hdu.go2jp.hduchat.model.constant.Status;
 import vn.hdu.go2jp.hduchat.model.constant.UserType;
 
 public class Message {
-    private String id;
     private String userId;
     private String message;
     private boolean visible;
@@ -14,20 +13,13 @@ public class Message {
     private UserType userType;
     private Status status;
 
-    public Message(String id, String message, Date time, UserType userType, Status status) {
-        this.id = id;
+    public Message(){}
+
+    public Message(String message, Date time, UserType userType, Status status) {
         this.message = message;
         this.time = time;
         this.userType = userType;
         this.status = status;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getUserId() {

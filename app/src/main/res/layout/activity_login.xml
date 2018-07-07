@@ -59,7 +59,7 @@
         android:layout_above="@+id/btnSignInWithFacebook"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:background="#aba8a8" />
+        android:background="@color/colorSilverChalice" />
 
     <TextView
         android:id="@+id/btnSignInWithFacebook"

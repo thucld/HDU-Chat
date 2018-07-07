@@ -1,8 +1,6 @@
 package vn.hdu.go2jp.hduchat.util;
 
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,11 +35,18 @@ public class FireBaseUtil {
 
     public static void getThisUser(final OnResult<User> onResult) {
         if (thisUser == null) {
-            List<String> id = new ArrayList<>();
-            id.add(user.getUid());
-            getContactInfo(id, user -> {
-                thisUser = user;
-                onResult.onResult(thisUser);
+            mDatabase.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    thisUser = dataSnapshot.getValue(User.class);
+                    onResult.onResult(thisUser);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    onResult.onResult(thisUser);
+                }
             });
         } else {
             onResult.onResult(thisUser);
@@ -59,7 +64,7 @@ public class FireBaseUtil {
         return instance;
     }
 
-    public static boolean isLogin() {
+    public boolean isLogin() {
         return user != null;
     }
 
@@ -105,11 +110,21 @@ public class FireBaseUtil {
         mDatabase.child("users").child(user.getUid()).child("contacts").push().setValue(uId);
     }
 
-    public static void getListContact(OnResult<List<User>> onResult) {
+    public static void sendMessage(String roomId, Message message, OnResult<Boolean> status) {
+        mDatabase.child("rooms").child(roomId).child("messages").push().setValue(message)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        status.onResult(task.isSuccessful());
+                        mDatabase.child("rooms").child(roomId).child("lastMessage").setValue(message);
+                    }
+                });
+    }
+
+    public void getListContact(OnResult<List<User>> onResult) {
         List<User> listUser = new ArrayList<>();
         mDatabase.child("users").child(user.getUid()).child("contacts")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
+                .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.getValue() != null) {
@@ -122,7 +137,7 @@ public class FireBaseUtil {
                             }
                             List<String> newList = new ArrayList<>(listContactID);
                             while (listContactID.size() > 0) {
-                                getContactInfo(listContactID, user -> {
+                                instance.getContactInfo(listContactID, user -> {
                                     listUser.add(user);
                                     if (listUser.size() == newList.size()) {
                                         onResult.onResult(listUser);
@@ -140,6 +155,11 @@ public class FireBaseUtil {
                 });
 
     }
+
+//    public void getListContacts(OnResult<List<User>> onResult){
+//        mDatabase.child("users").child(user.getUid()).child("contacts")
+//                .addChildEventListener(listenerContacts);
+//    }
 
     public static void getListRoom(OnResult<List<Room>> onResult) {
         List<Room> listRoom = new ArrayList<>();
@@ -175,21 +195,13 @@ public class FireBaseUtil {
                 });
     }
 
-    public static void getContactInfo(List<String> ids, OnResult<User> onResult) {
+    public void getContactInfo(List<String> ids, OnResult<User> onResult) {
         String id = ids.remove(0);
-        mDatabase.child("users").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("users").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
-                    User userInfo = new User();
-                    HashMap mapUserInfo = (HashMap) dataSnapshot.getValue();
-                    userInfo.setEmail((String) mapUserInfo.get("email"));
-                    userInfo.setUserId((String) mapUserInfo.get("userId"));
-                    userInfo.setAvatarPath((String) mapUserInfo.get("avatarPath"));
-                    userInfo.setNote((String) mapUserInfo.get("note"));
-                    userInfo.setPhoneNumber((String) mapUserInfo.get("phoneNumber"));
-                    userInfo.setUserName((String) mapUserInfo.get("userName"));
-                    Log.i("my_mapUserInfo", mapUserInfo.toString());
+                    User userInfo = dataSnapshot.getValue(User.class);
                     onResult.onResult(userInfo);
                 }
             }
@@ -208,14 +220,7 @@ public class FireBaseUtil {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
-                    Room roomInfo = new Room();
-                    HashMap mapRoomInfo = (HashMap) dataSnapshot.getValue();
-                    roomInfo.setRoomId((String) mapRoomInfo.get("roomId"));
-                    roomInfo.setTitle((String) mapRoomInfo.get("title"));
-                    roomInfo.setLastMessage((String) mapRoomInfo.get("lastMessage"));
-                    roomInfo.setContacts((HashMap<String, String>) mapRoomInfo.get("contacts"));
-                    roomInfo.setMessages((HashMap<String, Message>) mapRoomInfo.get("messages"));
-                    Log.i("my_mapUserInfo", mapRoomInfo.toString());
+                    Room roomInfo = dataSnapshot.getValue(Room.class);
                     onResult.onResult(roomInfo);
                 }
             }
@@ -230,12 +235,12 @@ public class FireBaseUtil {
 
 
     public static void test() {
-//        getListContact();
-//        getListRoom(new OnResult<List<Room>>() {
+//        String uId = FirebaseAuth.getInstance().getUid();
+//        sendMessage("abcwdkft", new Message("Test function", new Date(), UserType.SELF, Status.SENT), new OnResult<Boolean>() {
 //            @Override
-//            public void onResult(List<Room> rooms) {
-//                for (Room room : rooms) {
-//                    Log.i("my_room_getListRoom", room.getRoomId());
+//            public void onResult(Boolean aBoolean) {
+//                if(aBoolean){
+//                    Log.i("my_sendMessage","Successful");
 //                }
 //            }
 //        });

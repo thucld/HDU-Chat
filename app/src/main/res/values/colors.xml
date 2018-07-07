@@ -16,4 +16,5 @@
     <color name="orange">@android:color/holo_blue_light</color>
     <color name="gray">@android:color/darker_gray</color>
     <color name="trout">#4C5266</color>
+    <color name="colorSilverChalice">#aba8a8</color>
 </resources>
