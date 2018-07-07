@@ -4,15 +4,22 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/imAvatar"
-        android:layout_width="@dimen/layout_size_50dp"
-        android:layout_height="@dimen/layout_size_50dp"
-        android:src="@drawable/tab_ic_contacts1" />
+    <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="@dimen/layout_size_44dp"
+        android:layout_height="@dimen/layout_size_44dp"
+        android:layout_margin="@dimen/margin_6dp"
+        app:cardCornerRadius="@dimen/layout_corner_22dp">
+        <ImageView
+            android:id="@+id/imAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/user_thumbnail_large_03" />
+    </android.support.v7.widget.CardView>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_6dp"
         android:orientation="vertical">
 
         <TextView
@@ -22,7 +29,7 @@
             android:layout_margin="@dimen/margin_4dp"
             android:gravity="center"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/text_size_18dp" />
+            android:textSize="@dimen/text_size_16" />
 
         <TextView
             android:id="@+id/tvNote"
@@ -30,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_4dp"
             android:gravity="center"
-            android:textSize="@dimen/text_size_18dp" />
+            android:textSize="@dimen/text_size_16" />
     </LinearLayout>
 
 </LinearLayout>

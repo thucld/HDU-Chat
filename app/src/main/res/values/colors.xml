@@ -17,4 +17,5 @@
     <color name="gray">@android:color/darker_gray</color>
     <color name="trout">#4C5266</color>
     <color name="colorSilverChalice">#aba8a8</color>
+    <color name="colorGallery">#F0F0F0</color>
 </resources>
