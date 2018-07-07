@@ -8,13 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import vn.hdu.go2jp.hduchat.R;
-import vn.hdu.go2jp.hduchat.model.data.Message;
 import vn.hdu.go2jp.hduchat.model.data.Room;
 
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> implements View.OnClickListener {
@@ -45,14 +41,17 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 //            holder.tvNote.setVisibility(View.GONE);
 //        }
         holder.tvName.setText(item.getTitle());
-        Map<String, Message> map = item.getMessages();
-        Set<Map.Entry<String,Message>> entrySet = map.entrySet();
-        List<Map.Entry<String, Message>> entryList =
-                new ArrayList<>(entrySet);
-        Map.Entry<String, Message> lastEntry =
-                entryList.get(entryList.size() - 1);
-        holder.tvNote.setText(lastEntry.getValue().getMessage());
-        holder.tvLastModified.setText(lastEntry.getValue().getTime().toString());
+
+//        Map<String, Message> map = item.getMessages();
+//        Set<Map.Entry<String,Message>> entrySet = map.entrySet();
+//        List<Map.Entry<String, Message>> entryList =
+//                new ArrayList<>(entrySet);
+//        Map.Entry<String, Message> lastEntry =
+//                entryList.get(entryList.size() - 1);
+//        holder.tvNote.setText(lastEntry.getValue().getMessage());
+//        holder.tvLastModified.setText(lastEntry.getValue().getTime().toString());
+
+
 //        int resId = R.drawable.ic_files_bad;
 //        if (ItemRepository.isGood(this.mInsRecordId, item.getId())) {
 //            resId = R.drawable.ic_files_good;
