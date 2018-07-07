@@ -9,5 +9,11 @@
     <string name="cancel">CANCEL</string>
     <string name="log_in_fail">Log In failure!</string>
     <string name="type_your_message">Soạn tin nhắn mới…</string>
+    <string name="acronym_of_point">P</string>
+    <string name="str_cumulative_point">Điểm Tích luỹ</string>
+    <string name="str_scan_qr_code">Scan QR Code</string>
+    <string name="str_shake_to_find_friends">Shake to find friends</string>
+    <string name="str_find_nearby_friends">Find nearby friends</string>
+    <string name="str_add_new_friends">add new friends</string>
 
 </resources>

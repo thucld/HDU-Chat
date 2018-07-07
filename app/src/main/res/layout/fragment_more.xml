@@ -1,15 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vn.hdu.go2jp.hduchat.fragment.ContactListFragment">
+    android:orientation="vertical"
+    tools:context="vn.hdu.go2jp.hduchat.fragment.MoreFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="More features" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/more_fragment_content_row_height"
+        android:background="@color/alabaster"
+        android:orientation="horizontal"
+        android:weightSum="3">
 
-</RelativeLayout>
+        <FrameLayout
+            android:id="@+id/btnProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civProfile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/padding_16"
+                android:src="@drawable/ic_launcher_background"
+                app:civ_border_width="0dp" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/btnPoint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/icPoint"
+                        android:layout_width="@dimen/more_fragment_ic_point_size"
+                        android:layout_height="@dimen/more_fragment_ic_point_size"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/circle_text_image"
+                        android:gravity="center"
+                        android:text="@string/acronym_of_point"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_12"
+                        android:textStyle="bold"
+                        tools:ignore="SpUsage" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/icPoint"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/text_size_24"
+                        android:textStyle="bold"
+                        tools:ignore="SpUsage" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_text"
+                    android:text="@string/str_cumulative_point"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_size_10"
+                    tools:ignore="SpUsage" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/btnQrCode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/str_scan_qr_code"
+            android:padding="@dimen/text_size_16"
+            android:src="@drawable/ic_qr_code" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gallery" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/more_fragment_content_row_height"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <ImageView
+            android:id="@+id/btnAddFriend"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/padding_12"
+            android:src="@drawable/ic_person_add_black_24dp"
+            android:contentDescription="@string/str_add_new_friends" />
+
+        <ImageView
+            android:id="@+id/btnNearby"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/padding_12"
+            android:src="@drawable/ic_person_pin_circle_black_24dp"
+            android:contentDescription="@string/str_find_nearby_friends" />
+
+        <ImageView
+            android:id="@+id/btnShake"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/padding_12"
+            android:src="@drawable/ic_person_add_black_24dp"
+            android:contentDescription="@string/str_shake_to_find_friends" />
+
+    </LinearLayout>
+
+</LinearLayout>

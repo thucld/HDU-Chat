@@ -11,6 +11,9 @@
     <color name="colorTransparent">#00000000</color>
     <color name="transparent">@android:color/transparent</color>
     <color name="white">@android:color/white</color>
+    <color name="alabaster">#F7F7F7</color>
+    <color name="gallery">#f0f0f0</color>
     <color name="orange">@android:color/holo_blue_light</color>
     <color name="gray">@android:color/darker_gray</color>
+    <color name="trout">#4C5266</color>
 </resources>
