@@ -7,9 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +24,6 @@ public class ContactListFragment extends Fragment {
     private RecyclerView contactsRecycler;
     private ContactListAdapter contactListAdapter;
     private List<User> userList = new ArrayList<>();
-    private TextView tvName;
-    private TextView tvNote;
-    private ImageView imAvatar;
-    private LinearLayout llCurentUser;
 
     public ContactListFragment() {
         // Required empty public constructor
@@ -41,25 +34,20 @@ public class ContactListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_contact_list, container, false);
-        tvName = view.findViewById(R.id.tvName);
-        tvNote = view.findViewById(R.id.tvNote);
-        llCurentUser = view.findViewById(R.id.ll_curent_user);
         FireBaseUtil.getThisUser(user -> {
-            tvNote.setText(user.getNote());
-            tvName.setText(user.getUserName());
+            userList.add(user);
+            FireBaseUtil.getInstance().getListContact(users -> {
+                userList.addAll(users);
+                contactsRecycler = view.findViewById(R.id.rv_contact);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                        LinearLayoutManager.VERTICAL, false);
+                contactListAdapter = new ContactListAdapter(getContext(), userList
+                        , item -> new UserDialog().showDialog(getActivity(), item));
+                contactsRecycler.setLayoutManager(layoutManager);
+                contactsRecycler.setAdapter(contactListAdapter);
+            });
         });
 
-
-        FireBaseUtil.getInstance().getListContact(users -> {
-            userList = users;
-            contactsRecycler = view.findViewById(R.id.rv_contact);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
-                    LinearLayoutManager.VERTICAL, false);
-            contactListAdapter = new ContactListAdapter(getContext(), userList
-                    , item -> new UserDialog().showDialog(getActivity(), item));
-            contactsRecycler.setLayoutManager(layoutManager);
-            contactsRecycler.setAdapter(contactListAdapter);
-        });
 
         return view;
     }

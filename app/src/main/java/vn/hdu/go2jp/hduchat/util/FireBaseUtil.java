@@ -1,7 +1,6 @@
 package vn.hdu.go2jp.hduchat.util;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -9,7 +8,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,14 +15,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.base.OnResult;
-import vn.hdu.go2jp.hduchat.model.constant.Status;
-import vn.hdu.go2jp.hduchat.model.constant.UserType;
 import vn.hdu.go2jp.hduchat.model.data.Message;
 import vn.hdu.go2jp.hduchat.model.data.Room;
 import vn.hdu.go2jp.hduchat.model.data.User;
@@ -40,11 +35,18 @@ public class FireBaseUtil {
 
     public static void getThisUser(final OnResult<User> onResult) {
         if (thisUser == null) {
-            List<String> id = new ArrayList<>();
-            id.add(user.getUid());
-            instance.getContactInfo(id, user -> {
-                thisUser = user;
-                onResult.onResult(thisUser);
+            mDatabase.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    thisUser = dataSnapshot.getValue(User.class);
+                    onResult.onResult(thisUser);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    onResult.onResult(thisUser);
+                }
             });
         } else {
             onResult.onResult(thisUser);

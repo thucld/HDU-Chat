@@ -5,50 +5,12 @@
     android:layout_height="match_parent"
     tools:context="vn.hdu.go2jp.hduchat.fragment.ContactListFragment">
 
-    <LinearLayout
-        android:id="@+id/ll_curent_user"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imAvatar"
-            android:layout_width="@dimen/layout_size_56dp"
-            android:layout_height="@dimen/layout_size_56dp"
-            android:src="@drawable/tab_ic_contacts1" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/margin_4dp"
-                android:gravity="center"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_size_18dp" />
-
-            <TextView
-                android:id="@+id/tvNote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_4dp"
-                android:gravity="center"
-                android:textSize="@dimen/text_size_18dp" />
-        </LinearLayout>
-
-    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_contact"
         android:layout_width="match_parent"
         android:layout_margin="@dimen/margin_4dp"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/ll_curent_user">
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
 

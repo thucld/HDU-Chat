@@ -3,6 +3,8 @@ package vn.hdu.go2jp.hduchat.application;
 import android.app.Application;
 import android.os.Handler;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 public class App extends Application {
 
     private static App instance;
@@ -12,6 +14,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         instance = this;
         applicationHandler = new Handler(getInstance().getMainLooper());
     }

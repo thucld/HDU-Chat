@@ -13,4 +13,5 @@
     <color name="white">@android:color/white</color>
     <color name="orange">@android:color/holo_blue_light</color>
     <color name="gray">@android:color/darker_gray</color>
+    <color name="colorSilverChalice">#aba8a8</color>
 </resources>

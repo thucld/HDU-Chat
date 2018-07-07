@@ -29,12 +29,14 @@
             android:layout_width="@dimen/layout_size_48dp"
             android:layout_height="@dimen/layout_size_48dp"
             android:layout_gravity="end"
-            android:background="@drawable/header_ic_addfriend" />
+            android:background="@drawable/header_ic_add_friend" />
 
     </android.support.v7.widget.Toolbar>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
+        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorHeight="@dimen/size_4dp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_size_50dp"
         android:layout_below="@+id/toolbar"
