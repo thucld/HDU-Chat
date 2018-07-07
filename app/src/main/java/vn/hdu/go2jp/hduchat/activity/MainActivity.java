@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initial();
-        FireBaseUtil.test();
+        FireBaseUtil.getInstance().test();
         startService(new Intent(this, ChatService.class));
     }
 

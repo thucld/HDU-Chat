@@ -15,11 +15,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.base.OnResult;
+import vn.hdu.go2jp.hduchat.model.constant.Status;
+import vn.hdu.go2jp.hduchat.model.constant.UserType;
 import vn.hdu.go2jp.hduchat.model.data.Message;
 import vn.hdu.go2jp.hduchat.model.data.Room;
 import vn.hdu.go2jp.hduchat.model.data.User;
@@ -235,14 +238,14 @@ public class FireBaseUtil {
 
 
     public static void test() {
-//        String uId = FirebaseAuth.getInstance().getUid();
-//        sendMessage("abcwdkft", new Message("Test function", new Date(), UserType.SELF, Status.SENT), new OnResult<Boolean>() {
-//            @Override
-//            public void onResult(Boolean aBoolean) {
-//                if(aBoolean){
-//                    Log.i("my_sendMessage","Successful");
-//                }
-//            }
-//        });
+        String uId = FirebaseAuth.getInstance().getUid();
+        sendMessage("roomtest", new Message("Test function", new Date(), UserType.SELF, Status.SENT), new OnResult<Boolean>() {
+            @Override
+            public void onResult(Boolean aBoolean) {
+                if(aBoolean){
+                    Log.i("my_sendMessage","Successful");
+                }
+            }
+        });
     }
 }
