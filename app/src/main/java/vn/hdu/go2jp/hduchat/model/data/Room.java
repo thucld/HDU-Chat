@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class Room {
     private String roomId;
     private String title;
-    private String lastMessage;
+    private Message lastMessage;
     private HashMap<String, Message> messages;
     private HashMap<String, String> contacts;
 
@@ -29,14 +29,6 @@ public class Room {
         this.title = title;
     }
 
-    public String getLastMessage() {
-        return lastMessage;
-    }
-
-    public void setLastMessage(String lastMessage) {
-        this.lastMessage = lastMessage;
-    }
-
     public HashMap<String, Message> getMessages() {
         return messages;
     }
@@ -51,6 +43,14 @@ public class Room {
 
     public void setContacts(HashMap<String, String> contacts) {
         this.contacts = contacts;
+    }
+
+    public Message getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(Message lastMessage) {
+        this.lastMessage = lastMessage;
     }
 }
 

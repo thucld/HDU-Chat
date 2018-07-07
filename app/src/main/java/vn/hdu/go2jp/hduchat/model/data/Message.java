@@ -13,6 +13,8 @@ public class Message {
     private UserType userType;
     private Status status;
 
+    public Message(){}
+
     public Message(String message, Date time, UserType userType, Status status) {
         this.message = message;
         this.time = time;

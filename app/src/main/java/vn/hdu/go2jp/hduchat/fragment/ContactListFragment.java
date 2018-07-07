@@ -50,7 +50,7 @@ public class ContactListFragment extends Fragment {
         });
 
 
-        FireBaseUtil.getListContact(users -> {
+        FireBaseUtil.getInstance().getListContact(users -> {
             userList = users;
             contactsRecycler = view.findViewById(R.id.rv_contact);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
