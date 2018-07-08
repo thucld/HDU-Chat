@@ -1,11 +1,12 @@
 package vn.hdu.go2jp.hduchat.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.MessageAdapter;
@@ -23,10 +26,9 @@ import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.model.constant.Status;
 import vn.hdu.go2jp.hduchat.model.constant.UserType;
 import vn.hdu.go2jp.hduchat.model.data.Message;
-import vn.hdu.go2jp.hduchat.model.data.Room;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
-public class ChatBoxActivity extends AppCompatActivity{
+public class ChatBoxActivity extends AppCompatActivity {
 
     private String title;
     private String idRoom;
@@ -34,10 +36,6 @@ public class ChatBoxActivity extends AppCompatActivity{
     private MessageAdapter adapterMessage;
     private EditText edtTextSend;
     private ImageView ivSend;
-    private TextView tvTitle;
-    private ArrayList<Message> chatMessages;
-    private ImageButton back;
-
     private final TextWatcher twSend = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -60,6 +58,9 @@ public class ChatBoxActivity extends AppCompatActivity{
             }
         }
     };
+    private TextView tvTitle;
+    private ArrayList<Message> chatMessages;
+    private ImageButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,17 +84,18 @@ public class ChatBoxActivity extends AppCompatActivity{
         }
 
         back = findViewById(R.id.back);
-        back.setOnClickListener(click -> { this.finish();});
+        back.setOnClickListener(click -> {
+            this.finish();
+        });
     }
 
     private void fakeMessages() {
         chatMessages.add(new Message("hajimemashite. hau desu. shitsuredesuga onamaeha.", new Date(), UserType.OTHER, Status.DELIVERED));
-        chatMessages.add(new Message( "hajimemashite. tuan desu.", new Date(), UserType.SELF, Status.SENT));
-        FireBaseUtil.getInstance().getSingleRoom(idRoom, new OnResult<Room>() {
+        chatMessages.add(new Message("hajimemashite. tuan desu.", new Date(), UserType.SELF, Status.SENT));
+        FireBaseUtil.getInstance().getListMessage(idRoom, new OnResult<List<Message>>() {
             @Override
-            public void onResult(Room room) {
-                HashMap<String,Message> mapMessage = room.getMessages();
-                for(Message msg : mapMessage.values()){
+            public void onResult(List<Message> messages) {
+                for(Message msg : messages){
                     chatMessages.add(msg);
                 }
             }

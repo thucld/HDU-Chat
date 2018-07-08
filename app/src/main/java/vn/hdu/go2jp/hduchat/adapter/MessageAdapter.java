@@ -57,6 +57,7 @@ public class MessageAdapter extends BaseAdapter {
 
                 holder1.messageTextView = v.findViewById(R.id.message_text);
                 holder1.timeTextView = v.findViewById(R.id.time_text);
+                holder1.sender = v.findViewById(R.id.chat_company_reply_author);
 
                 v.setTag(holder1);
             } else {
@@ -65,7 +66,9 @@ public class MessageAdapter extends BaseAdapter {
             }
 
 //            holder1.messageTextView.setText(Emoji.replaceEmoji(message.getMessageText(), holder1.messageTextView.getPaint().getFontMetricsInt(), AndroidUtilities.dp(16)));
+            holder1.messageTextView.setText(message.getMessage());
             holder1.timeTextView.setText(SIMPLE_DATE_FORMAT.format(message.getTime()));
+            holder1.sender.setText(message.getUserId());
 
         } else if (message.getUserType() == UserType.OTHER) {
 
@@ -77,6 +80,7 @@ public class MessageAdapter extends BaseAdapter {
                 holder2.messageTextView = v.findViewById(R.id.message_text);
                 holder2.timeTextView = v.findViewById(R.id.time_text);
                 holder2.messageStatus = v.findViewById(R.id.user_reply_status);
+                holder2.sender = v.findViewById(R.id.chat_company_reply_author);
                 v.setTag(holder2);
 
             } else {
@@ -87,13 +91,13 @@ public class MessageAdapter extends BaseAdapter {
 
 //            holder2.messageTextView.setText(Emoji.replaceEmoji(message.getMessage(), holder2.messageTextView.getPaint().getFontMetricsInt(), AndroidUtilities.dp(16) ));
             //holder2.messageTextView.setText(message.getMessageText());
+            holder2.messageTextView.setText(message.getMessage());
             holder2.timeTextView.setText(SIMPLE_DATE_FORMAT.format(message.getTime()));
 
             if (message.getStatus() == Status.DELIVERED) {
                 holder2.messageStatus.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_double_tick));
             } else if (message.getStatus() == Status.SENT) {
                 holder2.messageStatus.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_single_tick));
-
             }
         }
         return v;
@@ -113,11 +117,13 @@ public class MessageAdapter extends BaseAdapter {
     private class ViewHolder1 {
         TextView messageTextView;
         TextView timeTextView;
+        TextView sender;
     }
 
     private class ViewHolder2 {
         ImageView messageStatus;
         TextView messageTextView;
         TextView timeTextView;
+        TextView sender;
     }
 }

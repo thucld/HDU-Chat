@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import vn.hdu.go2jp.hduchat.base.OnResult;
 import vn.hdu.go2jp.hduchat.model.constant.Status;
@@ -236,14 +237,17 @@ public class FireBaseUtil {
         });
     }
 
-    public void getSingleRoom(String roomId, OnResult<Room> onResult){
-        mDatabase.child("rooms").child(roomId).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void getListMessage(String roomId, OnResult<List<Message>> onResult){
+        mDatabase.child("rooms").child(roomId).child("messages").limitToLast(10).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue() != null){
-                    Room room = dataSnapshot.getValue(Room.class);
-                    Log.i("my_room",room.getTitle());
-                    onResult.onResult(room);
+                    List<Message> messages = new ArrayList<>();
+                    for (DataSnapshot message : dataSnapshot.getChildren()) {
+                        Message message_value = message.getValue(Message.class);
+                        messages.add(message_value);
+                    }
+                    onResult.onResult(messages);
                 }
             }
 
