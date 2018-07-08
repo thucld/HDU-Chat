@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:layout_margin="@dimen/margin_4dp"
             android:gravity="center"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorMineShaft"
             android:textSize="@dimen/text_size_16" />
 
         <TextView

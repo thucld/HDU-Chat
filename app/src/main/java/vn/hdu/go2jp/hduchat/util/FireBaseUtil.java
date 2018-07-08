@@ -109,11 +109,11 @@ public class FireBaseUtil {
         mDatabase.child("users").child(userId).setValue(user);
     }
 
-    public static void addContact(String uId) {
+    public void addContact(String uId) {
         mDatabase.child("users").child(user.getUid()).child("contacts").push().setValue(uId);
     }
 
-    public static void sendMessage(String roomId, Message message, OnResult<Boolean> status) {
+    public void sendMessage(String roomId, Message message, OnResult<Boolean> status) {
         mDatabase.child("rooms").child(roomId).child("messages").push().setValue(message)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -140,7 +140,7 @@ public class FireBaseUtil {
                             }
                             List<String> newList = new ArrayList<>(listContactID);
                             while (listContactID.size() > 0) {
-                                instance.getContactInfo(listContactID, user -> {
+                                instance.getContactsInfo(listContactID, user -> {
                                     listUser.add(user);
                                     if (listUser.size() == newList.size()) {
                                         onResult.onResult(listUser);
@@ -181,7 +181,7 @@ public class FireBaseUtil {
                             }
                             List<String> newList = new ArrayList<>(listRoomID);
                             while (listRoomID.size() > 0) {
-                                getRoomInfo(listRoomID, room -> {
+                                instance.getRoomsInfo(listRoomID, room -> {
                                     listRoom.add(room);
                                     if (listRoom.size() == newList.size()) {
                                         onResult.onResult(listRoom);
@@ -198,7 +198,7 @@ public class FireBaseUtil {
                 });
     }
 
-    public void getContactInfo(List<String> ids, OnResult<User> onResult) {
+    public void getContactsInfo(List<String> ids, OnResult<User> onResult) {
         String id = ids.remove(0);
         mDatabase.child("users").child(id).addValueEventListener(new ValueEventListener() {
             @Override
@@ -217,7 +217,7 @@ public class FireBaseUtil {
         });
     }
 
-    public static void getRoomInfo(List<String> ids, OnResult<Room> onResult) {
+    public void getRoomsInfo(List<String> ids, OnResult<Room> onResult) {
         String id = ids.remove(0);
         mDatabase.child("rooms").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -236,16 +236,34 @@ public class FireBaseUtil {
         });
     }
 
+    public void getSingleRoom(String roomId, OnResult<Room> onResult){
+        mDatabase.child("rooms").child(roomId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue() != null){
+                    Room room = dataSnapshot.getValue(Room.class);
+                    Log.i("my_room",room.getTitle());
+                    onResult.onResult(room);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                onResult.onResult(null);
+            }
+        });
+    }
+
 
     public static void test() {
         String uId = FirebaseAuth.getInstance().getUid();
-        sendMessage("roomtest", new Message("Test function", new Date(), UserType.SELF, Status.SENT), new OnResult<Boolean>() {
-            @Override
-            public void onResult(Boolean aBoolean) {
-                if(aBoolean){
-                    Log.i("my_sendMessage","Successful");
-                }
-            }
-        });
+//        instance.sendMessage("roomtest", new Message("Test function", new Date(), UserType.SELF, Status.SENT), new OnResult<Boolean>() {
+//            @Override
+//            public void onResult(Boolean aBoolean) {
+//                if(aBoolean){
+//                    Log.i("my_sendMessage","Successful");
+//                }
+//            }
+//        });
     }
 }

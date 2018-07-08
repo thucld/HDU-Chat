@@ -7,19 +7,24 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.MessageAdapter;
+import vn.hdu.go2jp.hduchat.base.OnResult;
 import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.model.constant.Status;
 import vn.hdu.go2jp.hduchat.model.constant.UserType;
 import vn.hdu.go2jp.hduchat.model.data.Message;
+import vn.hdu.go2jp.hduchat.model.data.Room;
+import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
 public class ChatBoxActivity extends AppCompatActivity{
 
@@ -31,6 +36,7 @@ public class ChatBoxActivity extends AppCompatActivity{
     private ImageView ivSend;
     private TextView tvTitle;
     private ArrayList<Message> chatMessages;
+    private ImageButton back;
 
     private final TextWatcher twSend = new TextWatcher() {
         @Override
@@ -75,11 +81,23 @@ public class ChatBoxActivity extends AppCompatActivity{
         if (!TextUtils.isEmpty(title)) {
             tvTitle.setText(title);
         }
+
+        back = findViewById(R.id.back);
+        back.setOnClickListener(click -> { this.finish();});
     }
 
     private void fakeMessages() {
         chatMessages.add(new Message("hajimemashite. hau desu. shitsuredesuga onamaeha.", new Date(), UserType.OTHER, Status.DELIVERED));
         chatMessages.add(new Message( "hajimemashite. tuan desu.", new Date(), UserType.SELF, Status.SENT));
+        FireBaseUtil.getInstance().getSingleRoom(idRoom, new OnResult<Room>() {
+            @Override
+            public void onResult(Room room) {
+                HashMap<String,Message> mapMessage = room.getMessages();
+                for(Message msg : mapMessage.values()){
+                    chatMessages.add(msg);
+                }
+            }
+        });
     }
 
     private void extractBundle() {

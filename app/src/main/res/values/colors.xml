@@ -18,4 +18,7 @@
     <color name="trout">#4C5266</color>
     <color name="colorSilverChalice">#aba8a8</color>
     <color name="colorGallery">#F0F0F0</color>
+    <color name="colorCodGray">#1E1E1E</color>
+    <color name="colorMineShaft">#333333</color>
+    <color name="colorCadetBlue">#ACB3BE</color>
 </resources>
