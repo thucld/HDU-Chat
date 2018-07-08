@@ -165,7 +165,7 @@ public class FireBaseUtil {
 //                .addChildEventListener(listenerContacts);
 //    }
 
-    public static void getListRoom(OnResult<List<Room>> onResult) {
+    public void getListRoom(OnResult<List<Room>> onResult) {
         List<Room> listRoom = new ArrayList<>();
         mDatabase.child("users").child(user.getUid()).child("roomsId")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -261,7 +261,7 @@ public class FireBaseUtil {
 
     public static void test() {
         String uId = FirebaseAuth.getInstance().getUid();
-//        instance.sendMessage("roomtest", new Message("Test function", new Date(), UserType.SELF, Status.SENT), new OnResult<Boolean>() {
+//        instance.sendMessage("QYYMQmqKrZfkbiflH6EK34WWaTA3ZRpPa2aHQcZJ23MpVauI0o72u5I2", new Message("Anh nghi la nen load tung phan 1 cua message", new Date(), UserType.SELF, Status.SENT), new OnResult<Boolean>() {
 //            @Override
 //            public void onResult(Boolean aBoolean) {
 //                if(aBoolean){
