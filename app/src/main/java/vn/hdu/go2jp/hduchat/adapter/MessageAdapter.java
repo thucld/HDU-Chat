@@ -28,6 +28,10 @@ public class MessageAdapter extends BaseAdapter {
         this.context = context;
     }
 
+    public void updateData(ArrayList<Message> viewModels){
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return messages.size();

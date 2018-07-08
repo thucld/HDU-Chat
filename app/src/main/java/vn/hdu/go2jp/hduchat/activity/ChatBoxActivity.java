@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,9 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.MessageAdapter;
@@ -78,6 +75,19 @@ public class ChatBoxActivity extends AppCompatActivity {
         edtTextSend = findViewById(R.id.edtTextSend);
         edtTextSend.addTextChangedListener(twSend);
         ivSend = findViewById(R.id.ivSend);
+        ivSend.setOnClickListener(send -> {
+            Message msg = new Message(edtTextSend.getText().toString(), new Date(), UserType.SELF, Status.SENT);
+            edtTextSend.setText("");
+            FireBaseUtil.getInstance().sendMessage(idRoom, msg, new OnResult<Boolean>() {
+                @Override
+                public void onResult(Boolean aBoolean) {
+                    if(aBoolean){
+                        chatMessages.add(msg);
+                        adapterMessage.updateData(chatMessages);
+                    }
+                }
+            });
+        });
         tvTitle = findViewById(R.id.tvReceiver);
         if (!TextUtils.isEmpty(title)) {
             tvTitle.setText(title);
@@ -90,12 +100,14 @@ public class ChatBoxActivity extends AppCompatActivity {
     }
 
     private void fakeMessages() {
-        chatMessages.add(new Message("hajimemashite. hau desu. shitsuredesuga onamaeha.", new Date(), UserType.OTHER, Status.DELIVERED));
-        chatMessages.add(new Message("hajimemashite. tuan desu.", new Date(), UserType.SELF, Status.SENT));
+        chatMessages.add(new Message("はじめまして。 HAU　です。 しつれですが おなまえは。", new Date(), UserType.OTHER, Status.DELIVERED));
+        chatMessages.add(new Message("はじめまして。 TUAN です。", new Date(), UserType.SELF, Status.SENT));
+        chatMessages.add(new Message("はじめまして。 THUC です。", new Date(), UserType.SELF, Status.SENT));
+        chatMessages.add(new Message("どうぞ。ぞろしく　おねがいします。", new Date(), UserType.OTHER, Status.SENT));
         FireBaseUtil.getInstance().getListMessage(idRoom, new OnResult<List<Message>>() {
             @Override
             public void onResult(List<Message> messages) {
-                for(Message msg : messages){
+                for (Message msg : messages) {
                     chatMessages.add(msg);
                 }
             }
