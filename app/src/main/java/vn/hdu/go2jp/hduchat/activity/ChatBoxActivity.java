@@ -12,11 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.firebase.database.ServerValue;
-
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.MessageAdapter;
@@ -83,8 +79,7 @@ public class ChatBoxActivity extends AppCompatActivity {
             FireBaseUtil.getInstance().sendMessage(idRoom, msg, new OnResult<Boolean>() {
                 @Override
                 public void onResult(Boolean aBoolean) {
-                    if(aBoolean){
-                        chatMessages.add(msg);
+                    if (aBoolean) {
                         adapterMessage.updateData(chatMessages);
                     }
                 }
@@ -102,16 +97,13 @@ public class ChatBoxActivity extends AppCompatActivity {
     }
 
     private void fakeMessages() {
-        chatMessages.add(new Message("はじめまして。 HAU　です。 しつれですが おなまえは。", UserType.OTHER, Status.DELIVERED));
-        chatMessages.add(new Message("はじめまして。 TUAN です。", UserType.SELF, Status.SENT));
-        chatMessages.add(new Message("はじめまして。 THUC です。", UserType.SELF, Status.SENT));
-        chatMessages.add(new Message("どうぞ。ぞろしく　おねがいします。", UserType.OTHER, Status.SENT));
-        FireBaseUtil.getInstance().getListMessage(idRoom, new OnResult<List<Message>>() {
+        chatMessages.add(new Message("はじめまして。 私たちは　Mobile-Team　です。", UserType.OTHER, Status.DELIVERED));
+        chatMessages.add(new Message("どうぞ。ぞろしく　おねがいします。", UserType.OTHER, Status.DELIVERED));
+        FireBaseUtil.getInstance().getListMessage(idRoom, new OnResult<Message>() {
             @Override
-            public void onResult(List<Message> messages) {
-                for (Message msg : messages) {
-                    chatMessages.add(msg);
-                }
+            public void onResult(Message messages) {
+                chatMessages.add(messages);
+                adapterMessage.updateData(chatMessages);
             }
         });
     }

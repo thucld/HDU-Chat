@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -12,8 +11,11 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Date;
+
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.activity.ChatBoxActivity;
+import vn.hdu.go2jp.hduchat.activity.ProfileActivity;
 import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.model.data.User;
 import vn.hdu.go2jp.hduchat.util.ToastUtil;
@@ -80,7 +82,7 @@ public class UserDialog {
             showUserAction();
             btn_keep.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Keep clicked"));
             btn_home.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Home clicked"));
-            btn_edit.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Edit clicked"));
+            btn_edit.setOnClickListener(v -> activity.startActivity(new Intent(activity, ProfileActivity.class)));
         } else {
             showFriendAction();
             btn_chat.setOnClickListener(v -> {
