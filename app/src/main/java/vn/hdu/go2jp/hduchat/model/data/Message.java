@@ -1,6 +1,6 @@
 package vn.hdu.go2jp.hduchat.model.data;
 
-import java.util.Date;
+import com.google.firebase.database.ServerValue;
 
 import vn.hdu.go2jp.hduchat.model.constant.Status;
 import vn.hdu.go2jp.hduchat.model.constant.UserType;
@@ -9,17 +9,17 @@ public class Message {
     private String userId;
     private String message;
     private boolean visible;
-    private Date time;
+    private Object timestamp;
     private UserType userType;
     private Status status;
 
     public Message(){}
 
-    public Message(String message, Date time, UserType userType, Status status) {
+    public Message(String message, UserType userType, Status status) {
         this.message = message;
-        this.time = time;
         this.userType = userType;
         this.status = status;
+        this.timestamp = ServerValue.TIMESTAMP;
     }
 
     public String getUserId() {
@@ -46,14 +46,6 @@ public class Message {
         this.visible = visible;
     }
 
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
-
     public UserType getUserType() {
         return userType;
     }
@@ -68,5 +60,13 @@ public class Message {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Object getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Object timestamp) {
+        this.timestamp = timestamp;
     }
 }

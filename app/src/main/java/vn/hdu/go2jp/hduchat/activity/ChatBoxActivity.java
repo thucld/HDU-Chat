@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.ServerValue;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -76,7 +78,7 @@ public class ChatBoxActivity extends AppCompatActivity {
         edtTextSend.addTextChangedListener(twSend);
         ivSend = findViewById(R.id.ivSend);
         ivSend.setOnClickListener(send -> {
-            Message msg = new Message(edtTextSend.getText().toString(), new Date(), UserType.SELF, Status.SENT);
+            Message msg = new Message(edtTextSend.getText().toString(), UserType.SELF, Status.SENT);
             edtTextSend.setText("");
             FireBaseUtil.getInstance().sendMessage(idRoom, msg, new OnResult<Boolean>() {
                 @Override
@@ -100,10 +102,10 @@ public class ChatBoxActivity extends AppCompatActivity {
     }
 
     private void fakeMessages() {
-        chatMessages.add(new Message("はじめまして。 HAU　です。 しつれですが おなまえは。", new Date(), UserType.OTHER, Status.DELIVERED));
-        chatMessages.add(new Message("はじめまして。 TUAN です。", new Date(), UserType.SELF, Status.SENT));
-        chatMessages.add(new Message("はじめまして。 THUC です。", new Date(), UserType.SELF, Status.SENT));
-        chatMessages.add(new Message("どうぞ。ぞろしく　おねがいします。", new Date(), UserType.OTHER, Status.SENT));
+        chatMessages.add(new Message("はじめまして。 HAU　です。 しつれですが おなまえは。", UserType.OTHER, Status.DELIVERED));
+        chatMessages.add(new Message("はじめまして。 TUAN です。", UserType.SELF, Status.SENT));
+        chatMessages.add(new Message("はじめまして。 THUC です。", UserType.SELF, Status.SENT));
+        chatMessages.add(new Message("どうぞ。ぞろしく　おねがいします。", UserType.OTHER, Status.SENT));
         FireBaseUtil.getInstance().getListMessage(idRoom, new OnResult<List<Message>>() {
             @Override
             public void onResult(List<Message> messages) {
