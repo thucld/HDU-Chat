@@ -10,10 +10,23 @@
     <string name="log_in_fail">Log In failure!</string>
     <string name="type_your_message">Soạn tin nhắn mới…</string>
     <string name="acronym_of_point">P</string>
-    <string name="str_cumulative_point">Điểm Tích luỹ</string>
+    <string name="str_cumulative_point">Cumulative Points</string>
     <string name="str_scan_qr_code">Scan QR Code</string>
     <string name="str_shake_to_find_friends">Shake to find friends</string>
     <string name="str_find_nearby_friends">Find nearby friends</string>
     <string name="str_add_new_friends">add new friends</string>
+    <string name="str_title_friend_request_by_id">Allow others to add me by ID</string>
+    <string name="str_description_friend_request_by_id">Enable this setting to allow others to add you as a friend by searching for your ID.</string>
+    <string name="str_title_qr_code">QR code</string>
+    <string name="str_title_birthday">Birthday</string>
+    <string name="str_not_set">Not set</string>
+    <string name="str_title_status_message">Status message</string>
+    <string name="str_title_display_name">Display name</string>
+    <!-- spot: share profile on timeline -->
+    <string name="str_title_spot">Share profile media updates</string>
+    <string name="str_description_spot">Share profile updates on Timeline.</string>
+    <string name="str_back">Back</string>
+    <string name="str_home">Home</string>
+    <string name="str_email">Email</string>
 
 </resources>
