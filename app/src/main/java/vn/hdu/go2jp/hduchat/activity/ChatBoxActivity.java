@@ -1,27 +1,31 @@
 package vn.hdu.go2jp.hduchat.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.MessageAdapter;
+import vn.hdu.go2jp.hduchat.base.OnResult;
 import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.model.constant.Status;
 import vn.hdu.go2jp.hduchat.model.constant.UserType;
 import vn.hdu.go2jp.hduchat.model.data.Message;
+import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
-public class ChatBoxActivity extends AppCompatActivity{
+public class ChatBoxActivity extends AppCompatActivity {
 
     private String title;
     private String idRoom;
@@ -29,9 +33,6 @@ public class ChatBoxActivity extends AppCompatActivity{
     private MessageAdapter adapterMessage;
     private EditText edtTextSend;
     private ImageView ivSend;
-    private TextView tvTitle;
-    private ArrayList<Message> chatMessages;
-
     private final TextWatcher twSend = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -54,6 +55,9 @@ public class ChatBoxActivity extends AppCompatActivity{
             }
         }
     };
+    private TextView tvTitle;
+    private ArrayList<Message> chatMessages;
+    private ImageButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +75,43 @@ public class ChatBoxActivity extends AppCompatActivity{
         edtTextSend = findViewById(R.id.edtTextSend);
         edtTextSend.addTextChangedListener(twSend);
         ivSend = findViewById(R.id.ivSend);
+        ivSend.setOnClickListener(send -> {
+            Message msg = new Message(edtTextSend.getText().toString(), new Date(), UserType.SELF, Status.SENT);
+            edtTextSend.setText("");
+            FireBaseUtil.getInstance().sendMessage(idRoom, msg, new OnResult<Boolean>() {
+                @Override
+                public void onResult(Boolean aBoolean) {
+                    if(aBoolean){
+                        chatMessages.add(msg);
+                        adapterMessage.updateData(chatMessages);
+                    }
+                }
+            });
+        });
         tvTitle = findViewById(R.id.tvReceiver);
         if (!TextUtils.isEmpty(title)) {
             tvTitle.setText(title);
         }
+
+        back = findViewById(R.id.back);
+        back.setOnClickListener(click -> {
+            this.finish();
+        });
     }
 
     private void fakeMessages() {
-        chatMessages.add(new Message("hajimemashite. hau desu. shitsuredesuga onamaeha.", new Date(), UserType.OTHER, Status.DELIVERED));
-        chatMessages.add(new Message( "hajimemashite. tuan desu.", new Date(), UserType.SELF, Status.SENT));
+        chatMessages.add(new Message("はじめまして。 HAU　です。 しつれですが おなまえは。", new Date(), UserType.OTHER, Status.DELIVERED));
+        chatMessages.add(new Message("はじめまして。 TUAN です。", new Date(), UserType.SELF, Status.SENT));
+        chatMessages.add(new Message("はじめまして。 THUC です。", new Date(), UserType.SELF, Status.SENT));
+        chatMessages.add(new Message("どうぞ。ぞろしく　おねがいします。", new Date(), UserType.OTHER, Status.SENT));
+        FireBaseUtil.getInstance().getListMessage(idRoom, new OnResult<List<Message>>() {
+            @Override
+            public void onResult(List<Message> messages) {
+                for (Message msg : messages) {
+                    chatMessages.add(msg);
+                }
+            }
+        });
     }
 
     private void extractBundle() {

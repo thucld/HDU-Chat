@@ -23,4 +23,8 @@
     <color name="mercury">#E3E3E3</color>
     <color name="fiord">#414961</color>
 
+    <color name="colorGallery">#F0F0F0</color>
+    <color name="colorCodGray">#1E1E1E</color>
+    <color name="colorMineShaft">#333333</color>
+    <color name="colorCadetBlue">#ACB3BE</color>
 </resources>

@@ -41,7 +41,7 @@ public class ChatListFragment extends Fragment {
 //            listRoom.add(user);
 //        }
         RecyclerView chatsRecyclerView = view.findViewById(R.id.rv_chat_list);
-        FireBaseUtil.getListRoom(rooms -> {
+        FireBaseUtil.getInstance().getListRoom(rooms -> {
             listRoom = rooms;
             chatListAdapter = new ChatListAdapter(getContext(), listRoom, roomChat -> {
                 Intent intent = new Intent(getContext(), ChatBoxActivity.class);

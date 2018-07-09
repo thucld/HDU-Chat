@@ -15,11 +15,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import vn.hdu.go2jp.hduchat.base.OnResult;
+import vn.hdu.go2jp.hduchat.model.constant.Status;
+import vn.hdu.go2jp.hduchat.model.constant.UserType;
 import vn.hdu.go2jp.hduchat.model.data.Message;
 import vn.hdu.go2jp.hduchat.model.data.Room;
 import vn.hdu.go2jp.hduchat.model.data.User;
@@ -106,11 +110,11 @@ public class FireBaseUtil {
         mDatabase.child("users").child(userId).setValue(user);
     }
 
-    public static void addContact(String uId) {
+    public void addContact(String uId) {
         mDatabase.child("users").child(user.getUid()).child("contacts").push().setValue(uId);
     }
 
-    public static void sendMessage(String roomId, Message message, OnResult<Boolean> status) {
+    public void sendMessage(String roomId, Message message, OnResult<Boolean> status) {
         mDatabase.child("rooms").child(roomId).child("messages").push().setValue(message)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -137,7 +141,7 @@ public class FireBaseUtil {
                             }
                             List<String> newList = new ArrayList<>(listContactID);
                             while (listContactID.size() > 0) {
-                                instance.getContactInfo(listContactID, user -> {
+                                instance.getContactsInfo(listContactID, user -> {
                                     listUser.add(user);
                                     if (listUser.size() == newList.size()) {
                                         onResult.onResult(listUser);
@@ -161,7 +165,7 @@ public class FireBaseUtil {
 //                .addChildEventListener(listenerContacts);
 //    }
 
-    public static void getListRoom(OnResult<List<Room>> onResult) {
+    public void getListRoom(OnResult<List<Room>> onResult) {
         List<Room> listRoom = new ArrayList<>();
         mDatabase.child("users").child(user.getUid()).child("roomsId")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -178,7 +182,7 @@ public class FireBaseUtil {
                             }
                             List<String> newList = new ArrayList<>(listRoomID);
                             while (listRoomID.size() > 0) {
-                                getRoomInfo(listRoomID, room -> {
+                                instance.getRoomsInfo(listRoomID, room -> {
                                     listRoom.add(room);
                                     if (listRoom.size() == newList.size()) {
                                         onResult.onResult(listRoom);
@@ -195,7 +199,7 @@ public class FireBaseUtil {
                 });
     }
 
-    public void getContactInfo(List<String> ids, OnResult<User> onResult) {
+    public void getContactsInfo(List<String> ids, OnResult<User> onResult) {
         String id = ids.remove(0);
         mDatabase.child("users").child(id).addValueEventListener(new ValueEventListener() {
             @Override
@@ -214,7 +218,7 @@ public class FireBaseUtil {
         });
     }
 
-    public static void getRoomInfo(List<String> ids, OnResult<Room> onResult) {
+    public void getRoomsInfo(List<String> ids, OnResult<Room> onResult) {
         String id = ids.remove(0);
         mDatabase.child("rooms").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -233,10 +237,31 @@ public class FireBaseUtil {
         });
     }
 
+    public void getListMessage(String roomId, OnResult<List<Message>> onResult){
+        mDatabase.child("rooms").child(roomId).child("messages").limitToLast(10).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue() != null){
+                    List<Message> messages = new ArrayList<>();
+                    for (DataSnapshot message : dataSnapshot.getChildren()) {
+                        Message message_value = message.getValue(Message.class);
+                        messages.add(message_value);
+                    }
+                    onResult.onResult(messages);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                onResult.onResult(null);
+            }
+        });
+    }
+
 
     public static void test() {
-//        String uId = FirebaseAuth.getInstance().getUid();
-//        sendMessage("abcwdkft", new Message("Test function", new Date(), UserType.SELF, Status.SENT), new OnResult<Boolean>() {
+        String uId = FirebaseAuth.getInstance().getUid();
+//        instance.sendMessage("QYYMQmqKrZfkbiflH6EK34WWaTA3ZRpPa2aHQcZJ23MpVauI0o72u5I2", new Message("Anh nghi la nen load tung phan 1 cua message", new Date(), UserType.SELF, Status.SENT), new OnResult<Boolean>() {
 //            @Override
 //            public void onResult(Boolean aBoolean) {
 //                if(aBoolean){
