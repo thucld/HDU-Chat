@@ -12,10 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.firebase.database.ServerValue;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
@@ -70,6 +67,7 @@ public class ChatBoxActivity extends AppCompatActivity {
 
         chatMessages = new ArrayList<>();
         fakeMessages();
+
         adapterMessage = new MessageAdapter(chatMessages, this);
         lvMessage = findViewById(R.id.lvChat);
         lvMessage.setAdapter(adapterMessage);
