@@ -28,5 +28,17 @@
     <string name="str_back">Back</string>
     <string name="str_home">Home</string>
     <string name="str_email">Email</string>
+    <string name="str_get_started_chatting">Get started chatting!</string>
+    <string name="str_tap_icon_to_get_started">Ready to chat? \nTap the icon in the top right to get started.</string>
+    <string name="str_new_chat">New chat</string>
+    <string name="str_password">Password</string>
+    <string name="str_email_address">Email Address</string>
+    <string name="str_email_test">empty@2jp.com</string>
+    <string name="str_forget_your_password">Forget your password?</string>
+    <string name="str_no_registered_email">No registered email</string>
+    <string name="str_log_in_with_facebook">Log in with Facebook</string>
+    <string name="str_try_out_timeline_today">Try out Timeline today!</string>
+    <string name="str_get_started_posting">Get started posting!</string>
+    <string name="str_try_out_timeline">Tell your friends what you\'re up to and see what they have to share too!</string>
 
 </resources>
