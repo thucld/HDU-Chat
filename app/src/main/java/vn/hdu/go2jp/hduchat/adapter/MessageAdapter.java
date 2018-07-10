@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -16,6 +18,7 @@ import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.model.data.Message;
 import vn.hdu.go2jp.hduchat.model.constant.Status;
 import vn.hdu.go2jp.hduchat.model.constant.UserType;
+import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
 public class MessageAdapter extends BaseAdapter {
 
@@ -54,7 +57,8 @@ public class MessageAdapter extends BaseAdapter {
         ViewHolder1 holder1;
         ViewHolder2 holder2;
 
-        if (message.getUserType() == UserType.SELF) {
+        String ownerId = FirebaseAuth.getInstance().getUid();
+        if (!ownerId.equals(message.getUserId())) {
             if (convertView == null) {
                 v = LayoutInflater.from(context).inflate(R.layout.chat_user1_item, null, false);
                 holder1 = new ViewHolder1();
@@ -74,19 +78,18 @@ public class MessageAdapter extends BaseAdapter {
             //holder1.timeTextView.setText(SIMPLE_DATE_FORMAT.format(message.getTime()));
             holder1.sender.setText(message.getUserId());
 
-        } else if (message.getUserType() == UserType.OTHER) {
+        } else {
 
             if (convertView == null) {
                 v = LayoutInflater.from(context).inflate(R.layout.chat_user2_item, null, false);
-
                 holder2 = new ViewHolder2();
 
                 holder2.messageTextView = v.findViewById(R.id.message_text);
                 holder2.timeTextView = v.findViewById(R.id.time_text);
                 holder2.messageStatus = v.findViewById(R.id.user_reply_status);
                 holder2.sender = v.findViewById(R.id.chat_company_reply_author);
-                v.setTag(holder2);
 
+                v.setTag(holder2);
             } else {
                 v = convertView;
                 holder2 = (ViewHolder2) v.getTag();
@@ -97,6 +100,7 @@ public class MessageAdapter extends BaseAdapter {
             //holder2.messageTextView.setText(message.getMessageText());
             holder2.messageTextView.setText(message.getMessage());
             //holder2.timeTextView.setText(SIMPLE_DATE_FORMAT.format(message.getTime()));
+//            holder2.sender.setText(message.getUserId());
 
             if (message.getStatus() == Status.DELIVERED) {
                 holder2.messageStatus.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_double_tick));

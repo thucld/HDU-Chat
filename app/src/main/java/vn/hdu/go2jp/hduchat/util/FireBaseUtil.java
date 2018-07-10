@@ -71,6 +71,16 @@ public class FireBaseUtil {
 //
 //            }
 //        });
+        /*
+
+        Get list room by OnChildEventListener
+         */
+//        instance.getListRoomTest(new OnResult<Room>() {
+//            @Override
+//            public void onResult(Room room) {
+//                Log.i("my_OnResultRoom",room.getTitle());
+//            }
+//        });
     }
 
     public void getThisUser(final OnResult<User> onResult) {
@@ -260,27 +270,6 @@ public class FireBaseUtil {
                 });
     }
 
-    //    public void getListMessage(String roomId, OnResult<List<Message>> onResult) {
-//        mDatabase.child("rooms").child(roomId).child("messages").limitToLast(10)
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.getValue() != null) {
-//                    List<Message> messages = new ArrayList<>();
-//                    for (DataSnapshot message : dataSnapshot.getChildren()) {
-//                        Message message_value = message.getValue(Message.class);
-//                        messages.add(message_value);
-//                    }
-//                    onResult.onResult(messages);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                onResult.onResult(null);
-//            }
-//        });
-//    }
     public void getListMessage(String roomId, OnResult<Message> onResult) {
         mDatabase.child("rooms").child(roomId).child("messages").limitToLast(10)
                 .addChildEventListener(new ChildEventListener() {
@@ -314,4 +303,61 @@ public class FireBaseUtil {
                     }
                 });
     }
+
+    /*
+    Get List Room by OnChildEventListener
+     */
+//    public void getListRoomTest(OnResult<Room> onResult) {
+//        mDatabase.child("users").child(user.getUid()).child("roomsId")
+//                .addChildEventListener(new ChildEventListener() {
+//                    @Override
+//                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                        if (dataSnapshot.getValue() != null) {
+//                            String roomId = dataSnapshot.getValue(String.class);
+//                            getRoomInfoTest(roomId, new OnResult<Room>() {
+//                                @Override
+//                                public void onResult(Room room) {
+//                                    onResult.onResult(room);
+//                                }
+//                            });
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                    }
+//
+//                    @Override
+//                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//                    }
+//
+//                    @Override
+//                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//                    }
+//                });
+//
+//    }
+//
+//    public void getRoomInfoTest(String roomId, OnResult<Room> onResult) {
+//        mDatabase.child("rooms").child(roomId)
+//                .addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        if (dataSnapshot.getValue() != null) {
+//                            Room roomInfo = dataSnapshot.getValue(Room.class);
+//                            onResult.onResult(roomInfo);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//                        Log.e("getRoomInfo", databaseError.toString());
+//                        onResult.onResult(null);
+//                    }
+//                });
+//    }
 }

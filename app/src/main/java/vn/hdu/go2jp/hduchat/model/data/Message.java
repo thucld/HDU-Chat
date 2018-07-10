@@ -15,7 +15,8 @@ public class Message {
 
     public Message(){}
 
-    public Message(String message, UserType userType, Status status) {
+    public Message(String userId, String message, UserType userType, Status status) {
+        this.userId = userId;
         this.message = message;
         this.userType = userType;
         this.status = status;

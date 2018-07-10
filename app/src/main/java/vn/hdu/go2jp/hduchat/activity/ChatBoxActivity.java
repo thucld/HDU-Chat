@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 
 import vn.hdu.go2jp.hduchat.R;
@@ -21,6 +24,7 @@ import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.model.constant.Status;
 import vn.hdu.go2jp.hduchat.model.constant.UserType;
 import vn.hdu.go2jp.hduchat.model.data.Message;
+import vn.hdu.go2jp.hduchat.model.data.User;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
 public class ChatBoxActivity extends AppCompatActivity {
@@ -31,6 +35,7 @@ public class ChatBoxActivity extends AppCompatActivity {
     private MessageAdapter adapterMessage;
     private EditText edtTextSend;
     private ImageView ivSend;
+    private String uId = FirebaseAuth.getInstance().getUid();
     private final TextWatcher twSend = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -40,7 +45,6 @@ public class ChatBoxActivity extends AppCompatActivity {
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             if (!edtTextSend.getText().toString().equals("")) {
                 ivSend.setImageResource(R.drawable.ic_chat_send);
-
             }
         }
 
@@ -53,6 +57,7 @@ public class ChatBoxActivity extends AppCompatActivity {
             }
         }
     };
+
     private TextView tvTitle;
     private ArrayList<Message> chatMessages;
     private ImageButton back;
@@ -74,7 +79,7 @@ public class ChatBoxActivity extends AppCompatActivity {
         edtTextSend.addTextChangedListener(twSend);
         ivSend = findViewById(R.id.ivSend);
         ivSend.setOnClickListener(send -> {
-            Message msg = new Message(edtTextSend.getText().toString(), UserType.SELF, Status.SENT);
+            Message msg = new Message(uId,edtTextSend.getText().toString(), UserType.SELF, Status.SENT);
             edtTextSend.setText("");
             FireBaseUtil.getInstance().sendMessage(idRoom, msg, new OnResult<Boolean>() {
                 @Override
@@ -97,8 +102,8 @@ public class ChatBoxActivity extends AppCompatActivity {
     }
 
     private void fakeMessages() {
-        chatMessages.add(new Message("はじめまして。 私たちは　Mobile-Team　です。", UserType.OTHER, Status.DELIVERED));
-        chatMessages.add(new Message("どうぞ。ぞろしく　おねがいします。", UserType.OTHER, Status.DELIVERED));
+        chatMessages.add(new Message("QYYMQmqKrZfkbiflH6EK34WWaTA3","はじめまして。 私たちは　Mobile-Team　です。", UserType.OTHER, Status.DELIVERED));
+        chatMessages.add(new Message("QYYMQmqKrZfkbiflH6EK34WWaTA3","どうぞ。ぞろしく　おねがいします。", UserType.OTHER, Status.DELIVERED));
         FireBaseUtil.getInstance().getListMessage(idRoom, new OnResult<Message>() {
             @Override
             public void onResult(Message messages) {
