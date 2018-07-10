@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/llEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="120dp"
+            android:src="@drawable/img_empty_timeline_page" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="@string/str_try_out_timeline_today"
+            android:textSize="@dimen/text_size_20"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:maxWidth="240dp"
+            android:text="@string/str_try_out_timeline"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_size_14"
+            tools:ignore="SpUsage" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:background="@color/colorGreen"
+            android:text="@string/str_get_started_posting"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18"
+            android:textStyle="bold"
+            tools:ignore="SpUsage" />
+
+    </LinearLayout>
+
+</merge>

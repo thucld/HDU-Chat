@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.PagerAdapter;
 import vn.hdu.go2jp.hduchat.common.TAB;
-import vn.hdu.go2jp.hduchat.fragment.ChatBoxFragment;
+import vn.hdu.go2jp.hduchat.fragment.TimelineFragment;
 import vn.hdu.go2jp.hduchat.fragment.ChatListFragment;
 import vn.hdu.go2jp.hduchat.fragment.ContactListFragment;
 import vn.hdu.go2jp.hduchat.fragment.MoreFragment;
@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new ContactListFragment());
         fragments.add(new ChatListFragment());
-        fragments.add(new ChatListFragment());
-        fragments.add(new ChatBoxFragment());
+        fragments.add(new TimelineFragment());
+        fragments.add(new MoreFragment());
         fragments.add(new MoreFragment());
 
         final PagerAdapter adapter = new PagerAdapter
