@@ -35,11 +35,6 @@ public class ChatListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_chat_list, container, false);
-//        for (int i = 0; i < 15; i++) {
-//            Room user = new Room();
-//            user.setTitle("Room " + i);
-//            listRoom.add(user);
-//        }
         RecyclerView chatsRecyclerView = view.findViewById(R.id.rv_chat_list);
         FireBaseUtil.getInstance().getListRoom(rooms -> {
             listRoom = rooms;
