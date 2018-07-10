@@ -27,11 +27,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         }
 //        switch (position) {
 //            case 0:
-//                return new ChatListFragment();
+//                return new RoomFragment();
 //            case 1:
 //                return new ChatBoxFragment();
 //            case 2:
-//                return new ContactListFragment();
+//                return new ContactFragment();
 //            case 3:
 //                return new MoreFragment();
 //            default:

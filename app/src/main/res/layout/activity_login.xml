@@ -11,8 +11,10 @@
         android:layout_height="@dimen/layout_size_50dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/margin_20dp"
-        android:hint="Email Address"
-        android:text="tester@gmail.com" />
+        android:hint="@string/str_email_address"
+        android:inputType="textEmailAddress"
+        android:text="@string/str_email_test"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/edPassword"
@@ -20,8 +22,10 @@
         android:layout_height="@dimen/layout_size_50dp"
         android:layout_below="@+id/edEmail"
         android:layout_centerHorizontal="true"
-        android:hint="Password"
-        android:text="tester@gmail.com" />
+        android:hint="@string/str_password"
+        android:inputType="textPassword"
+        android:text="@string/str_email_test"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tvForgetPassword"
@@ -29,7 +33,7 @@
         android:layout_height="25dp"
         android:layout_below="@id/edPassword"
         android:layout_centerHorizontal="true"
-        android:text="Forget your password ?" />
+        android:text="@string/str_forget_your_password" />
 
     <Button
         android:id="@+id/btnSignIn"
@@ -38,8 +42,8 @@
         android:layout_above="@+id/btnSignUp"
         android:layout_centerHorizontal="true"
         android:background="@color/colorPrimary"
-        android:text="OK" />
-
+        android:text="@string/ok"
+        android:textAllCaps="true" />
 
     <Button
         android:id="@+id/btnSignUp"
@@ -50,12 +54,12 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
         android:background="#505C72"
-        android:text="No registered email" />
+        android:text="@string/str_no_registered_email"
+        android:textAllCaps="true" />
 
-    <TextView
-
+    <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_above="@+id/btnSignInWithFacebook"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
@@ -68,8 +72,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:text="Log in with Facebook"
+        android:text="@string/str_log_in_with_facebook"
         android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/text_size_18dp" />
+        android:textSize="@dimen/text_size_20"
+        tools:ignore="SpUsage" />
 
 </RelativeLayout>

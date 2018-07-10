@@ -257,7 +257,7 @@ public class FireBaseUtil {
     }
 
 
-    public static void test() {
+    public void test() {
         String uId = FirebaseAuth.getInstance().getUid();
 //        instance.sendMessage("QYYMQmqKrZfkbiflH6EK34WWaTA3ZRpPa2aHQcZJ23MpVauI0o72u5I2", new Message("Anh nghi la nen load tung phan 1 cua message", new Date(), UserType.SELF, Status.SENT), new OnResult<Boolean>() {
 //            @Override

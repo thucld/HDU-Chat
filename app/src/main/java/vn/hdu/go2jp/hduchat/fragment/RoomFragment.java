@@ -14,7 +14,7 @@ import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.activity.ChatBoxActivity;
-import vn.hdu.go2jp.hduchat.adapter.ChatListAdapter;
+import vn.hdu.go2jp.hduchat.adapter.RoomAdapter;
 import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.model.data.Room;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
@@ -22,11 +22,14 @@ import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 /**
  * Where to show chat rooms.
  */
-public class ChatListFragment extends Fragment {
-    private List<Room> listRoom = new ArrayList<>();
-    private ChatListAdapter chatListAdapter;
+public class RoomFragment extends Fragment {
 
-    public ChatListFragment() {
+    private RecyclerView rvRooms;
+    private View llEmpty;
+    private List<Room> listRoom = new ArrayList<>();
+    private RoomAdapter roomAdapter;
+
+    public RoomFragment() {
         // Required empty public constructor
     }
 
@@ -34,11 +37,21 @@ public class ChatListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_chat_list, container, false);
-        RecyclerView chatsRecyclerView = view.findViewById(R.id.rv_chat_list);
+        View view = inflater.inflate(R.layout.fragment_room, container, false);
+        initView(view);
+        getRooms();
+        return view;
+    }
+
+    private void initView(View view) {
+        llEmpty = view.findViewById(R.id.llEmpty);
+        rvRooms = view.findViewById(R.id.rv_chat_list);
+    }
+
+    private void getRooms() {
         FireBaseUtil.getInstance().getListRoom(rooms -> {
             listRoom = rooms;
-            chatListAdapter = new ChatListAdapter(getContext(), listRoom, roomChat -> {
+            roomAdapter = new RoomAdapter(getContext(), listRoom, roomChat -> {
                 Intent intent = new Intent(getContext(), ChatBoxActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(AppConst.KEY_ROOM_ID, roomChat.getRoomId());
@@ -48,10 +61,18 @@ public class ChatListFragment extends Fragment {
             });
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
                     LinearLayoutManager.VERTICAL, false);
-            chatsRecyclerView.setLayoutManager(layoutManager);
-            chatsRecyclerView.setAdapter(chatListAdapter);
+            rvRooms.setLayoutManager(layoutManager);
+            rvRooms.setAdapter(roomAdapter);
         });
-        return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        boolean isEmpty = listRoom.isEmpty();
+        if (llEmpty != null && rvRooms != null) {
+            llEmpty.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
+            rvRooms.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+        }
+    }
 }

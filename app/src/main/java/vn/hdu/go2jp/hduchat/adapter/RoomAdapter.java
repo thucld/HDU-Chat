@@ -17,13 +17,13 @@ import java.util.Locale;
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.model.data.Room;
 
-public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> implements View.OnClickListener {
+public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> implements View.OnClickListener {
     private Context mContext;
     private List<Room> mDataSet;
     private PostItemListener mItemListener;
     private static int mSelectedItem = -1;
 
-    public ChatListAdapter(Context context, List<Room> dataSet, PostItemListener itemListener) {
+    public RoomAdapter(Context context, List<Room> dataSet, PostItemListener itemListener) {
         this.mContext = context;
         this.mDataSet = dataSet;
         this.mItemListener = itemListener;
@@ -31,10 +31,10 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     }
 
     @Override
-    public ChatListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RoomAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflatedView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_chat_list, parent, false);
-        return new ChatListAdapter.ViewHolder(inflatedView, this.mItemListener);
+        return new RoomAdapter.ViewHolder(inflatedView, this.mItemListener);
     }
 
 
