@@ -22,14 +22,14 @@ import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 /**
  * Where to show chat rooms.
  */
-public class ChatListFragment extends Fragment {
+public class RoomFragment extends Fragment {
 
     private RecyclerView rvRooms;
     private View llEmpty;
     private List<Room> listRoom = new ArrayList<>();
     private RoomAdapter roomAdapter;
 
-    public ChatListFragment() {
+    public RoomFragment() {
         // Required empty public constructor
     }
 
@@ -37,7 +37,7 @@ public class ChatListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_chat_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_room, container, false);
         initView(view);
         getRooms();
         return view;

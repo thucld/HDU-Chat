@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import vn.hdu.go2jp.hduchat.R;
 
 /**
- * Where to display profile of the user or a contact.
+ * Where to display call history and contacts available to call.
  */
-public class ProfileFragment extends Fragment {
+public class CallFragment extends Fragment {
 
-    public ProfileFragment() {
+    public CallFragment() {
         // Required empty public constructor
     }
 
