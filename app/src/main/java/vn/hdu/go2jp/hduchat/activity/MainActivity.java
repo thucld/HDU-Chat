@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -46,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
         setupToolBar();
         setupTabLayout();
         setupViewPager();
-        findViewById(R.id.search).setOnClickListener(v -> {
+        findViewById(R.id.btSearchContact).setOnClickListener(v -> {
             toolbar.setTitle("search clicked");
             new ToastUtil().showLong(getApplicationContext(), "search clicked!");
         });
-        findViewById(R.id.addPerson).setOnClickListener(v -> {
+        findViewById(R.id.btAddPerson).setOnClickListener(v -> {
             toolbar.setTitle("addPerson clicked");
             new ToastUtil().showShort(getApplicationContext(), "addPerson clicked!");
         });
@@ -90,6 +91,17 @@ public class MainActivity extends AppCompatActivity {
                     if (tab.getCustomView() != null) {
                         ImageView view = tab.getCustomView().findViewById(R.id.icon);
                         view.setImageResource(tabTag.getIconSelected());
+                        LinearLayout layout = findViewById(tabTag.getLlId());
+                        layout.setVisibility(View.VISIBLE);
+                    }
+                    if (tabTag.getVisible()) {
+
+//                        getSupportActionBar().hide();
+//                        getSupportActionBar().;
+//                       toolbar.hideOverflowMenu();
+                    } else {
+//                        setSupportActionBar(new Toolbar(getBaseContext()));
+//                       toolbar.showOverflowMenu();
                     }
                 }
 
@@ -104,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
                     ImageView view = tab.getCustomView().findViewById(R.id.icon);
 
                     view.setImageResource(tabTag.getIcon());
+
+                    LinearLayout layout = findViewById(tabTag.getLlId());
+                    layout.setVisibility(View.GONE);
                 }
             }
 

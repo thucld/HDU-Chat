@@ -71,7 +71,7 @@ public class MessageAdapter extends BaseAdapter {
 
 //            holder1.messageTextView.setText(Emoji.replaceEmoji(message.getMessageText(), holder1.messageTextView.getPaint().getFontMetricsInt(), AndroidUtilities.dp(16)));
             holder1.messageTextView.setText(message.getMessage());
-            holder1.timeTextView.setText(SIMPLE_DATE_FORMAT.format(message.getTime()));
+            //holder1.timeTextView.setText(SIMPLE_DATE_FORMAT.format(message.getTime()));
             holder1.sender.setText(message.getUserId());
 
         } else if (message.getUserType() == UserType.OTHER) {
@@ -96,7 +96,7 @@ public class MessageAdapter extends BaseAdapter {
 //            holder2.messageTextView.setText(Emoji.replaceEmoji(message.getMessage(), holder2.messageTextView.getPaint().getFontMetricsInt(), AndroidUtilities.dp(16) ));
             //holder2.messageTextView.setText(message.getMessageText());
             holder2.messageTextView.setText(message.getMessage());
-            holder2.timeTextView.setText(SIMPLE_DATE_FORMAT.format(message.getTime()));
+            //holder2.timeTextView.setText(SIMPLE_DATE_FORMAT.format(message.getTime()));
 
             if (message.getStatus() == Status.DELIVERED) {
                 holder2.messageStatus.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_double_tick));

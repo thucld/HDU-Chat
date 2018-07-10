@@ -15,11 +15,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import vn.hdu.go2jp.hduchat.base.OnResult;
 import vn.hdu.go2jp.hduchat.model.constant.Status;
@@ -269,5 +267,20 @@ public class FireBaseUtil {
 //                }
 //            }
 //        });
+        mDatabase.child("testTimestamp").push().setValue(new Message("test lan 2", UserType.SELF, Status.SENT));
+        mDatabase.child("testTimestamp").child("-LGyHolQeBIHQ8ZpGQ8K").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue()!=null){
+                    Message msg = dataSnapshot.getValue(Message.class);
+                    Log.i("my_timestamp",String.valueOf(msg.getTimestamp()));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

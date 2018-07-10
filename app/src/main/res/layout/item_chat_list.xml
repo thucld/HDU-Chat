@@ -1,40 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/imAvatar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/tab_ic_contacts1" />
+    <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cvAvatar"
+        android:layout_width="@dimen/layout_size_56dp"
+        android:layout_height="@dimen/layout_size_56dp"
+        android:layout_margin="@dimen/margin_8dp"
+        app:cardCornerRadius="@dimen/layout_corner_28dp">
+
+        <ImageView
+            android:id="@+id/imAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/user_thumbnail_large_03" />
+    </android.support.v7.widget.CardView>
 
     <LinearLayout
+        android:id="@+id/ll_room"
         android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/margin_4dp"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin_4dp"
-        android:layout_toRightOf="@+id/imAvatar"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:layout_toRightOf="@+id/cvAvatar"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:textSize="@dimen/text_size_18dp"
+            android:layout_width="@dimen/layout_size_200dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack" />
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/colorCodGray"
+            android:textSize="@dimen/text_size_18dp" />
 
         <TextView
             android:id="@+id/tvNote"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/layout_size_200dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark" />
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/colorCadetBlue" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/tvLastModified"
-        android:layout_alignParentEnd="true"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:layout_toRightOf="@+id/ll_room"
+        android:ellipsize="end"
+        android:textColor="@color/colorCadetBlue"
+        android:maxLines="1" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/cvAvatar"
+        android:layout_height="1dp"
+        android:layout_below="@+id/cvAvatar"
+        android:background="@color/colorGallery" />
 
 </RelativeLayout>

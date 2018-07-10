@@ -8,7 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.model.data.Room;
@@ -40,16 +44,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> im
 //        if(TextUtils.isEmpty(item.getTitle())){
 //            holder.tvNote.setVisibility(View.GONE);
 //        }
-        holder.tvName.setText(item.getTitle());
+        Date date = new Date((long) item.getLastMessage().getTimestamp());
+        DateFormat formatter = new SimpleDateFormat("dd-MM", Locale.getDefault());
 
-//        Map<String, Message> map = item.getMessages();
-//        Set<Map.Entry<String,Message>> entrySet = map.entrySet();
-//        List<Map.Entry<String, Message>> entryList =
-//                new ArrayList<>(entrySet);
-//        Map.Entry<String, Message> lastEntry =
-//                entryList.get(entryList.size() - 1);
-//        holder.tvNote.setText(lastEntry.getValue().getMessage());
-//        holder.tvLastModified.setText(lastEntry.getValue().getTime().toString());
+
+        holder.tvName.setText(item.getTitle());
+        holder.tvNote.setText(item.getLastMessage().getMessage());
+        holder.tvLastModified.setText(formatter.format(date));
 
 
 //        int resId = R.drawable.ic_files_bad;
