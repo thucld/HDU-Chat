@@ -5,5 +5,5 @@
     <dimen name="activity_horizontal_margin">64dp</dimen>
     <dimen name="more_fragment_content_row_height">68dp</dimen>
     <dimen name="padding_16">16dp</dimen>
-    <dimen name="more_fragment_ic_point_size">18dp</dimen>
+    <dimen name="more_fragment_ic_point_size">20dp</dimen>
 </resources>

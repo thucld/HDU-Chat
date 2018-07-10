@@ -7,7 +7,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="more_fragment_content_row_height">68dp</dimen>
-    <dimen name="more_fragment_ic_point_size">18dp</dimen>
+    <dimen name="more_fragment_ic_point_size">20dp</dimen>
 
     <dimen name="layout_size_50dp">50dp</dimen>
     <dimen name="layout_size_56dp">56dp</dimen>
@@ -50,4 +50,5 @@
     <dimen name="size_05">0.5dp</dimen>
     <dimen name="margin_4">4dp</dimen>
     <dimen name="text_size_20">20dp</dimen>
+    <dimen name="spacing_1dp">1dp</dimen>
 </resources>
