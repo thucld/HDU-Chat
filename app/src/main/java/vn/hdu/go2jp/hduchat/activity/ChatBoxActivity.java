@@ -34,11 +34,10 @@ public class ChatBoxActivity extends AppCompatActivity {
 
     private String title;
     private String idRoom;
-    private RecyclerView lvMessage;
+    private RecyclerView rvMessage;
     private MessageAdapter adapterMessage;
     private EditText edtTextSend;
     private ImageView ivSend;
-    private String uId = FirebaseAuth.getInstance().getUid();
     private final TextWatcher twSend = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -60,10 +59,19 @@ public class ChatBoxActivity extends AppCompatActivity {
             }
         }
     };
-
+    private String uId = FirebaseAuth.getInstance().getUid();
     private TextView tvTitle;
     private List<Message> chatMessages;
     private ImageButton back;
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = activity.getCurrentFocus();
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,17 +83,18 @@ public class ChatBoxActivity extends AppCompatActivity {
         chatMessages = new ArrayList<>();
         fakeMessages();
 
-        lvMessage = findViewById(R.id.lvChat);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false);
-        adapterMessage = new MessageAdapter(this, chatMessages, item -> {});
-        lvMessage.setLayoutManager(layoutManager);
-        lvMessage.setAdapter(adapterMessage);
+        rvMessage = findViewById(R.id.lvChat);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        adapterMessage = new MessageAdapter(this, chatMessages, item -> {
+        });
+        rvMessage.setLayoutManager(layoutManager);
+        rvMessage.setAdapter(adapterMessage);
 
         edtTextSend = findViewById(R.id.edtTextSend);
         edtTextSend.addTextChangedListener(twSend);
         ivSend = findViewById(R.id.ivSend);
         ivSend.setOnClickListener(send -> {
-            Message msg = new Message(uId,edtTextSend.getText().toString(), UserType.SELF, Status.SENT);
+            Message msg = new Message(uId, edtTextSend.getText().toString(), UserType.SELF, Status.SENT);
             edtTextSend.setText("");
             hideKeyboard(this);
             FireBaseUtil.getInstance().sendMessage(idRoom, msg, new OnResult<Boolean>() {
@@ -93,7 +102,7 @@ public class ChatBoxActivity extends AppCompatActivity {
                 public void onResult(Boolean aBoolean) {
                     if (aBoolean) {
                         adapterMessage.notifyDataSetChanged();
-                        lvMessage.scrollToPosition(chatMessages.size()-1);
+                        rvMessage.scrollToPosition(chatMessages.size() - 1);
                     }
                 }
             });
@@ -110,25 +119,16 @@ public class ChatBoxActivity extends AppCompatActivity {
     }
 
     private void fakeMessages() {
-        chatMessages.add(new Message("QYYMQmqKrZfkbiflH6EK34WWaTA3","はじめまして。 私たちは　Mobile-Team　です。", UserType.OTHER, Status.DELIVERED));
-        chatMessages.add(new Message("QYYMQmqKrZfkbiflH6EK34WWaTA3","どうぞ。ぞろしく　おねがいします。", UserType.OTHER, Status.DELIVERED));
+        chatMessages.add(new Message("QYYMQmqKrZfkbiflH6EK34WWaTA3", "はじめまして。 私たちは　Mobile-Team　です。", UserType.OTHER, Status.DELIVERED));
+        chatMessages.add(new Message("QYYMQmqKrZfkbiflH6EK34WWaTA3", "どうぞ。ぞろしく　おねがいします。", UserType.OTHER, Status.DELIVERED));
         FireBaseUtil.getInstance().getListMessage(idRoom, new OnResult<Message>() {
             @Override
             public void onResult(Message messages) {
                 chatMessages.add(messages);
                 adapterMessage.notifyDataSetChanged();
-                lvMessage.scrollToPosition(chatMessages.size()-1);
+                rvMessage.scrollToPosition(chatMessages.size() - 1);
             }
         });
-    }
-
-    public static void hideKeyboard(Activity activity) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        View view = activity.getCurrentFocus();
-        if (view == null) {
-            view = new View(activity);
-        }
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private void extractBundle() {
