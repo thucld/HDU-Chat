@@ -13,7 +13,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -24,7 +23,6 @@ import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.model.constant.Status;
 import vn.hdu.go2jp.hduchat.model.constant.UserType;
 import vn.hdu.go2jp.hduchat.model.data.Message;
-import vn.hdu.go2jp.hduchat.model.data.User;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
 public class ChatBoxActivity extends AppCompatActivity {
@@ -71,6 +69,7 @@ public class ChatBoxActivity extends AppCompatActivity {
 
         chatMessages = new ArrayList<>();
         fakeMessages();
+
         adapterMessage = new MessageAdapter(chatMessages, this);
         lvMessage = findViewById(R.id.lvChat);
         lvMessage.setAdapter(adapterMessage);
