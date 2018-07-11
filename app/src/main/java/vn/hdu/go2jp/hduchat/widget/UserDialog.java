@@ -4,14 +4,15 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.Date;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.activity.ChatBoxActivity;
@@ -23,6 +24,7 @@ import vn.hdu.go2jp.hduchat.util.ToastUtil;
 public class UserDialog {
     private TextView txtv_name, txtv_id;
     private LinearLayout btn_edit, btn_home, btn_keep, btn_chat, btn_call, btn_video, friend_follow;
+    private ImageView imAvatar;
 
     private void findControl(Dialog dialog) {
         txtv_name = dialog.findViewById(R.id.name_dialog);
@@ -35,6 +37,7 @@ public class UserDialog {
         btn_call = dialog.findViewById(R.id.btn_call);
         btn_video = dialog.findViewById(R.id.btn_video);
         friend_follow = dialog.findViewById(R.id.friend_follow);
+        imAvatar = dialog.findViewById(R.id.image_dialog);
     }
 
     private void showUserAction() {
@@ -95,6 +98,11 @@ public class UserDialog {
             });
             btn_call.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Call clicked"));
             btn_video.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Video clicked"));
+        }
+        if (!TextUtils.isEmpty(user.getAvatarPath())) {
+            Glide.with(activity)
+                    .load(user.getAvatarPath())
+                    .into(imAvatar);
         }
         dialog.show();
     }

@@ -10,7 +10,11 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.model.data.Message;
@@ -57,9 +61,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         //Bind data to holder
         Message item = mDataSet.get(position);
-
+        Date date = new Date();
+        try {
+            date = new Date((long) item.getTimestamp());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DateFormat formatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
         holder.messageTextView.setText(item.getMessage());
-        holder.timeTextView.setText(item.getTimestamp().toString());
+        holder.timeTextView.setText(formatter.format(date));
         if (position == 0) {
         } else {
         }
