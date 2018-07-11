@@ -22,30 +22,30 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginTop="@dimen/spacing_4dp"
             android:text="@string/str_try_out_timeline_today"
-            android:textSize="@dimen/text_size_20"
+            android:textSize="@dimen/text_size_20dp"
             tools:ignore="SpUsage" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginTop="@dimen/spacing_8dp"
             android:maxWidth="240dp"
             android:text="@string/str_try_out_timeline"
             android:textAlignment="center"
-            android:textSize="@dimen/text_size_14"
+            android:textSize="@dimen/text_size_14dp"
             tools:ignore="SpUsage" />
 
         <Button
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16"
-            android:background="@color/colorGreen"
+            android:layout_marginTop="@dimen/spacing_16dp"
+            android:background="@color/green"
             android:text="@string/str_get_started_posting"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_16"
+            android:textSize="@dimen/text_size_16dp"
             android:textStyle="bold"
             tools:ignore="SpUsage" />
 

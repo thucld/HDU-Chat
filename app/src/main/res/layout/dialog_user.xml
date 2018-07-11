@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="300dp"
-    android:layout_height="400dp"
-    android:background="#ffffffff"
+    android:layout_width="@dimen/size_300dp"
+    android:layout_height="@dimen/size_400dp"
+    android:background="@color/white"
     android:orientation="vertical">
 
-    <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.CardView
         android:id="@+id/image_card"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/size_96dp"
+        android:layout_height="@dimen/size_96dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        app:cardCornerRadius="50dp">
+        android:layout_marginTop="@dimen/spacing_50dp"
+        app:cardCornerRadius="@dimen/radius_50dp">
 
         <ImageView
-            android:id="@+id/image_dialog"
+            android:id="@+id/ivAvatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="@string/str_user_avavtar"
+            android:contentDescription="@string/str_user_avatar"
             android:scaleType="fitXY"
-            android:src="@drawable/user_thumbnail_large_03" />
+            android:src="@drawable/img_user_avatar_default_3" />
 
     </android.support.v7.widget.CardView>
 
@@ -30,8 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/image_card"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/margin_10dp"
-        android:layout_marginTop="@dimen/margin_10dp"
+        android:layout_marginBottom="@dimen/spacing_10dp"
+        android:layout_marginTop="@dimen/spacing_10dp"
         android:gravity="center_horizontal"
         android:text="@string/str_default"
         android:textColor="@color/trout"
@@ -44,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvName"
         android:layout_centerHorizontal="true"
-        android:drawablePadding="@dimen/padding_2dp"
+        android:drawablePadding="@dimen/spacing_2dp"
         android:drawableStart="@drawable/profile_popup_id"
         android:gravity="center_horizontal"
         android:text="@string/str_default"
@@ -64,10 +65,10 @@
             android:id="@+id/btnStarFriend"
             android:layout_width="@dimen/size_25dp"
             android:layout_height="@dimen/size_25dp"
-            android:layout_marginEnd="@dimen/padding_8"
+            android:layout_marginEnd="@dimen/spacing_8dp"
             android:background="@color/gray_athens"
             android:clickable="true"
-            android:padding="@dimen/padding_3dp"
+            android:padding="@dimen/spacing_3dp"
             android:src="@drawable/ic_like_user_dialog"
             tools:ignore="KeyboardInaccessibleWidget" />
 
@@ -77,7 +78,7 @@
             android:layout_height="@dimen/size_25dp"
             android:background="@color/gray_athens"
             android:clickable="true"
-            android:padding="@dimen/padding_3dp"
+            android:padding="@dimen/spacing_3dp"
             android:src="@drawable/ic_home_user_dialog"
             tools:ignore="KeyboardInaccessibleWidget" />
 
@@ -85,163 +86,172 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_1"
+        android:layout_height="@dimen/size_1dp"
         android:layout_above="@id/btn_group"
-        android:layout_marginBottom="@dimen/margin_4"
-        android:layout_marginTop="@dimen/margin_96dp"
+        android:layout_marginBottom="@dimen/spacing_4dp"
+        android:layout_marginTop="@dimen/spacing_96dp"
         android:background="@color/gallery" />
 
     <LinearLayout
         android:id="@+id/btn_group"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="@dimen/size_80dp"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/btnEdit"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/size_0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:padding="@dimen/spacing_16dp"
+            tools:ignore="KeyboardInaccessibleWidget">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:padding="2dp"
-                android:src="@drawable/profile_popup_ic_profileedit" />
+                android:layout_height="@dimen/size_35dp"
+                android:contentDescription="@string/str_edit_user_information"
+                android:padding="@dimen/spacing_2dp"
+                android:src="@drawable/ic_edit_profile_user_dialog" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:text="Edit Profile"
+                android:layout_height="wrap_content"
+                android:text="@string/str_edit_profile"
                 android:textAlignment="center"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_12sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/btnHome"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/size_0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:padding="@dimen/spacing_16dp"
+            tools:ignore="KeyboardInaccessibleWidget">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:padding="2dp"
-                android:src="@drawable/profile_popup_ic_home" />
+                android:src="@drawable/ic_home_user_dialog_normal" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:text="Home"
+                android:layout_height="wrap_content"
+                android:text="@string/str_home"
                 android:textAlignment="center"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_12sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/btnKeep"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/size_0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:padding="@dimen/spacing_16dp"
+            tools:ignore="KeyboardInaccessibleWidget">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:padding="2dp"
+                android:layout_height="@dimen/size_35dp"
+                android:padding="@dimen/spacing_2dp"
                 android:src="@drawable/profile_popup_ic_keep" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:text="Keep"
+                android:layout_height="wrap_content"
+                android:text="@string/str_keep"
                 android:textAlignment="center"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_12sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/btnChat"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/size_0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
             android:orientation="vertical"
-            android:padding="15dp"
+            android:padding="@dimen/spacing_16dp"
             android:visibility="gone">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:padding="2dp"
-                android:src="@drawable/profile_popup_ic_chat" />
+                android:layout_height="@dimen/size_35dp"
+                android:contentDescription="@string/str_goto_chat_box"
+                android:padding="@dimen/spacing_2dp"
+                android:src="@drawable/ic_chat_user_dialog_normal" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:text="Chat"
+                android:layout_height="wrap_content"
+                android:text="@string/str_chat"
                 android:textAlignment="center"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_12sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/btnCall"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/size_0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:orientation="vertical"
-            android:padding="15dp"
-            android:visibility="gone">
+            android:padding="@dimen/spacing_16dp"
+            android:visibility="gone"
+            tools:ignore="KeyboardInaccessibleWidget">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:padding="2dp"
-                android:src="@drawable/profile_popup_ic_freecall" />
+                android:layout_height="@dimen/size_35dp"
+                android:contentDescription="@string/str_call"
+                android:padding="@dimen/spacing_2dp"
+                android:src="@drawable/ic_call_user_dialog_normal" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:text="Free Call"
+                android:layout_height="wrap_content"
+                android:text="@string/str_free_call"
                 android:textAlignment="center"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_12sp" />
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/btnVideo"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/size_0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:orientation="vertical"
-            android:padding="15dp"
-            android:visibility="gone">
+            android:padding="@dimen/spacing_16dp"
+            android:visibility="gone"
+            tools:ignore="KeyboardInaccessibleWidget">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:padding="2dp"
-                android:src="@drawable/profile_popup_ic_videocall" />
+                android:layout_height="@dimen/size_35dp"
+                android:padding="@dimen/spacing_2dp"
+                android:src="@drawable/ic_video_call_user_dialog_normal" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:text="Video Call"
+                android:layout_height="wrap_content"
+                android:text="@string/str_video_call"
                 android:textAlignment="center"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_12sp" />
 
         </LinearLayout>
 

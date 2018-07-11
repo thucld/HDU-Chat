@@ -36,26 +36,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        initial();
-        FireBaseUtil.getInstance().test();
-        startService(new Intent(this, ChatService.class));
-    }
-
-    private void initial() {
-
         setupToolBar();
         setupTabLayout();
         setupViewPager();
-        findViewById(R.id.btSearchContact).setOnClickListener(v -> {
-            toolbar.setTitle("search clicked");
-            new ToastUtil().showLong(getApplicationContext(), "search clicked!");
-        });
-        findViewById(R.id.btAddPerson).setOnClickListener(v -> {
-            toolbar.setTitle("addPerson clicked");
-            new ToastUtil().showShort(getApplicationContext(), "addPerson clicked!");
-        });
-
+        setupEvents();
+        FireBaseUtil.getInstance().test();
+        startService(new Intent(this, ChatService.class));
     }
 
     private void setupToolBar() {
@@ -64,6 +50,15 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("Recent");
 //        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.header_ic_setting);
 //        toolbar.setOverflowIcon(drawable);
+    }
+
+    private void setupTabLayout() {
+        tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.CONTACT.getIconSelected())).setTag(TAB.CONTACT));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.CHAT.getIcon())).setTag(TAB.CHAT));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.TIMELINE.getIcon())).setTag(TAB.TIMELINE));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.CALL.getIcon())).setTag(TAB.CALL));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.MORE.getIcon())).setTag(TAB.MORE));
     }
 
     private void setupViewPager() {
@@ -129,13 +124,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setupTabLayout() {
-        tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.CONTACT.getIconSelected())).setTag(TAB.CONTACT));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.CHAT.getIcon())).setTag(TAB.CHAT));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.TIMELINE.getIcon())).setTag(TAB.TIMELINE));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.CALL.getIcon())).setTag(TAB.CALL));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.MORE.getIcon())).setTag(TAB.MORE));
+    private void setupEvents() {
+        findViewById(R.id.btSearchContact).setOnClickListener(v -> {
+            toolbar.setTitle("search clicked");
+            new ToastUtil().showLong(getApplicationContext(), "search clicked!");
+        });
+        findViewById(R.id.btAddPerson).setOnClickListener(v -> {
+            toolbar.setTitle("addPerson clicked");
+            new ToastUtil().showShort(getApplicationContext(), "addPerson clicked!");
+        });
     }
 
     @NonNull
@@ -154,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
         switch (id) {
             case R.id.setting:
@@ -164,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
                 new ToastUtil().showShort(getApplicationContext(), "About");
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

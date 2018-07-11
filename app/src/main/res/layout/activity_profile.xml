@@ -10,16 +10,16 @@
     <RelativeLayout
         android:id="@+id/pToolBar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolBarHeight"
-        android:background="@color/colorPrimaryDark">
+        android:layout_height="@dimen/size_60dp"
+        android:background="@color/river_bed">
 
         <ImageView
             android:id="@+id/back"
-            android:layout_width="@dimen/toolBarHeight"
+            android:layout_width="@dimen/size_60dp"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/str_back"
-            android:padding="@dimen/padding_8dp"
+            android:padding="@dimen/spacing_8dp"
             android:src="@drawable/ic_keyboard_arrow_left_white_24dp" />
 
         <TextView
@@ -27,14 +27,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/margin_8"
+            android:layout_marginStart="@dimen/spacing_8dp"
             android:layout_toEndOf="@id/back"
             android:ellipsize="end"
             android:maxLines="1"
-            android:padding="@dimen/padding_4dp"
+            android:padding="@dimen/spacing_4dp"
             android:text="Edit Profile"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_20"
+            android:textSize="@dimen/text_size_20dp"
             tools:ignore="SpUsage" />
 
     </RelativeLayout>
@@ -43,15 +43,15 @@
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:background="@color/alabaster"
-        android:paddingBottom="@dimen/padding_8"
-        android:paddingTop="@dimen/padding_8">
+        android:paddingBottom="@dimen/spacing_8dp"
+        android:paddingTop="@dimen/spacing_8dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civAvatar"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginStart="@dimen/spacing_16dp"
             android:background="@color/transparent"
             android:src="@drawable/ic_launcher_background"
             app:civ_border_width="0dp" />
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginStart="@dimen/spacing_16dp"
             android:layout_toEndOf="@+id/civAvatar"
             android:orientation="vertical">
 
@@ -68,43 +68,43 @@
                 android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_2"
+                android:layout_margin="@dimen/spacing_2dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@string/str_email"
                 android:textColor="@color/aluminium"
-                android:textSize="@dimen/text_size_16"
+                android:textSize="@dimen/text_size_16dp"
                 tools:ignore="SpUsage" />
 
             <TextView
                 android:id="@+id/tvEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_2"
+                android:layout_margin="@dimen/spacing_2dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="test@2jp.vn"
-                android:textColor="@color/steelBlue"
-                android:textSize="@dimen/text_size_20"
+                android:textColor="@color/blue_steel"
+                android:textSize="@dimen/text_size_20dp"
                 tools:ignore="SpUsage" />
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_4"
+                android:layout_marginTop="@dimen/spacing_4dp"
                 android:background="@drawable/btn_round_home"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/padding_4dp"
-                android:paddingEnd="@dimen/padding_8dp"
-                android:paddingStart="@dimen/padding_4dp"
-                android:paddingTop="@dimen/padding_4dp">
+                android:paddingBottom="@dimen/spacing_4dp"
+                android:paddingEnd="@dimen/spacing_8dp"
+                android:paddingStart="@dimen/spacing_4dp"
+                android:paddingTop="@dimen/spacing_4dp">
 
                 <ImageView
                     android:id="@+id/icButton"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/padding_1"
+                    android:padding="@dimen/spacing_1dp"
                     android:src="@drawable/ic_home_fiord" />
 
                 <TextView
@@ -114,7 +114,7 @@
                     android:text="@string/str_home"
                     android:textAlignment="center"
                     android:textColor="@color/fiord"
-                    android:textSize="@dimen/text_size_12"
+                    android:textSize="@dimen/text_size_12dp"
                     android:textStyle="normal"
                     tools:ignore="SpUsage" />
 
@@ -144,7 +144,7 @@
             android:layout_marginTop="16dp"
             android:layout_toStartOf="@+id/cbShareProfile"
             android:text="@string/str_title_spot"
-            android:textSize="@dimen/text_size_16"
+            android:textSize="@dimen/text_size_16dp"
             android:textStyle="normal"
             tools:ignore="SpUsage" />
 
@@ -158,7 +158,7 @@
             android:layout_toStartOf="@+id/cbShareProfile"
             android:text="@string/str_description_spot"
             android:textColor="@color/aluminium"
-            android:textSize="@dimen/text_size_12"
+            android:textSize="@dimen/text_size_12dp"
             tools:ignore="SpUsage" />
 
         <CheckBox
@@ -174,7 +174,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginStart="@dimen/spacing_16dp"
         android:background="@color/gallery" />
 
     <RelativeLayout
@@ -190,7 +190,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginTop="16dp"
             android:text="@string/str_title_display_name"
-            android:textSize="@dimen/text_size_16"
+            android:textSize="@dimen/text_size_16dp"
             android:textStyle="normal"
             tools:ignore="SpUsage" />
 
@@ -202,7 +202,7 @@
             android:layout_marginBottom="16dp"
             android:text="@string/str_not_set"
             android:textColor="@color/aluminium"
-            android:textSize="@dimen/text_size_12"
+            android:textSize="@dimen/text_size_12dp"
             tools:ignore="SpUsage" />
 
     </RelativeLayout>
@@ -210,7 +210,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginStart="@dimen/spacing_16dp"
         android:background="@color/gallery" />
 
     <RelativeLayout
@@ -226,7 +226,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginTop="16dp"
             android:text="@string/str_title_status_message"
-            android:textSize="@dimen/text_size_16"
+            android:textSize="@dimen/text_size_16dp"
             android:textStyle="normal"
             tools:ignore="SpUsage" />
 
@@ -238,7 +238,7 @@
             android:layout_marginBottom="16dp"
             android:text="@string/str_not_set"
             android:textColor="@color/aluminium"
-            android:textSize="@dimen/text_size_12"
+            android:textSize="@dimen/text_size_12dp"
             tools:ignore="SpUsage" />
 
     </RelativeLayout>
@@ -246,7 +246,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginStart="@dimen/spacing_16dp"
         android:background="@color/gallery" />
 
     <RelativeLayout
@@ -264,7 +264,7 @@
             android:layout_marginTop="16dp"
             android:layout_toStartOf="@+id/cbAddByID"
             android:text="@string/str_title_friend_request_by_id"
-            android:textSize="@dimen/text_size_16"
+            android:textSize="@dimen/text_size_16dp"
             android:textStyle="normal"
             tools:ignore="SpUsage" />
 
@@ -277,7 +277,7 @@
             android:layout_toStartOf="@+id/cbAddByID"
             android:text="@string/str_description_friend_request_by_id"
             android:textColor="@color/aluminium"
-            android:textSize="@dimen/text_size_12"
+            android:textSize="@dimen/text_size_12dp"
             tools:ignore="SpUsage" />
 
         <CheckBox
@@ -294,7 +294,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginStart="@dimen/spacing_16dp"
         android:background="@color/gallery" />
 
     <TextView
@@ -303,17 +303,17 @@
         android:layout_height="wrap_content"
         android:paddingBottom="16dp"
         android:paddingEnd="0dp"
-        android:paddingStart="@dimen/padding_16"
+        android:paddingStart="@dimen/spacing_16dp"
         android:paddingTop="16dp"
         android:text="@string/str_title_qr_code"
-        android:textSize="@dimen/text_size_16"
+        android:textSize="@dimen/text_size_16dp"
         android:textStyle="normal"
         tools:ignore="SpUsage" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginStart="@dimen/spacing_16dp"
         android:background="@color/gallery" />
 
     <RelativeLayout
@@ -329,7 +329,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginTop="16dp"
             android:text="@string/str_title_birthday"
-            android:textSize="@dimen/text_size_16"
+            android:textSize="@dimen/text_size_16dp"
             android:textStyle="normal"
             tools:ignore="SpUsage" />
 
@@ -341,7 +341,7 @@
             android:layout_marginBottom="16dp"
             android:text="@string/str_not_set"
             android:textColor="@color/aluminium"
-            android:textSize="@dimen/text_size_12"
+            android:textSize="@dimen/text_size_12dp"
             tools:ignore="SpUsage" />
 
     </RelativeLayout>
@@ -349,7 +349,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginStart="@dimen/spacing_16dp"
         android:background="@color/gallery" />
 
 </LinearLayout>

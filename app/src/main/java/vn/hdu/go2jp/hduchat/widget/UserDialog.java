@@ -4,15 +4,19 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.activity.ChatBoxActivity;
+import vn.hdu.go2jp.hduchat.activity.ProfileActivity;
 import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.model.data.User;
 import vn.hdu.go2jp.hduchat.util.ToastUtil;
@@ -26,6 +30,7 @@ public class UserDialog {
     private LinearLayout btnCall;
     private LinearLayout btnVideo;
     private LinearLayout llFollowFriend;
+    private ImageView ivAvatar;
 
     private void findControl(Dialog dialog) {
         tvName = dialog.findViewById(R.id.tvName);
@@ -38,6 +43,7 @@ public class UserDialog {
         btnCall = dialog.findViewById(R.id.btnCall);
         btnVideo = dialog.findViewById(R.id.btnVideo);
         llFollowFriend = dialog.findViewById(R.id.llFollowFriend);
+        ivAvatar = dialog.findViewById(R.id.ivAvatar);
     }
 
     private void showUserAction() {
@@ -83,9 +89,9 @@ public class UserDialog {
 
         if (user.getUserId().equals(FirebaseAuth.getInstance().getUid())) {
             showUserAction();
-            btnKeep.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Keep clicked"));
-            btnHome.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Home clicked"));
-            btnEdit.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Edit clicked"));
+            btnKeep.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_keep)));
+            btnHome.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_home)));
+            btnEdit.setOnClickListener(v -> activity.startActivity(new Intent(activity, ProfileActivity.class)));
         } else {
             showFriendAction();
             btnChat.setOnClickListener(v -> {
@@ -96,8 +102,13 @@ public class UserDialog {
                 intent.putExtras(bundle);
                 activity.startActivity(intent);
             });
-            btnCall.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Call clicked"));
-            btnVideo.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Video clicked"));
+            btnCall.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_call)));
+            btnVideo.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_video_call)));
+        }
+        if (!TextUtils.isEmpty(user.getAvatarPath())) {
+            Glide.with(activity)
+                    .load(user.getAvatarPath())
+                    .into(ivAvatar);
         }
         dialog.show();
     }

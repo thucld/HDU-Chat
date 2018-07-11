@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#464E65</color>
-    <color name="colorMsgBox">#63666e</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="colorGreen">#4ECD00</color>
-    <color name="colorBlack">#000</color>
-    <color name="colorTheme">#464E65</color>
-    <color name="colorTextWhite">#ffffff</color>
-    <color name="colorTransparent">#00000000</color>
     <color name="transparent">@android:color/transparent</color>
     <color name="white">@android:color/white</color>
-    <color name="alabaster">#F7F7F7</color>
-    <color name="gallery">#f0f0f0</color>
-    <color name="orange">@android:color/holo_blue_light</color>
-    <color name="gray">@android:color/darker_gray</color>
+    <color name="black">@android:color/black</color>
+    <color name="gray">#808080</color>
+    <color name="green">#4ECD00</color>
+    <color name="orange">#FF681F</color>
     <color name="trout">#4C5266</color>
-    <color name="colorSilverChalice">#aba8a8</color>
-    <color name="steelBlue">#6089C0</color>
-    <color name="aluminium">#ABB2BD</color>
-    <color name="mercury">#E3E3E3</color>
-    <color name="fiord">#414961</color>
-
-    <color name="colorGallery">#F0F0F0</color>
-    <color name="colorCodGray">#1E1E1E</color>
-    <color name="colorMineShaft">#333333</color>
-    <color name="colorCadetBlue">#ACB3BE</color>
+    <color name="gray_cod">#1E1E1E</color>
+    <color name="gray_shutter">#63666e</color>
+    <color name="river_bed">#464E65</color>
     <color name="gray_chateau">#9BA2B0</color>
     <color name="gray_athens">#F4F5F7</color>
+    <color name="mine_shaft">#333333</color>
+    <color name="silver_chalice">#aba8a8</color>
+    <color name="aluminium">#ABB2BD</color>
+    <color name="alabaster">#F7F7F7</color>
+    <color name="gallery">#F0F0F0</color>
+    <color name="mercury">#E3E3E3</color>
+    <color name="blue_cadet">#ACB3BE</color>
+    <color name="blue_steel">#6089C0</color>
+    <color name="fiord">#414961</color>
 </resources>

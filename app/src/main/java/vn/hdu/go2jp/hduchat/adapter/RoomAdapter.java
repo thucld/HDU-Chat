@@ -52,7 +52,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> im
         holder.tvNote.setText(item.getLastMessage().getMessage());
         holder.tvLastModified.setText(formatter.format(date));
 
-
 //        int resId = R.drawable.ic_files_bad;
 //        if (ItemRepository.isGood(this.mInsRecordId, item.getId())) {
 //            resId = R.drawable.ic_files_good;

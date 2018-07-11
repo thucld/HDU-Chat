@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
@@ -59,6 +61,11 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             }
         }
         holder.tvName.setText(item.getUserName());
+
+
+        Glide.with(mContext)
+                .load(item.getAvatarPath())
+                .into(holder.imAvatar);
 //        int resId = R.drawable.ic_files_bad;
 //        if (ItemRepository.isGood(this.mInsRecordId, item.getId())) {
 //            resId = R.drawable.ic_files_good;

@@ -4,8 +4,8 @@ import vn.hdu.go2jp.hduchat.R;
 
 public enum TAB {
 
-    CONTACT("Contact", R.drawable.tab_ic_contacts1, R.drawable.tab_ic_contacts_selected,R.id.llContact,true),
-    CHAT("Chat", R.drawable.tab_ic_chats1, R.drawable.tab_ic_chats_selected,R.id.llRoom,false),
+    CONTACT("Contacts", R.drawable.tab_ic_contacts1, R.drawable.tab_ic_contacts_selected,R.id.llContact,true),
+    CHAT("Chats", R.drawable.tab_ic_chats1, R.drawable.tab_ic_chats_selected,R.id.llRoom,false),
     TIMELINE("Timeline", R.drawable.tab_ic_timeline2, R.drawable.tab_ic_timeline_selected,R.id.llTimeLine,true),
     CALL("Call", R.drawable.tab_ic_calls, R.drawable.tab_ic_calls_selected,R.id.llCall,true),
     MORE("More...", R.drawable.tab_ic_more, R.drawable.tab_ic_more_selected,R.id.llMore,true);

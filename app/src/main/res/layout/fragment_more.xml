@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/more_fragment_content_row_height"
+        android:layout_height="@dimen/size_68dp"
         android:background="@color/alabaster"
         android:orientation="horizontal"
         android:weightSum="3">
@@ -24,7 +24,7 @@
                 android:id="@+id/civProfile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/padding_16"
+                android:padding="@dimen/spacing_16dp"
                 android:src="@drawable/ic_launcher_background"
                 app:civ_border_width="0dp" />
 
@@ -50,8 +50,8 @@
 
                     <ImageView
                         android:id="@+id/icPoint"
-                        android:layout_width="@dimen/more_fragment_ic_point_size"
-                        android:layout_height="@dimen/more_fragment_ic_point_size"
+                        android:layout_width="@dimen/size_20dp"
+                        android:layout_height="@dimen/size_20dp"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:gravity="center"
@@ -62,9 +62,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/icPoint"
-                        android:paddingBottom="@dimen/padding_2dp"
+                        android:paddingBottom="@dimen/spacing_2dp"
                         android:text="0"
-                        android:textSize="@dimen/text_size_24"
+                        android:textSize="@dimen/text_size_24dp"
                         android:textStyle="bold"
                         tools:ignore="HardcodedText,SpUsage" />
 
@@ -76,7 +76,7 @@
                     android:background="@drawable/rounded_text"
                     android:text="@string/str_cumulative_point"
                     android:textAlignment="center"
-                    android:textSize="@dimen/text_size_10"
+                    android:textSize="@dimen/text_size_10dp"
                     tools:ignore="SpUsage" />
 
             </LinearLayout>
@@ -89,7 +89,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/str_scan_qr_code"
-            android:padding="@dimen/padding_12"
+            android:padding="@dimen/spacing_12dp"
             android:src="@drawable/ic_qr_code" />
 
     </LinearLayout>
@@ -101,7 +101,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/more_fragment_content_row_height"
+        android:layout_height="@dimen/size_68dp"
         android:orientation="horizontal"
         android:weightSum="3">
 
@@ -111,7 +111,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/str_add_new_friends"
-            android:padding="@dimen/padding_12"
+            android:padding="@dimen/spacing_12dp"
             android:src="@drawable/ic_person_add_black_24dp" />
 
         <ImageView
@@ -120,7 +120,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/str_find_nearby_friends"
-            android:padding="@dimen/padding_12"
+            android:padding="@dimen/spacing_12dp"
             android:src="@drawable/ic_person_pin_circle_black_24dp" />
 
         <ImageView
@@ -129,7 +129,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/str_shake_to_find_friends"
-            android:padding="@dimen/padding_12"
+            android:padding="@dimen/spacing_12dp"
             android:src="@drawable/ic_person_add_black_24dp" />
 
     </LinearLayout>

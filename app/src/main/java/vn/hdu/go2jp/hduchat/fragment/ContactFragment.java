@@ -34,7 +34,7 @@ public class ContactFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
-        FireBaseUtil.getThisUser(user -> {
+        FireBaseUtil.getInstance().getThisUser(user -> {
             userList.add(user);
             FireBaseUtil.getInstance().getListContact(users -> {
                 userList.addAll(users);
