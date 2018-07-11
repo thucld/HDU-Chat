@@ -1,20 +1,25 @@
 package vn.hdu.go2jp.hduchat.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.MessageAdapter;
@@ -29,7 +34,7 @@ public class ChatBoxActivity extends AppCompatActivity {
 
     private String title;
     private String idRoom;
-    private ListView lvMessage;
+    private RecyclerView lvMessage;
     private MessageAdapter adapterMessage;
     private EditText edtTextSend;
     private ImageView ivSend;
@@ -57,7 +62,7 @@ public class ChatBoxActivity extends AppCompatActivity {
     };
 
     private TextView tvTitle;
-    private ArrayList<Message> chatMessages;
+    private List<Message> chatMessages;
     private ImageButton back;
 
     @Override
@@ -70,8 +75,10 @@ public class ChatBoxActivity extends AppCompatActivity {
         chatMessages = new ArrayList<>();
         fakeMessages();
 
-        adapterMessage = new MessageAdapter(chatMessages, this);
         lvMessage = findViewById(R.id.lvChat);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false);
+        adapterMessage = new MessageAdapter(this, chatMessages, item -> {});
+        lvMessage.setLayoutManager(layoutManager);
         lvMessage.setAdapter(adapterMessage);
 
         edtTextSend = findViewById(R.id.edtTextSend);
@@ -80,11 +87,13 @@ public class ChatBoxActivity extends AppCompatActivity {
         ivSend.setOnClickListener(send -> {
             Message msg = new Message(uId,edtTextSend.getText().toString(), UserType.SELF, Status.SENT);
             edtTextSend.setText("");
+            hideKeyboard(this);
             FireBaseUtil.getInstance().sendMessage(idRoom, msg, new OnResult<Boolean>() {
                 @Override
                 public void onResult(Boolean aBoolean) {
                     if (aBoolean) {
-                        adapterMessage.updateData(chatMessages);
+                        adapterMessage.notifyDataSetChanged();
+                        lvMessage.scrollToPosition(chatMessages.size()-1);
                     }
                 }
             });
@@ -107,9 +116,19 @@ public class ChatBoxActivity extends AppCompatActivity {
             @Override
             public void onResult(Message messages) {
                 chatMessages.add(messages);
-                adapterMessage.updateData(chatMessages);
+                adapterMessage.notifyDataSetChanged();
+                lvMessage.scrollToPosition(chatMessages.size()-1);
             }
         });
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = activity.getCurrentFocus();
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private void extractBundle() {
