@@ -15,7 +15,8 @@
         android:background="@color/river_bed"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/str_friends">
 
         <LinearLayout
             android:id="@+id/llContact"
@@ -76,18 +77,21 @@
                 android:layout_height="@dimen/size_48dp"
                 android:background="@drawable/header_ic_contact" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/llMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:visibility="gone">
-        <Button
-            android:id="@+id/btnSettingMore"
-            android:layout_width="@dimen/size_48dp"
-            android:layout_height="@dimen/size_48dp"
-            android:background="@drawable/header_ic_setting" />
-    </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSettingMore"
+                android:layout_width="@dimen/size_48dp"
+                android:layout_height="@dimen/size_48dp"
+                android:background="@drawable/header_ic_setting" />
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/llTimeLine"
             android:layout_width="wrap_content"

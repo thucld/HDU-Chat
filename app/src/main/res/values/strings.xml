@@ -50,6 +50,7 @@
     <string name="str_free_call">Free Call</string>
     <string name="str_call">Call</string>
     <string name="str_video_call">Video Call</string>
-    <string name="msg_log_in_wait">Please! wait for minutes...</string>
+    <string name="msg_log_in_wait">Please! wait for minutes…</string>
+    <string name="str_friends">Friends</string>
 
 </resources>
