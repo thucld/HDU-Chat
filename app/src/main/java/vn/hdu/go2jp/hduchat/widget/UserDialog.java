@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -19,44 +18,50 @@ import vn.hdu.go2jp.hduchat.model.data.User;
 import vn.hdu.go2jp.hduchat.util.ToastUtil;
 
 public class UserDialog {
-    private TextView txtv_name, txtv_id;
-    private LinearLayout btn_edit, btn_home, btn_keep, btn_chat, btn_call, btn_video, friend_follow;
+    private TextView tvName, tvId;
+    private LinearLayout btnEdit;
+    private LinearLayout btnHome;
+    private LinearLayout btnKeep;
+    private LinearLayout btnChat;
+    private LinearLayout btnCall;
+    private LinearLayout btnVideo;
+    private LinearLayout llFollowFriend;
 
     private void findControl(Dialog dialog) {
-        txtv_name = dialog.findViewById(R.id.name_dialog);
-        txtv_id = dialog.findViewById(R.id.uId_dialog);
+        tvName = dialog.findViewById(R.id.tvName);
+        tvId = dialog.findViewById(R.id.tvId);
 
-        btn_edit = dialog.findViewById(R.id.btn_edit);
-        btn_home = dialog.findViewById(R.id.btn_home);
-        btn_keep = dialog.findViewById(R.id.btn_keep);
-        btn_chat = dialog.findViewById(R.id.btn_chat);
-        btn_call = dialog.findViewById(R.id.btn_call);
-        btn_video = dialog.findViewById(R.id.btn_video);
-        friend_follow = dialog.findViewById(R.id.friend_follow);
+        btnEdit = dialog.findViewById(R.id.btnEdit);
+        btnHome = dialog.findViewById(R.id.btnHome);
+        btnKeep = dialog.findViewById(R.id.btnKeep);
+        btnChat = dialog.findViewById(R.id.btnChat);
+        btnCall = dialog.findViewById(R.id.btnCall);
+        btnVideo = dialog.findViewById(R.id.btnVideo);
+        llFollowFriend = dialog.findViewById(R.id.llFollowFriend);
     }
 
     private void showUserAction() {
-        btn_keep.setVisibility(View.VISIBLE);
-        btn_home.setVisibility(View.VISIBLE);
-        btn_edit.setVisibility(View.VISIBLE);
-        txtv_id.setVisibility(View.VISIBLE);
+        btnKeep.setVisibility(View.VISIBLE);
+        btnHome.setVisibility(View.VISIBLE);
+        btnEdit.setVisibility(View.VISIBLE);
+        tvId.setVisibility(View.VISIBLE);
 
-        friend_follow.setVisibility(View.GONE);
-        btn_chat.setVisibility(View.GONE);
-        btn_call.setVisibility(View.GONE);
-        btn_video.setVisibility(View.GONE);
+        llFollowFriend.setVisibility(View.GONE);
+        btnChat.setVisibility(View.GONE);
+        btnCall.setVisibility(View.GONE);
+        btnVideo.setVisibility(View.GONE);
     }
 
     private void showFriendAction() {
-        btn_keep.setVisibility(View.GONE);
-        btn_home.setVisibility(View.GONE);
-        btn_edit.setVisibility(View.GONE);
-        txtv_id.setVisibility(View.GONE);
+        btnKeep.setVisibility(View.GONE);
+        btnHome.setVisibility(View.GONE);
+        btnEdit.setVisibility(View.GONE);
+        tvId.setVisibility(View.GONE);
 
-        friend_follow.setVisibility(View.VISIBLE);
-        btn_chat.setVisibility(View.VISIBLE);
-        btn_call.setVisibility(View.VISIBLE);
-        btn_video.setVisibility(View.VISIBLE);
+        llFollowFriend.setVisibility(View.VISIBLE);
+        btnChat.setVisibility(View.VISIBLE);
+        btnCall.setVisibility(View.VISIBLE);
+        btnVideo.setVisibility(View.VISIBLE);
     }
 
     private String getRoomId(User user) {
@@ -73,17 +78,17 @@ public class UserDialog {
 
         findControl(dialog);
 
-        txtv_name.setText(user.getUserName());
-        txtv_id.setText(user.getUserId());
+        tvName.setText(user.getUserName());
+        tvId.setText(user.getUserId());
 
         if (user.getUserId().equals(FirebaseAuth.getInstance().getUid())) {
             showUserAction();
-            btn_keep.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Keep clicked"));
-            btn_home.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Home clicked"));
-            btn_edit.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Edit clicked"));
+            btnKeep.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Keep clicked"));
+            btnHome.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Home clicked"));
+            btnEdit.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Edit clicked"));
         } else {
             showFriendAction();
-            btn_chat.setOnClickListener(v -> {
+            btnChat.setOnClickListener(v -> {
                 Intent intent = new Intent(activity, ChatBoxActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(AppConst.KEY_ROOM_ID, getRoomId(user));
@@ -91,8 +96,8 @@ public class UserDialog {
                 intent.putExtras(bundle);
                 activity.startActivity(intent);
             });
-            btn_call.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Call clicked"));
-            btn_video.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Video clicked"));
+            btnCall.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Call clicked"));
+            btnVideo.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), "Video clicked"));
         }
         dialog.show();
     }

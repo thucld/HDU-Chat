@@ -27,4 +27,6 @@
     <color name="colorCodGray">#1E1E1E</color>
     <color name="colorMineShaft">#333333</color>
     <color name="colorCadetBlue">#ACB3BE</color>
+    <color name="gray_chateau">#9BA2B0</color>
+    <color name="gray_athens">#F4F5F7</color>
 </resources>

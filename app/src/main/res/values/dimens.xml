@@ -57,4 +57,9 @@
     <dimen name="text_size_18">18dp</dimen>
     <dimen name="text_size_20">20dp</dimen>
     <dimen name="spacing_1dp">1dp</dimen>
+    <dimen name="text_size_20sp">20sp</dimen>
+    <dimen name="text_size_12sp">12sp</dimen>
+    <dimen name="size_25dp">25dp</dimen>
+    <dimen name="padding_3dp">3dp</dimen>
+    <dimen name="margin_96dp">96dp</dimen>
 </resources>

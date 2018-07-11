@@ -40,5 +40,7 @@
     <string name="str_try_out_timeline_today">Try out Timeline today!</string>
     <string name="str_get_started_posting">Get started posting!</string>
     <string name="str_try_out_timeline">Tell your friends what you\'re up to and see what they have to share too!</string>
+    <string name="str_user_avavtar">User Avavtar</string>
+    <string name="str_default">Default</string>
 
 </resources>

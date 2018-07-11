@@ -1,218 +1,250 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
     android:layout_height="400dp"
-    android:background="#ffffffff">
+    android:background="#ffffffff"
+    android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/image_card"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:id="@+id/image_card"
-        app:cardCornerRadius="50dp"
-        android:layout_centerHorizontal="true">
+        app:cardCornerRadius="50dp">
+
         <ImageView
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:scaleType="fitXY"
             android:id="@+id/image_dialog"
-            android:src="@drawable/user_thumbnail_large_03">
-        </ImageView>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/str_user_avavtar"
+            android:scaleType="fitXY"
+            android:src="@drawable/user_thumbnail_large_03" />
+
     </android.support.v7.widget.CardView>
 
     <TextView
+        android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/name_dialog"
         android:layout_below="@+id/image_card"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="Default"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:textColor="#4A4E5C"
         android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal" />
+        android:layout_marginBottom="@dimen/margin_10dp"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/str_default"
+        android:textColor="@color/trout"
+        android:textSize="@dimen/text_size_20sp"
+        android:textStyle="bold" />
+
     <TextView
+        android:id="@+id/tvId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/uId_dialog"
-        android:layout_below="@id/name_dialog"
-        android:drawableLeft="@drawable/profile_popup_id"
-        android:drawablePadding="2dp"
-        android:text="Default"
-        android:textSize="12sp"
-        android:textColor="#9BA2B0"
+        android:layout_below="@id/tvName"
         android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"/>
+        android:drawablePadding="@dimen/padding_2dp"
+        android:drawableStart="@drawable/profile_popup_id"
+        android:gravity="center_horizontal"
+        android:text="@string/str_default"
+        android:textColor="@color/gray_chateau"
+        android:textSize="@dimen/text_size_12sp" />
 
     <LinearLayout
-        android:id="@+id/friend_follow"
-        android:visibility="gone"
-        android:gravity="center"
-        android:layout_below="@id/uId_dialog"
+        android:id="@+id/llFollowFriend"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:orientation="horizontal">
+        android:layout_height="@dimen/size_25dp"
+        android:layout_below="@id/tvId"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
         <ImageView
+            android:id="@+id/btnStarFriend"
+            android:layout_width="@dimen/size_25dp"
+            android:layout_height="@dimen/size_25dp"
+            android:layout_marginEnd="@dimen/padding_8"
+            android:background="@color/gray_athens"
             android:clickable="true"
-            android:id="@+id/btn_star_friend"
-            android:layout_marginRight="8dp"
-            android:padding="3dp"
-            android:src="@drawable/profile_popup_ic_like_normal"
-            android:background="#F4F5F7"
-            android:layout_width="25dp"
-            android:layout_height="25dp" />
+            android:padding="@dimen/padding_3dp"
+            android:src="@drawable/ic_like_user_dialog"
+            tools:ignore="KeyboardInaccessibleWidget" />
+
         <ImageView
-            android:clickable="true"
-            android:padding="3dp"
             android:id="@+id/btn_home_friend"
-            android:src="@drawable/profile_popup_ic_userhome_normal"
-            android:background="#F4F5F7"
-            android:layout_width="25dp"
-            android:layout_height="25dp" />
+            android:layout_width="@dimen/size_25dp"
+            android:layout_height="@dimen/size_25dp"
+            android:background="@color/gray_athens"
+            android:clickable="true"
+            android:padding="@dimen/padding_3dp"
+            android:src="@drawable/ic_home_user_dialog"
+            tools:ignore="KeyboardInaccessibleWidget" />
+
     </LinearLayout>
 
-    <TextView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:id="@+id/hr"
+        android:layout_height="@dimen/size_1"
         android:layout_above="@id/btn_group"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="5dp"
-        android:background="@color/colorGallery" />
+        android:layout_marginBottom="@dimen/margin_4"
+        android:layout_marginTop="@dimen/margin_96dp"
+        android:background="@color/gallery" />
 
     <LinearLayout
         android:id="@+id/btn_group"
-        android:orientation = "horizontal"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
         <LinearLayout
-            android:id="@+id/btn_edit"
-            android:clickable="true"
-            android:layout_weight="1"
+            android:id="@+id/btnEdit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:padding="15dp"
-            android:orientation="vertical">
+            android:layout_weight="1"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="15dp">
+
             <ImageView
-                android:src="@drawable/profile_popup_ic_profileedit"
-                android:padding="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="35dp" />
+                android:layout_height="35dp"
+                android:padding="2dp"
+                android:src="@drawable/profile_popup_ic_profileedit" />
+
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
                 android:text="Edit Profile"
-                android:textSize="12sp"
                 android:textAlignment="center"
-                android:layout_width="match_parent"
-                android:layout_height="15dp" />
+                android:textSize="12sp" />
+
         </LinearLayout>
+
         <LinearLayout
-            android:id="@+id/btn_home"
-            android:clickable="true"
-            android:layout_weight="1"
+            android:id="@+id/btnHome"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:padding="15dp"
-            android:orientation="vertical">
+            android:layout_weight="1"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="15dp">
+
             <ImageView
-                android:src="@drawable/profile_popup_ic_home"
-                android:padding="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="35dp" />
+                android:layout_height="35dp"
+                android:padding="2dp"
+                android:src="@drawable/profile_popup_ic_home" />
+
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
                 android:text="Home"
-                android:textSize="12sp"
                 android:textAlignment="center"
-                android:layout_width="match_parent"
-                android:layout_height="15dp" />
+                android:textSize="12sp" />
+
         </LinearLayout>
+
         <LinearLayout
-            android:id="@+id/btn_keep"
-            android:clickable="true"
-            android:layout_weight="1"
+            android:id="@+id/btnKeep"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:padding="15dp"
-            android:orientation="vertical">
+            android:layout_weight="1"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="15dp">
+
             <ImageView
-                android:src="@drawable/profile_popup_ic_keep"
-                android:padding="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="35dp" />
+                android:layout_height="35dp"
+                android:padding="2dp"
+                android:src="@drawable/profile_popup_ic_keep" />
+
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
                 android:text="Keep"
                 android:textAlignment="center"
-                android:textSize="12sp"
-                android:layout_width="match_parent"
-                android:layout_height="15dp" />
+                android:textSize="12sp" />
+
         </LinearLayout>
+
         <LinearLayout
-            android:id="@+id/btn_chat"
-            android:clickable="true"
-            android:visibility="gone"
-            android:layout_weight="1"
+            android:id="@+id/btnChat"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
             android:padding="15dp"
-            android:orientation="vertical">
+            android:visibility="gone">
+
             <ImageView
-                android:src="@drawable/profile_popup_ic_chat"
-                android:padding="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="35dp" />
+                android:layout_height="35dp"
+                android:padding="2dp"
+                android:src="@drawable/profile_popup_ic_chat" />
+
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
                 android:text="Chat"
-                android:textSize="12sp"
                 android:textAlignment="center"
-                android:layout_width="match_parent"
-                android:layout_height="15dp" />
+                android:textSize="12sp" />
+
         </LinearLayout>
+
         <LinearLayout
-            android:id="@+id/btn_call"
-            android:visibility="gone"
-            android:clickable="true"
-            android:layout_weight="1"
+            android:id="@+id/btnCall"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:orientation="vertical"
             android:padding="15dp"
-            android:orientation="vertical">
+            android:visibility="gone">
+
             <ImageView
-                android:src="@drawable/profile_popup_ic_freecall"
-                android:padding="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="35dp" />
+                android:layout_height="35dp"
+                android:padding="2dp"
+                android:src="@drawable/profile_popup_ic_freecall" />
+
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
                 android:text="Free Call"
-                android:textSize="12sp"
                 android:textAlignment="center"
-                android:layout_width="match_parent"
-                android:layout_height="15dp" />
+                android:textSize="12sp" />
         </LinearLayout>
+
         <LinearLayout
-            android:id="@+id/btn_video"
-            android:visibility="gone"
-            android:clickable="true"
-            android:layout_weight="1"
+            android:id="@+id/btnVideo"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:orientation="vertical"
             android:padding="15dp"
-            android:orientation="vertical">
+            android:visibility="gone">
+
             <ImageView
-                android:src="@drawable/profile_popup_ic_videocall"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
                 android:padding="2dp"
-                android:layout_width="match_parent"
-                android:layout_height="35dp" />
+                android:src="@drawable/profile_popup_ic_videocall" />
+
             <TextView
-                android:text="Video Call"
-                android:textSize="12sp"
-                android:textAlignment="center"
                 android:layout_width="match_parent"
-                android:layout_height="15dp" />
+                android:layout_height="15dp"
+                android:text="Video Call"
+                android:textAlignment="center"
+                android:textSize="12sp" />
+
         </LinearLayout>
+
     </LinearLayout>
+
 </RelativeLayout>
-    <!--android:gravity="center_vertical|center_horizontal"-->
