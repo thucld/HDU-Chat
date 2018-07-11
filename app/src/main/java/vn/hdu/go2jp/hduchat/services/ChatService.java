@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.firebase.database.ChildEventListener;
@@ -14,9 +15,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
-import vn.hdu.go2jp.hduchat.base.OnResult;
+import vn.hdu.go2jp.hduchat.listener.OnResult;
 import vn.hdu.go2jp.hduchat.model.data.Room;
-import vn.hdu.go2jp.hduchat.model.data.User;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
 public class ChatService extends Service {
@@ -29,8 +29,6 @@ public class ChatService extends Service {
 
     @Override
     public void onCreate() {
-
-
         listenerForRoom();
         listenerForSingleRoom();
     }
@@ -75,9 +73,8 @@ public class ChatService extends Service {
     }
 
     public void listenerForSingleRoom() {
-        fireBaseUtil.getThisUser(new OnResult<User>() {
-            @Override
-            public void onResult(User user) {
+        fireBaseUtil.getThisUser(user -> {
+            if (user != null && !TextUtils.isEmpty(user.getUserId()) && user.getContacts() != null) {
                 String ownerId = user.getUserId();
                 for (String friendId : user.getContacts().values()) {
                     String singleRoom = ownerId.compareTo(friendId) < 0 ? ownerId + friendId : friendId + ownerId;

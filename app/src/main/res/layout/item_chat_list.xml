@@ -5,43 +5,43 @@
 
     <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cvAvatar"
-        android:layout_width="@dimen/layout_size_56dp"
-        android:layout_height="@dimen/layout_size_56dp"
-        android:layout_margin="@dimen/margin_8dp"
-        app:cardCornerRadius="@dimen/layout_corner_28dp">
+        android:layout_width="@dimen/size_56dp"
+        android:layout_height="@dimen/size_56dp"
+        android:layout_margin="@dimen/spacing_8dp"
+        app:cardCornerRadius="@dimen/radius_28dp">
 
         <ImageView
             android:id="@+id/imAvatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/user_thumbnail_large_03" />
+            android:src="@drawable/img_user_avatar_default_3" />
     </android.support.v7.widget.CardView>
 
     <LinearLayout
         android:id="@+id/ll_room"
         android:layout_width="wrap_content"
-        android:layout_marginLeft="@dimen/margin_4dp"
+        android:layout_marginLeft="@dimen/spacing_4dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_10dp"
+        android:layout_marginTop="@dimen/spacing_10dp"
         android:layout_toRightOf="@+id/cvAvatar"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvName"
-            android:layout_width="@dimen/layout_size_200dp"
+            android:layout_width="@dimen/size_200dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/colorCodGray"
+            android:textColor="@color/gray_cod"
             android:textSize="@dimen/text_size_18dp" />
 
         <TextView
             android:id="@+id/tvNote"
-            android:layout_width="@dimen/layout_size_200dp"
+            android:layout_width="@dimen/size_200dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textColor="@color/colorCadetBlue" />
+            android:textColor="@color/blue_cadet" />
     </LinearLayout>
 
     <TextView
@@ -50,10 +50,10 @@
         android:layout_height="match_parent"
         android:textAlignment="center"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/margin_12dp"
+        android:layout_marginTop="@dimen/spacing_12dp"
         android:layout_toRightOf="@+id/ll_room"
         android:ellipsize="end"
-        android:textColor="@color/colorCadetBlue"
+        android:textColor="@color/blue_cadet"
         android:maxLines="1" />
 
     <TextView
@@ -61,6 +61,6 @@
         android:layout_toRightOf="@+id/cvAvatar"
         android:layout_height="1dp"
         android:layout_below="@+id/cvAvatar"
-        android:background="@color/colorGallery" />
+        android:background="@color/gallery" />
 
 </RelativeLayout>

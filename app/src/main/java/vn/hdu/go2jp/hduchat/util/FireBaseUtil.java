@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import vn.hdu.go2jp.hduchat.base.OnResult;
+import vn.hdu.go2jp.hduchat.listener.OnResult;
 import vn.hdu.go2jp.hduchat.model.data.Message;
 import vn.hdu.go2jp.hduchat.model.data.Room;
 import vn.hdu.go2jp.hduchat.model.data.User;
@@ -46,7 +46,7 @@ public class FireBaseUtil {
         return instance;
     }
 
-    public static void test() {
+    public void test() {
         String uId = FirebaseAuth.getInstance().getUid();
 //        instance.sendMessage("QYYMQmqKrZfkbiflH6EK34WWaTA3ZRpPa2aHQcZJ23MpVauI0o72u5I2", new Message("Anh nghi la nen load tung phan 1 cua message", new Date(), UserType.SELF, Status.SENT), new OnResult<Boolean>() {
 //            @Override
@@ -152,12 +152,9 @@ public class FireBaseUtil {
 
     public void sendMessage(String roomId, Message message, OnResult<Boolean> status) {
         mDatabase.child("rooms").child(roomId).child("messages").push().setValue(message)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        status.onResult(task.isSuccessful());
-                        mDatabase.child("rooms").child(roomId).child("lastMessage").setValue(message);
-                    }
+                .addOnCompleteListener(task -> {
+                    status.onResult(task.isSuccessful());
+                    mDatabase.child("rooms").child(roomId).child("lastMessage").setValue(message);
                 });
     }
 

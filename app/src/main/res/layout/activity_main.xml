@@ -12,10 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/river_bed"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/str_friends">
 
         <LinearLayout
             android:id="@+id/llContact"
@@ -25,14 +26,14 @@
 
             <Button
                 android:id="@+id/btAddPerson"
-                android:layout_width="@dimen/layout_size_48dp"
-                android:layout_height="@dimen/layout_size_48dp"
+                android:layout_width="@dimen/size_48dp"
+                android:layout_height="@dimen/size_48dp"
                 android:background="@drawable/header_ic_add_friend" />
 
             <Button
                 android:id="@+id/btSearchContact"
-                android:layout_width="@dimen/layout_size_48dp"
-                android:layout_height="@dimen/layout_size_48dp"
+                android:layout_width="@dimen/size_48dp"
+                android:layout_height="@dimen/size_48dp"
                 android:background="@drawable/header_ic_search" />
 
         </LinearLayout>
@@ -46,20 +47,20 @@
 
             <Button
                 android:id="@+id/btCreateGroupChat"
-                android:layout_width="@dimen/layout_size_48dp"
-                android:layout_height="@dimen/layout_size_48dp"
+                android:layout_width="@dimen/size_48dp"
+                android:layout_height="@dimen/size_48dp"
                 android:background="@drawable/header_ic_addchat" />
 
             <Button
                 android:id="@+id/btSearchRoom"
-                android:layout_width="@dimen/layout_size_48dp"
-                android:layout_height="@dimen/layout_size_48dp"
+                android:layout_width="@dimen/size_48dp"
+                android:layout_height="@dimen/size_48dp"
                 android:background="@drawable/header_ic_search" />
 
             <Button
                 android:id="@+id/btnSettingRoom"
-                android:layout_width="@dimen/layout_size_48dp"
-                android:layout_height="@dimen/layout_size_48dp"
+                android:layout_width="@dimen/size_48dp"
+                android:layout_height="@dimen/size_48dp"
                 android:background="@drawable/header_ic_setting" />
         </LinearLayout>
 
@@ -72,22 +73,25 @@
 
             <Button
                 android:id="@+id/btContact"
-                android:layout_width="@dimen/layout_size_48dp"
-                android:layout_height="@dimen/layout_size_48dp"
+                android:layout_width="@dimen/size_48dp"
+                android:layout_height="@dimen/size_48dp"
                 android:background="@drawable/header_ic_contact" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/llMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:visibility="gone">
-        <Button
-            android:id="@+id/btnSettingMore"
-            android:layout_width="@dimen/layout_size_48dp"
-            android:layout_height="@dimen/layout_size_48dp"
-            android:background="@drawable/header_ic_setting" />
-    </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSettingMore"
+                android:layout_width="@dimen/size_48dp"
+                android:layout_height="@dimen/size_48dp"
+                android:background="@drawable/header_ic_setting" />
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/llTimeLine"
             android:layout_width="wrap_content"
@@ -97,20 +101,20 @@
 
             <Button
                 android:id="@+id/btNotice"
-                android:layout_width="@dimen/layout_size_48dp"
-                android:layout_height="@dimen/layout_size_48dp"
+                android:layout_width="@dimen/size_48dp"
+                android:layout_height="@dimen/size_48dp"
                 android:background="@drawable/header_ic_notice" />
 
             <Button
                 android:id="@+id/btDashboard"
-                android:layout_width="@dimen/layout_size_48dp"
-                android:layout_height="@dimen/layout_size_48dp"
+                android:layout_width="@dimen/size_48dp"
+                android:layout_height="@dimen/size_48dp"
                 android:background="@drawable/header_ic_dashboard" />
 
             <Button
                 android:id="@+id/btWritePost"
-                android:layout_width="@dimen/layout_size_48dp"
-                android:layout_height="@dimen/layout_size_48dp"
+                android:layout_width="@dimen/size_48dp"
+                android:layout_height="@dimen/size_48dp"
                 android:background="@drawable/header_ic_writepost" />
         </LinearLayout>
 
@@ -119,9 +123,9 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_size_50dp"
+        android:layout_height="@dimen/size_50dp"
         android:layout_below="@+id/toolbar"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/river_bed"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:tabIndicatorColor="@color/white"
