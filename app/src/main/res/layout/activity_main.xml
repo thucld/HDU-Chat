@@ -17,32 +17,115 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <Button
-            android:id="@+id/search"
-            android:layout_width="@dimen/layout_size_48dp"
-            android:layout_height="@dimen/layout_size_48dp"
-            android:layout_gravity="end"
-            android:background="@drawable/header_ic_search" />
+        <LinearLayout
+            android:id="@+id/llContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end">
 
+            <Button
+                android:id="@+id/btAddPerson"
+                android:layout_width="@dimen/layout_size_48dp"
+                android:layout_height="@dimen/layout_size_48dp"
+                android:background="@drawable/header_ic_add_friend" />
+
+            <Button
+                android:id="@+id/btSearchContact"
+                android:layout_width="@dimen/layout_size_48dp"
+                android:layout_height="@dimen/layout_size_48dp"
+                android:background="@drawable/header_ic_search" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btCreateGroupChat"
+                android:layout_width="@dimen/layout_size_48dp"
+                android:layout_height="@dimen/layout_size_48dp"
+                android:background="@drawable/header_ic_addchat" />
+
+            <Button
+                android:id="@+id/btSearchRoom"
+                android:layout_width="@dimen/layout_size_48dp"
+                android:layout_height="@dimen/layout_size_48dp"
+                android:background="@drawable/header_ic_search" />
+
+            <Button
+                android:id="@+id/btnSettingRoom"
+                android:layout_width="@dimen/layout_size_48dp"
+                android:layout_height="@dimen/layout_size_48dp"
+                android:background="@drawable/header_ic_setting" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llCall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btContact"
+                android:layout_width="@dimen/layout_size_48dp"
+                android:layout_height="@dimen/layout_size_48dp"
+                android:background="@drawable/header_ic_contact" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:visibility="gone">
         <Button
-            android:id="@+id/addPerson"
+            android:id="@+id/btnSettingMore"
             android:layout_width="@dimen/layout_size_48dp"
             android:layout_height="@dimen/layout_size_48dp"
+            android:background="@drawable/header_ic_setting" />
+    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llTimeLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:background="@drawable/header_ic_add_friend" />
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btNotice"
+                android:layout_width="@dimen/layout_size_48dp"
+                android:layout_height="@dimen/layout_size_48dp"
+                android:background="@drawable/header_ic_notice" />
+
+            <Button
+                android:id="@+id/btDashboard"
+                android:layout_width="@dimen/layout_size_48dp"
+                android:layout_height="@dimen/layout_size_48dp"
+                android:background="@drawable/header_ic_dashboard" />
+
+            <Button
+                android:id="@+id/btWritePost"
+                android:layout_width="@dimen/layout_size_48dp"
+                android:layout_height="@dimen/layout_size_48dp"
+                android:background="@drawable/header_ic_writepost" />
+        </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
-        app:tabIndicatorColor="@color/white"
-        app:tabIndicatorHeight="@dimen/size_4dp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_size_50dp"
         android:layout_below="@+id/toolbar"
         android:background="@color/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorHeight="@dimen/size_4dp" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"

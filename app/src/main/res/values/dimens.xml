@@ -7,14 +7,20 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="more_fragment_content_row_height">68dp</dimen>
-    <dimen name="more_fragment_ic_point_size">18dp</dimen>
+    <dimen name="more_fragment_ic_point_size">20dp</dimen>
 
     <dimen name="layout_size_50dp">50dp</dimen>
     <dimen name="layout_size_56dp">56dp</dimen>
     <dimen name="layout_size_48dp">48dp</dimen>
     <dimen name="layout_size_44dp">44dp</dimen>
     <dimen name="layout_size_42dp">42dp</dimen>
+    <dimen name="layout_size_250dp">250dp</dimen>
+    <dimen name="layout_size_200dp">200dp</dimen>
+
     <dimen name="size_4dp">4dp</dimen>
+    <dimen name="size_1">1dp</dimen>
+    <dimen name="size_05">0.5dp</dimen>
+    <dimen name="size_350dp">350dp</dimen>
 
     <dimen name="layout_corner_22dp">22dp</dimen>
     <dimen name="layout_corner_25dp">25dp</dimen>
@@ -24,6 +30,13 @@
     <dimen name="margin_6dp">6dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="margin_12dp">12dp</dimen>
+    <dimen name="margin_20dp">20dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_2">2dp</dimen>
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_2dp">2dp</dimen>
 
     <dimen name="padding_1dp">1dp</dimen>
     <dimen name="padding_2dp">2dp</dimen>
@@ -31,6 +44,9 @@
     <dimen name="padding_8dp">8dp</dimen>
     <dimen name="padding_12">12dp</dimen>
     <dimen name="padding_16">16dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="padding_1">1dp</dimen>
+    <dimen name="padding_6">6dp</dimen>
 
     <dimen name="text_size_10">10dp</dimen>
     <dimen name="text_size_12">12dp</dimen>
@@ -39,15 +55,6 @@
     <dimen name="text_size_24">24dp</dimen>
     <dimen name="text_size_14">14dp</dimen>
     <dimen name="text_size_18">18dp</dimen>
-    <dimen name="margin_16">16dp</dimen>
-    <dimen name="padding_8">8dp</dimen>
-    <dimen name="margin_8">8dp</dimen>
-    <dimen name="margin_2">2dp</dimen>
-    <dimen name="padding_1">1dp</dimen>
-    <dimen name="padding_6">6dp</dimen>
-    <dimen name="size_1">1dp</dimen>
-
-    <dimen name="size_05">0.5dp</dimen>
-    <dimen name="margin_4">4dp</dimen>
     <dimen name="text_size_20">20dp</dimen>
+    <dimen name="spacing_1dp">1dp</dimen>
 </resources>

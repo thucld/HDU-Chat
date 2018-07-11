@@ -20,12 +20,12 @@ import vn.hdu.go2jp.hduchat.widget.UserDialog;
 /**
  * Where to show contacts.
  */
-public class ContactListFragment extends Fragment {
+public class ContactFragment extends Fragment {
     private RecyclerView contactsRecycler;
     private ContactListAdapter contactListAdapter;
     private List<User> userList = new ArrayList<>();
 
-    public ContactListFragment() {
+    public ContactFragment() {
         // Required empty public constructor
     }
 
@@ -33,7 +33,7 @@ public class ContactListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_contact_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_contact, container, false);
         FireBaseUtil.getInstance().getThisUser(user -> {
             userList.add(user);
             FireBaseUtil.getInstance().getListContact(users -> {

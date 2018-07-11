@@ -9,20 +9,19 @@ import android.view.ViewGroup;
 import vn.hdu.go2jp.hduchat.R;
 
 /**
- * Where to show a chat box.
+ * Where to display call history and contacts available to call.
  */
-public class ChatBoxFragment extends Fragment {
+public class CallFragment extends Fragment {
 
-    public ChatBoxFragment() {
+    public CallFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat_box, container, false);
+        return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
 }

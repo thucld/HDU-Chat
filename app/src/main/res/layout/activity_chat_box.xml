@@ -1,4 +1,7 @@
-<vn.hdu.go2jp.hduchat.widget.SizeNotifierRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutChatBox"
     android:layout_width="match_parent"
@@ -44,63 +47,90 @@
         android:id="@+id/lvChat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/llBottom"
-        android:layout_below="@+id/cbToolBar"
+        android:layout_marginTop="@dimen/toolBarHeight"
         android:divider="@drawable/chat_divider"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:scrollbarStyle="outsideOverlay" />
+        android:scrollbarStyle="outsideOverlay"
+        android:layout_marginBottom="@dimen/layout_size_50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/divider"/>
 
-    <RelativeLayout
+    <!-- A horizontal line between the chatbox and RecyclerView -->
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginBottom="0dp"
+        android:background="#dfdfdf"
+        app:layout_constraintBottom_toTopOf="@+id/rlBottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <LinearLayout
         android:id="@+id/rlBottom"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimaryDark"
-        android:orientation="vertical">
+        android:background="#ffffff"
+        android:minHeight="48dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
         <ImageView
-            android:id="@+id/btnEmoji"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/edtTextSend"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:src="@drawable/ic_msg_panel_smiles" />
+            android:id="@+id/chatroom_add"
+            android:layout_width="@dimen/layout_size_48dp"
+            android:layout_height="@dimen/layout_size_48dp"
+            android:padding="@dimen/padding_8dp"
+            android:layout_gravity="bottom"
+            android:src="@drawable/chatroom_ic_add_tf"
+            android:clickable="true"
+            android:gravity="center"/>
+
+        <ImageView
+            android:id="@+id/chatroom_camera"
+            android:layout_width="@dimen/layout_size_48dp"
+            android:layout_height="@dimen/layout_size_48dp"
+            android:padding="@dimen/padding_8dp"
+            android:layout_gravity="bottom"
+            android:src="@drawable/chatroom_ic_camera"
+            android:clickable="true"
+            android:gravity="center"/>
+
+        <ImageView
+            android:id="@+id/chatroom_photo"
+            android:layout_width="@dimen/layout_size_48dp"
+            android:layout_height="@dimen/layout_size_48dp"
+            android:padding="@dimen/padding_8dp"
+            android:layout_gravity="bottom"
+            android:src="@drawable/chatroom_ic_photo"
+            android:clickable="true"
+            android:gravity="center"/>
 
         <EditText
             android:id="@+id/edtTextSend"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_toEndOf="@id/btnEmoji"
-            android:layout_toStartOf="@+id/ivSend"
-            android:hint="@string/type_your_message"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
             android:inputType="textCapSentences"
-            android:maxLines="4"
-            android:paddingEnd="4dp"
-            android:paddingStart="4dp"
-            android:scrollHorizontally="false"
-
-            android:singleLine="false"
-            android:textSize="18sp" />
+            android:background="@android:color/transparent"
+            android:hint="@string/type_your_message"
+            android:maxLines="4" />
 
         <ImageView
             android:id="@+id/ivSend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/edtTextSend"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="8dp"
-            android:paddingEnd="17dp"
-            android:paddingStart="13dp"
-            android:src="@drawable/ic_chat_send" />
+            android:layout_width="@dimen/layout_size_48dp"
+            android:layout_height="@dimen/layout_size_48dp"
+            android:padding="@dimen/padding_12"
+            android:layout_gravity="bottom"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_chat_send"
+            android:clickable="true"
+            android:gravity="center"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
-</vn.hdu.go2jp.hduchat.widget.SizeNotifierRelativeLayout>
+</android.support.constraint.ConstraintLayout>

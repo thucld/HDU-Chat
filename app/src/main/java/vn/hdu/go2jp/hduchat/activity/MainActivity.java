@@ -12,15 +12,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.PagerAdapter;
 import vn.hdu.go2jp.hduchat.common.TAB;
-import vn.hdu.go2jp.hduchat.fragment.ChatBoxFragment;
-import vn.hdu.go2jp.hduchat.fragment.ChatListFragment;
-import vn.hdu.go2jp.hduchat.fragment.ContactListFragment;
+import vn.hdu.go2jp.hduchat.fragment.ContactFragment;
+import vn.hdu.go2jp.hduchat.fragment.RoomFragment;
+import vn.hdu.go2jp.hduchat.fragment.TimelineFragment;
 import vn.hdu.go2jp.hduchat.fragment.MoreFragment;
 import vn.hdu.go2jp.hduchat.services.ChatService;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
@@ -46,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
         setupToolBar();
         setupTabLayout();
         setupViewPager();
-        findViewById(R.id.search).setOnClickListener(v -> {
+        findViewById(R.id.btSearchContact).setOnClickListener(v -> {
             toolbar.setTitle("search clicked");
             new ToastUtil().showLong(getApplicationContext(), "search clicked!");
         });
-        findViewById(R.id.addPerson).setOnClickListener(v -> {
+        findViewById(R.id.btAddPerson).setOnClickListener(v -> {
             toolbar.setTitle("addPerson clicked");
             new ToastUtil().showShort(getApplicationContext(), "addPerson clicked!");
         });
@@ -69,10 +70,10 @@ public class MainActivity extends AppCompatActivity {
         final ViewPager viewPager = findViewById(R.id.viewPager);
 
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new ContactListFragment());
-        fragments.add(new ChatListFragment());
-        fragments.add(new ChatListFragment());
-        fragments.add(new ChatBoxFragment());
+        fragments.add(new ContactFragment());
+        fragments.add(new RoomFragment());
+        fragments.add(new TimelineFragment());
+        fragments.add(new MoreFragment());
         fragments.add(new MoreFragment());
 
         final PagerAdapter adapter = new PagerAdapter
@@ -90,6 +91,17 @@ public class MainActivity extends AppCompatActivity {
                     if (tab.getCustomView() != null) {
                         ImageView view = tab.getCustomView().findViewById(R.id.icon);
                         view.setImageResource(tabTag.getIconSelected());
+                        LinearLayout layout = findViewById(tabTag.getLlId());
+                        layout.setVisibility(View.VISIBLE);
+                    }
+                    if (tabTag.getVisible()) {
+
+//                        getSupportActionBar().hide();
+//                        getSupportActionBar().;
+//                       toolbar.hideOverflowMenu();
+                    } else {
+//                        setSupportActionBar(new Toolbar(getBaseContext()));
+//                       toolbar.showOverflowMenu();
                     }
                 }
 
@@ -104,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
                     ImageView view = tab.getCustomView().findViewById(R.id.icon);
 
                     view.setImageResource(tabTag.getIcon());
+
+                    LinearLayout layout = findViewById(tabTag.getLlId());
+                    layout.setVisibility(View.GONE);
                 }
             }
 

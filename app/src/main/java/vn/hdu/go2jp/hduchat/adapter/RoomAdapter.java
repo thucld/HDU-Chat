@@ -8,18 +8,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.model.data.Room;
 
-public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> implements View.OnClickListener {
+public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> implements View.OnClickListener {
     private Context mContext;
     private List<Room> mDataSet;
     private PostItemListener mItemListener;
     private static int mSelectedItem = -1;
 
-    public ChatListAdapter(Context context, List<Room> dataSet, PostItemListener itemListener) {
+    public RoomAdapter(Context context, List<Room> dataSet, PostItemListener itemListener) {
         this.mContext = context;
         this.mDataSet = dataSet;
         this.mItemListener = itemListener;
@@ -27,10 +31,10 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     }
 
     @Override
-    public ChatListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RoomAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflatedView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_chat_list, parent, false);
-        return new ChatListAdapter.ViewHolder(inflatedView, this.mItemListener);
+        return new RoomAdapter.ViewHolder(inflatedView, this.mItemListener);
     }
 
 
@@ -40,16 +44,13 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 //        if(TextUtils.isEmpty(item.getTitle())){
 //            holder.tvNote.setVisibility(View.GONE);
 //        }
-        holder.tvName.setText(item.getTitle());
+        Date date = new Date((long) item.getLastMessage().getTimestamp());
+        DateFormat formatter = new SimpleDateFormat("dd-MM", Locale.getDefault());
 
-//        Map<String, Message> map = item.getMessages();
-//        Set<Map.Entry<String,Message>> entrySet = map.entrySet();
-//        List<Map.Entry<String, Message>> entryList =
-//                new ArrayList<>(entrySet);
-//        Map.Entry<String, Message> lastEntry =
-//                entryList.get(entryList.size() - 1);
-//        holder.tvNote.setText(lastEntry.getValue().getMessage());
-//        holder.tvLastModified.setText(lastEntry.getValue().getTime().toString());
+
+        holder.tvName.setText(item.getTitle());
+        holder.tvNote.setText(item.getLastMessage().getMessage());
+        holder.tvLastModified.setText(formatter.format(date));
 
 
 //        int resId = R.drawable.ic_files_bad;

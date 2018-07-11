@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vn.hdu.go2jp.hduchat.fragment.ContactListFragment">
+    tools:context="vn.hdu.go2jp.hduchat.fragment.ContactFragment">
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_contact"
         android:layout_width="match_parent"
-        android:layout_margin="@dimen/margin_10dp"
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>

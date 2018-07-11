@@ -164,7 +164,7 @@ public class FireBaseUtil {
     public void getListContact(OnResult<List<User>> onResult) {
         List<User> listUser = new ArrayList<>();
         mDatabase.child("users").child(user.getUid()).child("contacts")
-                .addValueEventListener(new ValueEventListener() {
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.getValue() != null) {
@@ -199,7 +199,7 @@ public class FireBaseUtil {
     public void getListRoom(OnResult<List<Room>> onResult) {
         List<Room> listRoom = new ArrayList<>();
         mDatabase.child("users").child(user.getUid()).child("roomsId")
-                .addValueEventListener(new ValueEventListener() {
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -233,7 +233,7 @@ public class FireBaseUtil {
     public void getContactsInfo(List<String> ids, OnResult<User> onResult) {
         String id = ids.remove(0);
         mDatabase.child("users").child(id)
-                .addValueEventListener(new ValueEventListener() {
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.getValue() != null) {
@@ -253,7 +253,7 @@ public class FireBaseUtil {
     public void getRoomsInfo(List<String> ids, OnResult<Room> onResult) {
         String id = ids.remove(0);
         mDatabase.child("rooms").child(id)
-                .addValueEventListener(new ValueEventListener() {
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.getValue() != null) {
