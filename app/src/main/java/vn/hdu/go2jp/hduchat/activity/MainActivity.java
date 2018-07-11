@@ -8,8 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,46 +34,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        initial();
-        FireBaseUtil.getInstance().test();
-        startService(new Intent(this, ChatService.class));
-    }
-
-    private void initial() {
-
         setupToolBar();
         setupTabLayout();
         setupViewPager();
-        findViewById(R.id.btSearchContact).setOnClickListener(v -> {
-            toolbar.setTitle("search clicked");
-            new ToastUtil().showLong(getApplicationContext(), "search clicked!");
-        });
-        findViewById(R.id.btAddPerson).setOnClickListener(v -> {
-            toolbar.setTitle("addPerson clicked");
-            new ToastUtil().showShort(getApplicationContext(), "addPerson clicked!");
-        });
-
+        setupEvents();
+        FireBaseUtil.getInstance().test();
+        startService(new Intent(this, ChatService.class));
     }
 
     private void setupToolBar() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Recent");
-//        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.header_ic_setting);
-//        toolbar.setOverflowIcon(drawable);
+    }
+
+    private void setupTabLayout() {
+        tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.CONTACT.getIconSelected())).setTag(TAB.CONTACT));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.CHAT.getIcon())).setTag(TAB.CHAT));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.TIMELINE.getIcon())).setTag(TAB.TIMELINE));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.CALL.getIcon())).setTag(TAB.CALL));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.MORE.getIcon())).setTag(TAB.MORE));
     }
 
     private void setupViewPager() {
         final ViewPager viewPager = findViewById(R.id.viewPager);
-
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new ContactFragment());
-        fragments.add(new RoomFragment());
-        fragments.add(new TimelineFragment());
-        fragments.add(new MoreFragment());
-        fragments.add(new MoreFragment());
-
+        ArrayList<Fragment> fragments = getFragments();
         final PagerAdapter adapter = new PagerAdapter
                 (getSupportFragmentManager(), fragments, tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -91,20 +74,10 @@ public class MainActivity extends AppCompatActivity {
                     if (tab.getCustomView() != null) {
                         ImageView view = tab.getCustomView().findViewById(R.id.icon);
                         view.setImageResource(tabTag.getIconSelected());
-                        LinearLayout layout = findViewById(tabTag.getLlId());
+                        LinearLayout layout = findViewById(tabTag.getResIdToolbarView());
                         layout.setVisibility(View.VISIBLE);
                     }
-                    if (tabTag.getVisible()) {
-
-//                        getSupportActionBar().hide();
-//                        getSupportActionBar().;
-//                       toolbar.hideOverflowMenu();
-                    } else {
-//                        setSupportActionBar(new Toolbar(getBaseContext()));
-//                       toolbar.showOverflowMenu();
-                    }
                 }
-
             }
 
 
@@ -112,12 +85,9 @@ public class MainActivity extends AppCompatActivity {
             public void onTabUnselected(TabLayout.Tab tab) {
                 TAB tabTag = (TAB) tab.getTag();
                 if (tab.getCustomView() != null && tabTag != null) {
-//                    View view = tab.getCustomView().findViewById(R.id.icon);
                     ImageView view = tab.getCustomView().findViewById(R.id.icon);
-
                     view.setImageResource(tabTag.getIcon());
-
-                    LinearLayout layout = findViewById(tabTag.getLlId());
+                    LinearLayout layout = findViewById(tabTag.getResIdToolbarView());
                     layout.setVisibility(View.GONE);
                 }
             }
@@ -129,13 +99,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setupTabLayout() {
-        tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.CONTACT.getIconSelected())).setTag(TAB.CONTACT));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.CHAT.getIcon())).setTag(TAB.CHAT));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.TIMELINE.getIcon())).setTag(TAB.TIMELINE));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.CALL.getIcon())).setTag(TAB.CALL));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getView(TAB.MORE.getIcon())).setTag(TAB.MORE));
+    private void setupEvents() {
+        findViewById(R.id.btSearchContact).setOnClickListener(v -> {
+            toolbar.setTitle("search clicked");
+            new ToastUtil().showLong(getApplicationContext(), "search clicked!");
+        });
+        findViewById(R.id.btAddPerson).setOnClickListener(v -> {
+            toolbar.setTitle("addPerson clicked");
+            new ToastUtil().showShort(getApplicationContext(), "addPerson clicked!");
+        });
+    }
+
+    @NonNull
+    private ArrayList<Fragment> getFragments() {
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(new ContactFragment());
+        fragments.add(new RoomFragment());
+        fragments.add(new TimelineFragment());
+        fragments.add(new MoreFragment());
+        fragments.add(new MoreFragment());
+        return fragments;
     }
 
     @NonNull
@@ -144,28 +127,6 @@ public class MainActivity extends AppCompatActivity {
         ImageView imageView = view1.findViewById(R.id.icon);
         imageView.setImageResource(icon);
         return view1;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.setting:
-                new ToastUtil().showShort(getApplicationContext(), "Setting");
-                return true;
-            case R.id.about:
-                new ToastUtil().showShort(getApplicationContext(), "About");
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
 }

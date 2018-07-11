@@ -8,9 +8,9 @@
     <EditText
         android:id="@+id/edEmail"
         android:layout_width="@dimen/size_350dp"
-        android:layout_height="@dimen/layout_size_50dp"
+        android:layout_height="@dimen/size_50dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/margin_20dp"
+        android:layout_marginTop="@dimen/spacing_20dp"
         android:hint="@string/str_email_address"
         android:inputType="textEmailAddress"
         android:text="@string/str_email_test"
@@ -19,7 +19,7 @@
     <EditText
         android:id="@+id/edPassword"
         android:layout_width="@dimen/size_350dp"
-        android:layout_height="@dimen/layout_size_50dp"
+        android:layout_height="@dimen/size_50dp"
         android:layout_below="@+id/edEmail"
         android:layout_centerHorizontal="true"
         android:hint="@string/str_password"
@@ -38,17 +38,17 @@
     <Button
         android:id="@+id/btnSignIn"
         android:layout_width="@dimen/size_350dp"
-        android:layout_height="@dimen/layout_size_50dp"
+        android:layout_height="@dimen/size_50dp"
         android:layout_above="@+id/btnSignUp"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
+        android:background="@color/river_bed"
         android:text="@string/ok"
         android:textAllCaps="true" />
 
     <Button
         android:id="@+id/btnSignUp"
         android:layout_width="@dimen/size_350dp"
-        android:layout_height="@dimen/layout_size_50dp"
+        android:layout_height="@dimen/size_50dp"
         android:layout_above="@+id/btnSignInWithFacebook"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
@@ -63,18 +63,18 @@
         android:layout_above="@+id/btnSignInWithFacebook"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:background="@color/colorSilverChalice" />
+        android:background="@color/silver_chalice" />
 
     <TextView
         android:id="@+id/btnSignInWithFacebook"
         android:layout_width="@dimen/size_350dp"
-        android:layout_height="@dimen/layout_size_50dp"
+        android:layout_height="@dimen/size_50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/str_log_in_with_facebook"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/text_size_20"
+        android:textColor="@color/river_bed"
+        android:textSize="@dimen/text_size_20dp"
         tools:ignore="SpUsage" />
 
 </RelativeLayout>

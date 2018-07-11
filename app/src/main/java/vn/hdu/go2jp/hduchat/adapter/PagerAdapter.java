@@ -19,24 +19,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
         if (position >= 0 && position <= fragments.size()) {
             return fragments.get(position);
         } else {
             return null;
         }
-//        switch (position) {
-//            case 0:
-//                return new RoomFragment();
-//            case 1:
-//                return new ChatBoxFragment();
-//            case 2:
-//                return new ContactFragment();
-//            case 3:
-//                return new MoreFragment();
-//            default:
-//                return null;
-//        }
     }
 
     @Override

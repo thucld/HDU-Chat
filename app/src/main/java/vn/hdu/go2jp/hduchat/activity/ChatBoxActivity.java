@@ -23,7 +23,6 @@ import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.MessageAdapter;
-import vn.hdu.go2jp.hduchat.base.OnResult;
 import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.model.constant.Status;
 import vn.hdu.go2jp.hduchat.model.constant.UserType;
@@ -32,12 +31,16 @@ import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
 public class ChatBoxActivity extends AppCompatActivity {
 
-    private String title;
-    private String idRoom;
+    private EditText edtTextSend;
+    private ImageView btnSend;
+    private ImageButton btnBack;
     private RecyclerView rvMessage;
     private MessageAdapter adapterMessage;
-    private EditText edtTextSend;
-    private ImageView ivSend;
+    private List<Message> chatMessages;
+    private String uId = FirebaseAuth.getInstance().getUid();
+    private String title;
+    private String idRoom;
+
     private final TextWatcher twSend = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -45,95 +48,34 @@ public class ChatBoxActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            if (!edtTextSend.getText().toString().equals("")) {
-                ivSend.setImageResource(R.drawable.ic_chat_send);
+            if (!TextUtils.isEmpty(edtTextSend.getText())) {
+                btnSend.setImageResource(R.drawable.ic_chat_send);
             }
         }
 
         @Override
         public void afterTextChanged(Editable editable) {
             if (editable.length() == 0) {
-                ivSend.setImageResource(R.drawable.ic_chat_send);
+                btnSend.setImageResource(R.drawable.ic_chat_send);
             } else {
-                ivSend.setImageResource(R.drawable.ic_chat_send_active);
+                btnSend.setImageResource(R.drawable.ic_chat_send_active);
             }
         }
     };
-    private String uId = FirebaseAuth.getInstance().getUid();
-    private TextView tvTitle;
-    private List<Message> chatMessages;
-    private ImageButton back;
-
-    public static void hideKeyboard(Activity activity) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        View view = activity.getCurrentFocus();
-        if (view == null) {
-            view = new View(activity);
-        }
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_box);
-
         extractBundle();
-
-        chatMessages = new ArrayList<>();
-        fakeMessages();
-
-        rvMessage = findViewById(R.id.lvChat);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        adapterMessage = new MessageAdapter(this, chatMessages, item -> {
-        });
-        rvMessage.setLayoutManager(layoutManager);
-        rvMessage.setAdapter(adapterMessage);
-
-        edtTextSend = findViewById(R.id.edtTextSend);
-        edtTextSend.addTextChangedListener(twSend);
-        ivSend = findViewById(R.id.ivSend);
-        ivSend.setOnClickListener(send -> {
-            Message msg = new Message(uId, edtTextSend.getText().toString(), UserType.SELF, Status.SENT);
-            edtTextSend.setText("");
-            hideKeyboard(this);
-            FireBaseUtil.getInstance().sendMessage(idRoom, msg, new OnResult<Boolean>() {
-                @Override
-                public void onResult(Boolean aBoolean) {
-                    if (aBoolean) {
-                        adapterMessage.notifyDataSetChanged();
-                        rvMessage.scrollToPosition(chatMessages.size() - 1);
-                    }
-                }
-            });
-        });
-        tvTitle = findViewById(R.id.tvReceiver);
-        if (!TextUtils.isEmpty(title)) {
-            tvTitle.setText(title);
-        }
-
-        back = findViewById(R.id.back);
-        back.setOnClickListener(click -> {
-            this.finish();
-        });
-    }
-
-    private void fakeMessages() {
-        chatMessages.add(new Message("QYYMQmqKrZfkbiflH6EK34WWaTA3", "はじめまして。 私たちは　Mobile-Team　です。", UserType.OTHER, Status.DELIVERED));
-        chatMessages.add(new Message("QYYMQmqKrZfkbiflH6EK34WWaTA3", "どうぞ。ぞろしく　おねがいします。", UserType.OTHER, Status.DELIVERED));
-        FireBaseUtil.getInstance().getListMessage(idRoom, new OnResult<Message>() {
-            @Override
-            public void onResult(Message messages) {
-                chatMessages.add(messages);
-                adapterMessage.notifyDataSetChanged();
-                rvMessage.scrollToPosition(chatMessages.size() - 1);
-            }
-        });
+        initViews();
+        setupEvents();
+        getData();
     }
 
     private void extractBundle() {
         Intent intent = this.getIntent();
-        if (intent != null) {
+        if (intent != null && intent.getExtras() != null) {
             Bundle bundle = intent.getExtras();
             if (!TextUtils.isEmpty(bundle.getString(AppConst.KEY_ROOM_ID))) {
                 idRoom = bundle.getString(AppConst.KEY_ROOM_ID);
@@ -141,6 +83,60 @@ public class ChatBoxActivity extends AppCompatActivity {
             if (!TextUtils.isEmpty(bundle.getString(AppConst.KEY_ROOM_TITLE))) {
                 title = bundle.getString(AppConst.KEY_ROOM_TITLE);
             }
+        }
+    }
+
+    private void initViews() {
+        edtTextSend = findViewById(R.id.edtTextSend);
+        TextView tvTitle = findViewById(R.id.tvReceiver);
+        if (!TextUtils.isEmpty(title)) {
+            tvTitle.setText(title);
+        }
+        btnBack = findViewById(R.id.back);
+        btnSend = findViewById(R.id.ivSend);
+        rvMessage = findViewById(R.id.lvChat);
+        chatMessages = new ArrayList<>();
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        adapterMessage = new MessageAdapter(this, chatMessages, item -> {
+        });
+        rvMessage.setLayoutManager(layoutManager);
+        rvMessage.setAdapter(adapterMessage);
+    }
+
+    private void setupEvents() {
+        btnBack.setOnClickListener(click -> this.finish());
+        edtTextSend.addTextChangedListener(twSend);
+        btnSend.setOnClickListener(send -> {
+            Message msg = new Message(uId, edtTextSend.getText().toString(), UserType.SELF, Status.SENT);
+            edtTextSend.setText("");
+            hideKeyboard(this);
+            FireBaseUtil.getInstance().sendMessage(idRoom, msg, isSuccess -> {
+                if (isSuccess) {
+                    adapterMessage.notifyDataSetChanged();
+                    rvMessage.scrollToPosition(chatMessages.size() - 1);
+                }
+            });
+        });
+    }
+
+    private void getData() {
+        chatMessages.add(new Message("QYYMQmqKrZfkbiflH6EK34WWaTA3", "はじめまして。 私たちは　Mobile-Team　です。", UserType.OTHER, Status.DELIVERED));
+        chatMessages.add(new Message("QYYMQmqKrZfkbiflH6EK34WWaTA3", "どうぞ。ぞろしく　おねがいします。", UserType.OTHER, Status.DELIVERED));
+        FireBaseUtil.getInstance().getListMessage(idRoom, messages -> {
+            chatMessages.add(messages);
+            adapterMessage.notifyDataSetChanged();
+            rvMessage.scrollToPosition(chatMessages.size() - 1);
+        });
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = activity.getCurrentFocus();
+        if (view == null) {
+            view = new View(activity);
+        }
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 

@@ -13,6 +13,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -29,11 +30,10 @@ import java.util.List;
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.activity.ChatBoxActivity;
 import vn.hdu.go2jp.hduchat.activity.MainActivity;
-import vn.hdu.go2jp.hduchat.base.OnResult;
 import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.model.data.Message;
+import vn.hdu.go2jp.hduchat.listener.OnResult;
 import vn.hdu.go2jp.hduchat.model.data.Room;
-import vn.hdu.go2jp.hduchat.model.data.User;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
 public class ChatService extends Service {
@@ -96,9 +96,8 @@ public class ChatService extends Service {
     }
 
     public void listenerForSingleRoom() {
-        fireBaseUtil.getThisUser(new OnResult<User>() {
-            @Override
-            public void onResult(User user) {
+        fireBaseUtil.getThisUser(user -> {
+            if (user != null && !TextUtils.isEmpty(user.getUserId()) && user.getContacts() != null) {
                 String ownerId = user.getUserId();
                 for (String friendId : user.getContacts().values()) {
                     String singleRoom = ownerId.compareTo(friendId) < 0 ? ownerId + friendId : friendId + ownerId;
