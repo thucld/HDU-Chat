@@ -107,7 +107,7 @@ public class ChatService extends Service {
                     DatabaseReference referenceRoom = FirebaseDatabase.getInstance().getReference().child("rooms/" + singleRoomId + "/messages");
                     referenceRoom.orderByChild("timestamp").startAt(timestamp)
                             .addChildEventListener(new ChildEventListener() {
-                                
+
                                 @Override
                                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                                     Message message = dataSnapshot.getValue(Message.class);
@@ -183,7 +183,7 @@ public class ChatService extends Service {
                 .addAction(replyAction)
                 .setContentIntent(resultPendingIntent)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
-                //.setLargeIcon(null) set USER_IMAGE in here, (Bitmap)
+                //.setLargeIcon(null) set USER_IMAGE in here, (Bitmap) <!-- TODO: Tuanter - add Glide Bitmap Image of User -->
                 .setTicker("Notification Ticker")
                 .setAutoCancel(true)
                 .build();
