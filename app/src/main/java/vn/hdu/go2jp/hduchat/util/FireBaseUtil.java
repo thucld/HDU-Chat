@@ -268,7 +268,7 @@ public class FireBaseUtil {
     }
 
     public void getListMessage(String roomId, OnResult<Message> onResult) {
-        mDatabase.child("rooms").child(roomId).child("messages").limitToLast(10)
+        mDatabase.child("rooms/"+roomId+"/messages").orderByChild("timestamp").limitToLast(10)
                 .addChildEventListener(new ChildEventListener() {
 
                     @Override

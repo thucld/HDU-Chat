@@ -3,6 +3,7 @@ package vn.hdu.go2jp.hduchat.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.RemoteInput;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,16 +32,9 @@ import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
 public class ChatBoxActivity extends AppCompatActivity {
 
+    public static String onChatBoxRoom = null;
     private EditText edtTextSend;
     private ImageView btnSend;
-    private ImageButton btnBack;
-    private RecyclerView rvMessage;
-    private MessageAdapter adapterMessage;
-    private List<Message> chatMessages;
-    private String uId = FirebaseAuth.getInstance().getUid();
-    private String title;
-    private String idRoom;
-
     private final TextWatcher twSend = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -62,6 +56,24 @@ public class ChatBoxActivity extends AppCompatActivity {
             }
         }
     };
+    private ImageButton btnBack;
+    private RecyclerView rvMessage;
+    private MessageAdapter adapterMessage;
+    private List<Message> chatMessages;
+    private String uId = FirebaseAuth.getInstance().getUid();
+    private String title;
+    private String idRoom;
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = activity.getCurrentFocus();
+        if (view == null) {
+            view = new View(activity);
+        }
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +83,18 @@ public class ChatBoxActivity extends AppCompatActivity {
         initViews();
         setupEvents();
         getData();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        onChatBoxRoom = null;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        onChatBoxRoom = idRoom;
     }
 
     private void extractBundle() {
@@ -128,16 +152,4 @@ public class ChatBoxActivity extends AppCompatActivity {
             rvMessage.scrollToPosition(chatMessages.size() - 1);
         });
     }
-
-    public static void hideKeyboard(Activity activity) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        View view = activity.getCurrentFocus();
-        if (view == null) {
-            view = new View(activity);
-        }
-        if (imm != null) {
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
 }
