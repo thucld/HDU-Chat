@@ -36,6 +36,13 @@
                 android:layout_height="@dimen/size_48dp"
                 android:background="@drawable/header_ic_search" />
 
+            <Button
+                android:id="@+id/btnSettingContact"
+                android:layout_width="@dimen/size_48dp"
+                android:layout_height="@dimen/size_48dp"
+                android:background="@drawable/header_ic_setting" />
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -56,13 +63,29 @@
                 android:layout_width="@dimen/size_48dp"
                 android:layout_height="@dimen/size_48dp"
                 android:background="@drawable/header_ic_search" />
-
             <Button
-                android:id="@+id/btnSettingRoom"
+                android:id="@+id/btRoomMore"
                 android:layout_width="@dimen/size_48dp"
                 android:layout_height="@dimen/size_48dp"
-                android:background="@drawable/header_ic_setting" />
+                android:layout_marginRight="@dimen/size_4dp"
+                android:background="@drawable/header_ic_more" />
+
         </LinearLayout>
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/river_bed"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:visibility="gone"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="@string/str_friends">
+
+        </android.support.v7.widget.Toolbar>
+
 
         <LinearLayout
             android:id="@+id/llCall"
@@ -76,6 +99,13 @@
                 android:layout_width="@dimen/size_48dp"
                 android:layout_height="@dimen/size_48dp"
                 android:background="@drawable/header_ic_contact" />
+
+            <Button
+                android:id="@+id/btCallMore"
+                android:layout_width="@dimen/size_48dp"
+                android:layout_height="@dimen/size_48dp"
+                android:layout_marginRight="@dimen/size_4dp"
+                android:background="@drawable/header_ic_more" />
         </LinearLayout>
 
         <LinearLayout
