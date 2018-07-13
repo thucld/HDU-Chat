@@ -11,16 +11,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.PagerAdapter;
 import vn.hdu.go2jp.hduchat.common.TAB;
+import vn.hdu.go2jp.hduchat.fragment.CallFragment;
 import vn.hdu.go2jp.hduchat.fragment.ContactFragment;
+import vn.hdu.go2jp.hduchat.fragment.MoreFragment;
 import vn.hdu.go2jp.hduchat.fragment.RoomFragment;
 import vn.hdu.go2jp.hduchat.fragment.TimelineFragment;
-import vn.hdu.go2jp.hduchat.fragment.MoreFragment;
 import vn.hdu.go2jp.hduchat.services.ChatService;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 import vn.hdu.go2jp.hduchat.util.ToastUtil;
@@ -108,6 +111,32 @@ public class MainActivity extends AppCompatActivity {
             toolbar.setTitle("addPerson clicked");
             new ToastUtil().showShort(getApplicationContext(), "addPerson clicked!");
         });
+        findViewById(R.id.btRoomMore).setOnClickListener(view -> {
+            PopupMenu popup = new PopupMenu(MainActivity.this, findViewById(R.id.btSearchContact));
+            //Inflating the Popup using xml file
+            popup.getMenuInflater().inflate(R.menu.popup_contact_menu, popup.getMenu());
+
+            //registering popup with OnMenuItemClickListener
+            popup.setOnMenuItemClickListener(item -> {
+                Toast.makeText(MainActivity.this, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                return true;
+            });
+
+            popup.show();//showing popup menu
+        });
+        findViewById(R.id.btCallMore).setOnClickListener(view -> {
+            PopupMenu popup = new PopupMenu(MainActivity.this, findViewById(R.id.btContact));
+            //Inflating the Popup using xml file
+            popup.getMenuInflater().inflate(R.menu.popup_call_menu, popup.getMenu());
+
+            //registering popup with OnMenuItemClickListener
+            popup.setOnMenuItemClickListener(item -> {
+                Toast.makeText(MainActivity.this, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                return true;
+            });
+
+            popup.show();//showing popup menu
+        });
     }
 
     @NonNull
@@ -116,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(new ContactFragment());
         fragments.add(new RoomFragment());
         fragments.add(new TimelineFragment());
-        fragments.add(new MoreFragment());
+        fragments.add(new CallFragment());
         fragments.add(new MoreFragment());
         return fragments;
     }

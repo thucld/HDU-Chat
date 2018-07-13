@@ -63,5 +63,7 @@
     <dimen name="radius_25dp">25dp</dimen>
     <dimen name="radius_28dp">28dp</dimen>
     <dimen name="radius_50dp">50dp</dimen>
+    <dimen name="size_110dp">110dp</dimen>
+    <dimen name="size_72">72dp</dimen>
 
 </resources>
