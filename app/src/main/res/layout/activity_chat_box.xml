@@ -10,13 +10,13 @@
     tools:context=".activity.ChatBoxActivity">
 
     <RelativeLayout
-        android:id="@+id/cbToolBar"
+        android:id="@+id/rlToolBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_60dp"
         android:background="@color/river_bed">
 
         <ImageButton
-            android:id="@+id/back"
+            android:id="@+id/btnBack"
             android:layout_width="@dimen/size_60dp"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="8dp"
-            android:layout_toEndOf="@id/back"
+            android:layout_toEndOf="@id/btnBack"
             android:padding="4dp"
             android:text="Receiver"
             android:textColor="@color/white" />
@@ -53,11 +53,11 @@
         android:layout_marginBottom="@dimen/size_50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider"/>
+        app:layout_constraintTop_toTopOf="@+id/tvFoundFriendNumber"/>
 
     <!-- A horizontal line between the chatbox and RecyclerView -->
     <View
-        android:id="@+id/divider"
+        android:id="@+id/tvFoundFriendNumber"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginBottom="0dp"

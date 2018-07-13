@@ -41,6 +41,7 @@
             android:exported="false"
             android:persistent="true" />
 
+        <activity android:name=".activity.CreateRoomActivity"></activity>
     </application>
 
 </manifest>

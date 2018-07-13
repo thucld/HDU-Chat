@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/river_bed</item>
         <item name="colorPrimaryDark">@color/river_bed</item>
-        <item name="colorAccent">@color/green</item>
+        <item name="colorAccent">@color/malachite</item>
     </style>
 
     <!-- Splash Screen theme. -->
@@ -28,6 +28,11 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_12sp</item>
+    </style>
+
+    <style name="checkBoxStyle" parent="Base.Theme.AppCompat">
+        <item name="colorAccent">@color/malachite</item>
+        <item name="android:textColorSecondary">@color/ghost</item>
     </style>
 
 </resources>

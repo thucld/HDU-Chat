@@ -14,7 +14,7 @@
         android:background="@color/river_bed">
 
         <ImageView
-            android:id="@+id/back"
+            android:id="@+id/btnBack"
             android:layout_width="@dimen/size_60dp"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -28,11 +28,11 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/spacing_8dp"
-            android:layout_toEndOf="@id/back"
+            android:layout_toEndOf="@id/btnBack"
             android:ellipsize="end"
             android:maxLines="1"
             android:padding="@dimen/spacing_4dp"
-            android:text="Edit Profile"
+            android:text="@string/str_edit_profile"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_20dp"
             tools:ignore="SpUsage" />
@@ -167,7 +167,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp" />
+            android:layout_marginEnd="16dp"
+            android:theme="@style/checkBoxStyle" />
 
     </RelativeLayout>
 
@@ -287,7 +288,8 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp" />
+            android:layout_marginStart="16dp"
+            android:theme="@style/checkBoxStyle" />
 
     </RelativeLayout>
 

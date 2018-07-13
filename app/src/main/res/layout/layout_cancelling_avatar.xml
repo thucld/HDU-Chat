@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/size_68dp"
+    android:layout_height="@dimen/size_96dp"
+    android:layoutDirection="rtl"
+    android:paddingBottom="@dimen/spacing_16dp"
+    android:paddingEnd="@dimen/spacing_8dp"
+    android:paddingStart="@dimen/spacing_8dp"
+    android:paddingTop="@dimen/spacing_16dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civAvatar"
+        android:layout_width="@dimen/size_44dp"
+        android:layout_height="@dimen/size_44dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_launcher_background" />
+
+    <ImageView
+        android:layout_width="@dimen/size_20dp"
+        android:layout_height="@dimen/size_20dp"
+        android:src="@drawable/ic_cancel"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tvFriendName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/civAvatar"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_size_12dp"
+        tools:ignore="SpUsage" />
+
+</RelativeLayout>
