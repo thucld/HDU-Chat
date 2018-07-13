@@ -116,7 +116,7 @@ public class ChatBoxActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(title)) {
             tvTitle.setText(title);
         }
-        btnBack = findViewById(R.id.back);
+        btnBack = findViewById(R.id.btnBack);
         btnSend = findViewById(R.id.ivSend);
         rvMessage = findViewById(R.id.lvChat);
         chatMessages = new ArrayList<>();

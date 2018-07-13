@@ -7,13 +7,13 @@
     tools:context=".activity.ChatBoxActivity">
 
     <RelativeLayout
-        android:id="@+id/cbToolBar"
+        android:id="@+id/rlToolBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_60dp"
         android:background="@color/river_bed">
 
         <ImageButton
-            android:id="@+id/back"
+            android:id="@+id/btnBack"
             android:layout_width="@dimen/size_60dp"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="8dp"
-            android:layout_toEndOf="@id/back"
+            android:layout_toEndOf="@id/btnBack"
             android:padding="4dp"
             android:text="Receiver"
             android:textColor="@color/white" />
@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/llBottom"
-        android:layout_below="@+id/cbToolBar"
+        android:layout_below="@+id/rlToolBar"
         android:divider="@drawable/chat_divider"
         android:paddingBottom="@dimen/spacing_16dp"
         android:paddingLeft="@dimen/spacing_16dp"

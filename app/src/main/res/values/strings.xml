@@ -40,7 +40,7 @@
     <string name="str_try_out_timeline_today">Try out Timeline today!</string>
     <string name="str_get_started_posting">Get started posting!</string>
     <string name="str_try_out_timeline">Tell your friends what you\'re up to and see what they have to share too!</string>
-    <string name="str_user_avatar">User Avavtar</string>
+    <string name="str_user_avatar">User Avatar</string>
     <string name="str_default">Default</string>
     <string name="str_edit_user_information">Edit user information</string>
     <string name="str_edit_profile">Edit Profile</string>
@@ -52,5 +52,10 @@
     <string name="str_video_call">Video Call</string>
     <string name="msg_log_in_wait">Please! wait for minutes…</string>
     <string name="str_friends">Friends</string>
+    <string name="str_choose_friends">Choose friends</string>
+    <string name="str_chat_with_value">Chat(%d)</string>
+    <string name="str_num_of_friend">Friend %d</string>
+    <string name="str_search_by_name">Search by name</string>
+    <string name="str_remove_text">Remove text</string>
 
 </resources>

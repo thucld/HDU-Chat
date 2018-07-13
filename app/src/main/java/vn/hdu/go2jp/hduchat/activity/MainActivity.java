@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.PagerAdapter;
 import vn.hdu.go2jp.hduchat.common.TAB;
+import vn.hdu.go2jp.hduchat.fragment.CallFragment;
 import vn.hdu.go2jp.hduchat.fragment.ContactFragment;
 import vn.hdu.go2jp.hduchat.fragment.MoreFragment;
 import vn.hdu.go2jp.hduchat.fragment.RoomFragment;
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(new ContactFragment());
         fragments.add(new RoomFragment());
         fragments.add(new TimelineFragment());
-        fragments.add(new MoreFragment());
+        fragments.add(new CallFragment());
         fragments.add(new MoreFragment());
         return fragments;
     }

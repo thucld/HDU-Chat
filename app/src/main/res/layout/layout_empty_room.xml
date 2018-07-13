@@ -38,7 +38,8 @@
             tools:ignore="SpUsage" />
 
         <Button
-            android:layout_width="180dp"
+            android:id="@+id/btnNewChat"
+            android:layout_width="@dimen/size_180dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_16dp"
             android:background="@color/green"

@@ -8,12 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.activity.ChatBoxActivity;
+import vn.hdu.go2jp.hduchat.activity.CreateRoomActivity;
 import vn.hdu.go2jp.hduchat.adapter.RoomAdapter;
 import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.model.data.Room;
@@ -24,8 +26,9 @@ import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
  */
 public class RoomFragment extends Fragment {
 
-    private RecyclerView rvRooms;
     private View llEmpty;
+    private RecyclerView rvRooms;
+    private Button btnNewChat;
     private List<Room> listRoom = new ArrayList<>();
     private RoomAdapter roomAdapter;
 
@@ -40,12 +43,14 @@ public class RoomFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_room, container, false);
         initView(view);
         getRooms();
+        setupEvents();
         return view;
     }
 
     private void initView(View view) {
         llEmpty = view.findViewById(R.id.llEmpty);
-        rvRooms = view.findViewById(R.id.rv_chat_list);
+        btnNewChat = view.findViewById(R.id.btnNewChat);
+        rvRooms = view.findViewById(R.id.rvRooms);
     }
 
     private void getRooms() {
@@ -63,6 +68,13 @@ public class RoomFragment extends Fragment {
                     LinearLayoutManager.VERTICAL, false);
             rvRooms.setLayoutManager(layoutManager);
             rvRooms.setAdapter(roomAdapter);
+        });
+    }
+
+    private void setupEvents() {
+        btnNewChat.setOnClickListener(btnNewChat -> {
+            Intent intent = new Intent(this.getContext(), CreateRoomActivity.class);
+            startActivity(intent);
         });
     }
 

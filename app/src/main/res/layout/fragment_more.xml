@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/spacing_16dp"
-                android:src="@drawable/ic_launcher_background"
+                android:src="@drawable/img_user_avatar_default_3"
                 app:civ_border_width="0dp" />
 
         </FrameLayout>
@@ -112,7 +112,7 @@
             android:layout_weight="1"
             android:contentDescription="@string/str_add_new_friends"
             android:padding="@dimen/spacing_12dp"
-            android:src="@drawable/ic_person_add_black_24dp" />
+            android:src="@drawable/ic_add_friends_more" />
 
         <ImageView
             android:id="@+id/btnNearby"
@@ -120,8 +120,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/str_find_nearby_friends"
-            android:padding="@dimen/spacing_12dp"
-            android:src="@drawable/ic_person_pin_circle_black_24dp" />
+            android:padding="@dimen/spacing_12dp" />
 
         <ImageView
             android:id="@+id/btnShake"
@@ -129,8 +128,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/str_shake_to_find_friends"
-            android:padding="@dimen/spacing_12dp"
-            android:src="@drawable/ic_person_add_black_24dp" />
+            android:padding="@dimen/spacing_12dp" />
 
     </LinearLayout>
 

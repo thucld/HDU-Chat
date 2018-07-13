@@ -14,7 +14,7 @@
         android:background="@color/river_bed">
 
         <ImageView
-            android:id="@+id/back"
+            android:id="@+id/btnBack"
             android:layout_width="@dimen/size_60dp"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -28,11 +28,11 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/spacing_8dp"
-            android:layout_toEndOf="@id/back"
+            android:layout_toEndOf="@id/btnBack"
             android:ellipsize="end"
             android:maxLines="1"
             android:padding="@dimen/spacing_4dp"
-            android:text="Edit Profile"
+            android:text="@string/str_edit_profile"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_20dp"
             tools:ignore="SpUsage" />
@@ -41,15 +41,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="@dimen/size_110dp"
         android:background="@color/alabaster"
         android:paddingBottom="@dimen/spacing_8dp"
         android:paddingTop="@dimen/spacing_8dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civAvatar"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_width="@dimen/size_72"
+            android:layout_height="@dimen/size_72"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/spacing_16dp"
             android:background="@color/transparent"
@@ -126,22 +126,22 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/size_1dp"
         android:background="@color/gallery" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingEnd="0dp"
-        android:paddingStart="16dp">
+        android:paddingStart="@dimen/spacing_16dp">
 
         <TextView
             android:id="@+id/titleShareProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/spacing_16dp"
+            android:layout_marginTop="@dimen/spacing_16dp"
             android:layout_toStartOf="@+id/cbShareProfile"
             android:text="@string/str_title_spot"
             android:textSize="@dimen/text_size_16dp"
@@ -153,8 +153,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/titleShareProfile"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="@dimen/spacing_16dp"
+            android:layout_marginEnd="@dimen/spacing_16dp"
             android:layout_toStartOf="@+id/cbShareProfile"
             android:text="@string/str_description_spot"
             android:textColor="@color/aluminium"
@@ -167,13 +167,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp" />
+            android:layout_marginEnd="@dimen/spacing_16dp"
+            android:theme="@style/checkBoxStyle" />
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/size_1dp"
         android:layout_marginStart="@dimen/spacing_16dp"
         android:background="@color/gallery" />
 
@@ -181,14 +182,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingEnd="0dp"
-        android:paddingStart="16dp">
+        android:paddingStart="@dimen/spacing_16dp">
 
         <TextView
             android:id="@+id/titleDisplayName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/spacing_16dp"
             android:text="@string/str_title_display_name"
             android:textSize="@dimen/text_size_16dp"
             android:textStyle="normal"
@@ -199,7 +200,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/titleDisplayName"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/spacing_16dp"
             android:text="@string/str_not_set"
             android:textColor="@color/aluminium"
             android:textSize="@dimen/text_size_12dp"
@@ -209,7 +210,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/size_1dp"
         android:layout_marginStart="@dimen/spacing_16dp"
         android:background="@color/gallery" />
 
@@ -217,14 +218,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingEnd="0dp"
-        android:paddingStart="16dp">
+        android:paddingStart="@dimen/spacing_16dp">
 
         <TextView
             android:id="@+id/titleStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/spacing_16dp"
             android:text="@string/str_title_status_message"
             android:textSize="@dimen/text_size_16dp"
             android:textStyle="normal"
@@ -235,7 +236,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/titleStatus"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/spacing_16dp"
             android:text="@string/str_not_set"
             android:textColor="@color/aluminium"
             android:textSize="@dimen/text_size_12dp"
@@ -245,7 +246,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/size_1dp"
         android:layout_marginStart="@dimen/spacing_16dp"
         android:background="@color/gallery" />
 
@@ -254,14 +255,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingEnd="0dp"
-        android:paddingStart="16dp">
+        android:paddingStart="@dimen/spacing_16dp">
 
         <TextView
             android:id="@+id/titleAddByID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/spacing_16dp"
             android:layout_toStartOf="@+id/cbAddByID"
             android:text="@string/str_title_friend_request_by_id"
             android:textSize="@dimen/text_size_16dp"
@@ -273,7 +274,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/titleAddByID"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/spacing_16dp"
             android:layout_toStartOf="@+id/cbAddByID"
             android:text="@string/str_description_friend_request_by_id"
             android:textColor="@color/aluminium"
@@ -286,14 +287,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp" />
+            android:layout_marginEnd="@dimen/spacing_16dp"
+            android:layout_marginStart="@dimen/spacing_16dp"
+            android:theme="@style/checkBoxStyle" />
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/size_1dp"
         android:layout_marginStart="@dimen/spacing_16dp"
         android:background="@color/gallery" />
 
@@ -301,10 +303,10 @@
         android:id="@+id/titleQrCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="16dp"
+        android:paddingBottom="@dimen/spacing_16dp"
         android:paddingEnd="0dp"
         android:paddingStart="@dimen/spacing_16dp"
-        android:paddingTop="16dp"
+        android:paddingTop="@dimen/spacing_16dp"
         android:text="@string/str_title_qr_code"
         android:textSize="@dimen/text_size_16dp"
         android:textStyle="normal"
@@ -312,7 +314,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/size_1dp"
         android:layout_marginStart="@dimen/spacing_16dp"
         android:background="@color/gallery" />
 
@@ -320,14 +322,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingEnd="0dp"
-        android:paddingStart="16dp">
+        android:paddingStart="@dimen/spacing_16dp">
 
         <TextView
             android:id="@+id/titleBirthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/spacing_16dp"
             android:text="@string/str_title_birthday"
             android:textSize="@dimen/text_size_16dp"
             android:textStyle="normal"
@@ -338,7 +340,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/titleBirthday"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/spacing_16dp"
             android:text="@string/str_not_set"
             android:textColor="@color/aluminium"
             android:textSize="@dimen/text_size_12dp"
@@ -348,7 +350,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/size_1dp"
         android:layout_marginStart="@dimen/spacing_16dp"
         android:background="@color/gallery" />
 
