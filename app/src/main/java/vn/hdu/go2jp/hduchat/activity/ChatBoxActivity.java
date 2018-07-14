@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,12 +34,14 @@ import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 public class ChatBoxActivity extends AppCompatActivity {
 
     public static String onChatBoxRoom = null;
+    private ImageView collapsed;
+    private LinearLayout expended;
     private EditText edtTextSend;
     private ImageView btnSend;
-    private SwipeRefreshLayout swipeRefreshMessage;
     private final TextWatcher twSend = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            expend(false);
         }
 
         @Override
@@ -57,6 +60,7 @@ public class ChatBoxActivity extends AppCompatActivity {
             }
         }
     };
+    private SwipeRefreshLayout swipeRefreshMessage;
     private ImageButton btnBack;
     private RecyclerView rvMessage;
     private MessageAdapter adapterMessage;
@@ -65,7 +69,7 @@ public class ChatBoxActivity extends AppCompatActivity {
     private String title;
     private String idRoom;
 
-    public static void hideKeyboard(Activity activity) {
+    private void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         View view = activity.getCurrentFocus();
         if (view == null) {
@@ -73,6 +77,16 @@ public class ChatBoxActivity extends AppCompatActivity {
         }
         if (imm != null) {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    private void expend(boolean expend) {
+        if (expend) {
+            expended.setVisibility(View.VISIBLE);
+            collapsed.setVisibility(View.GONE);
+        } else {
+            expended.setVisibility(View.GONE);
+            collapsed.setVisibility(View.VISIBLE);
         }
     }
 
@@ -112,6 +126,9 @@ public class ChatBoxActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        expended = findViewById(R.id.expended);
+        collapsed = findViewById(R.id.collapsed);
+
         edtTextSend = findViewById(R.id.edtTextSend);
         TextView tvTitle = findViewById(R.id.tvReceiver);
         if (!TextUtils.isEmpty(title)) {
@@ -120,7 +137,7 @@ public class ChatBoxActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack);
         btnSend = findViewById(R.id.ivSend);
         swipeRefreshMessage = findViewById(R.id.swipeRefreshMessage);
-        rvMessage = findViewById(R.id.lvChat);
+        rvMessage = findViewById(R.id.rvChat);
         chatMessages = new ArrayList<>();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         adapterMessage = new MessageAdapter(this, chatMessages, item -> {
@@ -131,7 +148,9 @@ public class ChatBoxActivity extends AppCompatActivity {
 
     private void setupEvents() {
         btnBack.setOnClickListener(click -> this.finish());
+        edtTextSend.setOnClickListener(click -> expend(false));
         edtTextSend.addTextChangedListener(twSend);
+        collapsed.setOnClickListener(click -> expend(true));
         btnSend.setOnClickListener(send -> {
             Message msg = new Message(uId, edtTextSend.getText().toString(), UserType.SELF, Status.SENT);
             edtTextSend.setText("");

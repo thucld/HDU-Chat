@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutChatBox"
     android:layout_width="match_parent"
@@ -51,7 +50,7 @@
         android:layout_below="@+id/rlToolBar">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/lvChat"
+            android:id="@+id/rvChat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/size_50dp"
@@ -74,44 +73,64 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/chatroom_add"
-            android:layout_width="@dimen/size_48dp"
-            android:layout_height="@dimen/size_48dp"
-            android:layout_gravity="bottom"
+            android:id="@+id/collapsed"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="@dimen/spacing_3dp"
             android:clickable="true"
-            android:gravity="center"
-            android:padding="@dimen/spacing_8dp"
-            android:src="@drawable/chatroom_ic_add_tf" />
+            android:src="@drawable/chatroom_ic_back"
+            android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/chatroom_camera"
-            android:layout_width="@dimen/size_48dp"
+        <LinearLayout
+            android:id="@+id/expended"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/size_48dp"
-            android:layout_gravity="bottom"
-            android:clickable="true"
-            android:gravity="center"
-            android:padding="@dimen/spacing_8dp"
-            android:src="@drawable/chatroom_ic_camera" />
+            android:orientation="horizontal"
+            android:padding="@dimen/spacing_3dp">
 
-        <ImageView
-            android:id="@+id/chatroom_photo"
-            android:layout_width="@dimen/size_48dp"
-            android:layout_height="@dimen/size_48dp"
-            android:layout_gravity="bottom"
-            android:clickable="true"
-            android:gravity="center"
-            android:padding="@dimen/spacing_8dp"
-            android:src="@drawable/chatroom_ic_photo" />
+            <ImageView
+                android:id="@+id/chatRoomAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingBottom="@dimen/spacing_3dp"
+                android:paddingTop="@dimen/spacing_3dp"
+                android:src="@drawable/chatroom_ic_add_tf" />
+
+            <ImageView
+                android:id="@+id/chatRoomCamera"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingBottom="@dimen/spacing_3dp"
+                android:paddingTop="@dimen/spacing_3dp"
+                android:src="@drawable/chatroom_ic_camera" />
+
+            <ImageView
+                android:id="@+id/chatRoomPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingBottom="@dimen/spacing_3dp"
+                android:paddingTop="@dimen/spacing_3dp"
+                android:src="@drawable/chatroom_ic_photo" />
+
+        </LinearLayout>
 
         <EditText
             android:id="@+id/edtTextSend"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_margin="@dimen/spacing_6dp"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
+            android:background="@drawable/rounded_edit_text"
             android:hint="@string/type_your_message"
             android:inputType="textCapSentences"
             android:maxLines="4" />

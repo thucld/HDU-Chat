@@ -57,6 +57,14 @@ public class ChatService extends Service {
         listenerForSingleRoom();
     }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i("LocalService", "Received start id " + startId + ": " + intent);
+        // We want this service to continue running until it is explicitly
+        // stopped, so return sticky.
+        return START_STICKY;
+    }
+
     public void listenerForRoom() {
         fireBaseUtil.getListRoom(rooms -> {
             for (Room room : rooms) {
@@ -156,10 +164,6 @@ public class ChatService extends Service {
         resultIntentView.putExtra(AppConst.KEY_ROOM_ID, roomId);
         resultIntentView.putExtra(AppConst.KEY_ROOM_TITLE, roomTitle);
 
-//        TaskStackBuilder taskStack = TaskStackBuilder.create(this);
-//        taskStack.addParentStack(ChatBoxActivity.class);
-//        taskStack.addNextIntent(resultIntent);
-
         PendingIntent resultPendingIntent = PendingIntent.getBroadcast(this, roomId.hashCode(), resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent resultPendingIntentView = PendingIntent.getBroadcast(this, roomId.hashCode(), resultIntentView, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -172,7 +176,7 @@ public class ChatService extends Service {
         Notification.Action viewAction = new Notification.Action.Builder(android.R.drawable.sym_action_chat, "VIEW", resultPendingIntentView).build();
 
         Notification notification = new Notification.Builder(context)
-                .setSmallIcon(R.drawable.icon)
+                .setSmallIcon(R.drawable.icon_status)
                 .setContentTitle(roomTitle)
                 .setContentText(message.getMessage())
                 .setLights(Color.BLUE, 500, 500)
