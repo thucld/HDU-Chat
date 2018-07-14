@@ -15,11 +15,6 @@
 
     <style name="chat_text_message">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingTop">@dimen/spacing_4dp</item>
-        <item name="android:paddingBottom">@dimen/spacing_4dp</item>
-        <item name="android:paddingLeft">@dimen/spacing_8dp</item>
-        <item name="android:paddingRight">@dimen/spacing_8dp</item>
         <item name="android:textSize">@dimen/text_size_16sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
@@ -27,7 +22,7 @@
     <style name="chat_timings">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_size_12sp</item>
+        <item name="android:textSize">@dimen/text_size_10dp</item>
     </style>
 
     <style name="checkBoxStyle" parent="Base.Theme.AppCompat">

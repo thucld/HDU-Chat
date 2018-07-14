@@ -148,6 +148,7 @@ public class FireBaseUtil {
 
     public void addContact(String uId) {
         mDatabase.child("users").child(user.getUid()).child("contacts").push().setValue(uId);
+        mDatabase.child("users").child(uId).child("contacts").push().setValue(user.getUid());
     }
 
     public void sendMessage(String roomId, Message message, OnResult<Boolean> status) {

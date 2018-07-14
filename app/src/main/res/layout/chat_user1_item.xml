@@ -1,32 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="5dp"
-    android:paddingTop="5dp">
+    android:paddingBottom="@dimen/spacing_3dp"
+    android:paddingTop="@dimen/spacing_3dp">
 
     <RelativeLayout
+        android:id="@+id/message_box"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/balloon_incoming_normal">
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/image_bounce"
+            android:layout_width="@dimen/size_40dp"
+            android:layout_height="@dimen/size_40dp"
+            android:layout_margin="@dimen/spacing_6dp"
+            app:cardCornerRadius="@dimen/size_20dp">
+
+            <ImageView
+                android:id="@+id/user_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_user_avatar_default_3" />
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:id="@+id/chat_company_reply_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/image_bounce"
+            android:layout_marginBottom="@dimen/spacing_3dp"
+            android:text="User1"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/text_size_10dp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/chat_company_reply_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/chat_company_reply_author"
+            android:layout_toRightOf="@id/image_bounce"
+            android:background="@drawable/img_chats_bg_01"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/chat_company_reply_author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="20dp"
-                android:paddingEnd="8dp"
-                android:paddingTop="5dp"
-                android:text="User1"
-                android:textColor="@color/orange"
-                android:textSize="16sp"
-                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/message_text"
@@ -35,8 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:autoLink="web"
-                android:maxWidth="280dp"
-                android:paddingStart="20dp"
+                android:maxWidth="@dimen/size_280dp"
                 android:text="Rahul Agrawal is a good boy but he does not know what he wants." />
 
         </LinearLayout>
@@ -47,13 +63,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/chat_company_reply_text"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/chat_company_reply_text"
-            android:paddingBottom="5dp"
-            android:paddingEnd="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_toRightOf="@id/chat_company_reply_text"
+            android:paddingBottom="@dimen/spacing_3dp"
             android:text="17:10"
             android:textColor="@color/gray" />
-
     </RelativeLayout>
-
 </RelativeLayout>
+
+    <!--android:layout_toEndOf="@id/chat_company_reply_text"--><!--android:layout_alignBottom="@id/chat_company_reply_text"-->

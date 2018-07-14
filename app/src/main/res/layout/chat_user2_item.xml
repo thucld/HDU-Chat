@@ -1,50 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chat_item"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingBottom="5dp"
-    android:paddingTop="5dp">
+    android:paddingBottom="@dimen/spacing_3dp"
+    android:paddingTop="@dimen/spacing_3dp">
 
     <RelativeLayout
         android:id="@+id/bubble"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:maxWidth="@dimen/size_250dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:background="@drawable/balloon_outgoing_normal">
+        android:layout_alignParentEnd="true">
 
+        <ImageView
+            android:id="@+id/user_reply_status"
+            android:layout_width="@dimen/size_10dp"
+            android:layout_height="@dimen/size_10dp"
+            android:layout_toLeftOf="@id/text_bounce"
+            android:layout_above="@id/time_text"
+            android:layout_marginBottom="1dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_single_tick" />
 
-        <TextView
-            android:id="@id/message_text"
-            style="@style/chat_text_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autoLink="web"
-            android:text="Rahul Agrawal is a good boy." />
         <TextView
             android:id="@+id/time_text"
             style="@style/chat_timings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/message_text"
-
-            android:layout_marginEnd="2dp"
-            android:layout_toRightOf="@id/message_text"
-            android:paddingBottom="5dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignBottom="@id/text_bounce"
+            android:layout_marginEnd="5dp"
+            android:paddingBottom="@dimen/spacing_3dp"
             android:text="17:10"
             android:textColor="@color/gray" />
-        <ImageView
-            android:id="@+id/user_reply_status"
+
+        <RelativeLayout
+            android:id="@+id/text_bounce"
+            android:layout_toEndOf="@id/time_text"
+            android:background="@drawable/img_chats_bg_02"
+            android:gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/message_text"
-            android:layout_toRightOf="@+id/time_text"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_single_tick"
-            />
-
-
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@id/message_text"
+                style="@style/chat_text_message"
+                android:layout_toRightOf="@id/time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:textSize="@dimen/text_size_14dp"
+                android:minWidth="@dimen/spacing_10dp"
+                android:text="H"/>
+        </RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>
