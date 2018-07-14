@@ -69,7 +69,7 @@ public class RoomFragment extends Fragment {
             rvRooms.setLayoutManager(layoutManager);
             rvRooms.setAdapter(roomAdapter);
             llEmpty.setVisibility(listRoom.isEmpty() ? View.VISIBLE : View.GONE);
-            rvRooms.setVisibility(View.VISIBLE);
+            rvRooms.setVisibility(listRoom.isEmpty() ? View.GONE : View.VISIBLE);
         });
     }
 

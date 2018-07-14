@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutChatBox"
@@ -43,69 +43,65 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/lvChat"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshMessage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/size_60dp"
-        android:divider="@drawable/chat_divider"
-        android:scrollbarStyle="outsideOverlay"
-        android:layout_marginBottom="@dimen/size_50dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvFoundFriendNumber"/>
+        android:layout_above="@+id/rlBottom"
+        android:layout_below="@+id/rlToolBar">
 
-    <!-- A horizontal line between the chatbox and RecyclerView -->
-    <View
-        android:id="@+id/tvFoundFriendNumber"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginBottom="0dp"
-        android:background="#dfdfdf"
-        app:layout_constraintBottom_toTopOf="@+id/rlBottom"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/lvChat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/size_50dp"
+            android:layout_marginTop="@dimen/size_60dp"
+            android:divider="@drawable/chat_divider"
+            android:scrollbarStyle="outsideOverlay" />
+
+        <!-- A horizontal line between the chatbox and RecyclerView -->
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
     <LinearLayout
         android:id="@+id/rlBottom"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="#ffffff"
         android:minHeight="48dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/chatroom_add"
             android:layout_width="@dimen/size_48dp"
             android:layout_height="@dimen/size_48dp"
-            android:padding="@dimen/spacing_8dp"
             android:layout_gravity="bottom"
-            android:src="@drawable/chatroom_ic_add_tf"
             android:clickable="true"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:padding="@dimen/spacing_8dp"
+            android:src="@drawable/chatroom_ic_add_tf" />
 
         <ImageView
             android:id="@+id/chatroom_camera"
             android:layout_width="@dimen/size_48dp"
             android:layout_height="@dimen/size_48dp"
-            android:padding="@dimen/spacing_8dp"
             android:layout_gravity="bottom"
-            android:src="@drawable/chatroom_ic_camera"
             android:clickable="true"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:padding="@dimen/spacing_8dp"
+            android:src="@drawable/chatroom_ic_camera" />
 
         <ImageView
             android:id="@+id/chatroom_photo"
             android:layout_width="@dimen/size_48dp"
             android:layout_height="@dimen/size_48dp"
-            android:padding="@dimen/spacing_8dp"
             android:layout_gravity="bottom"
-            android:src="@drawable/chatroom_ic_photo"
             android:clickable="true"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:padding="@dimen/spacing_8dp"
+            android:src="@drawable/chatroom_ic_photo" />
 
         <EditText
             android:id="@+id/edtTextSend"
@@ -115,22 +111,22 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_weight="1"
-            android:inputType="textCapSentences"
             android:background="@android:color/transparent"
             android:hint="@string/type_your_message"
+            android:inputType="textCapSentences"
             android:maxLines="4" />
 
         <ImageView
             android:id="@+id/ivSend"
             android:layout_width="@dimen/size_48dp"
             android:layout_height="@dimen/size_48dp"
-            android:padding="@dimen/spacing_12dp"
             android:layout_gravity="bottom"
             android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_chat_send"
             android:clickable="true"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:padding="@dimen/spacing_12dp"
+            android:src="@drawable/ic_chat_send" />
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

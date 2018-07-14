@@ -67,7 +67,6 @@
                 android:id="@+id/btRoomMore"
                 android:layout_width="@dimen/size_48dp"
                 android:layout_height="@dimen/size_48dp"
-                android:layout_marginRight="@dimen/size_4dp"
                 android:background="@drawable/header_ic_more" />
 
         </LinearLayout>

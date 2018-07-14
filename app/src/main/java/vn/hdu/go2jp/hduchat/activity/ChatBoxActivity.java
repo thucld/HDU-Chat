@@ -3,7 +3,7 @@ package vn.hdu.go2jp.hduchat.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.RemoteInput;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +35,7 @@ public class ChatBoxActivity extends AppCompatActivity {
     public static String onChatBoxRoom = null;
     private EditText edtTextSend;
     private ImageView btnSend;
+    private SwipeRefreshLayout swipeRefreshMessage;
     private final TextWatcher twSend = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -118,6 +119,7 @@ public class ChatBoxActivity extends AppCompatActivity {
         }
         btnBack = findViewById(R.id.btnBack);
         btnSend = findViewById(R.id.ivSend);
+        swipeRefreshMessage = findViewById(R.id.swipeRefreshMessage);
         rvMessage = findViewById(R.id.lvChat);
         chatMessages = new ArrayList<>();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -140,6 +142,9 @@ public class ChatBoxActivity extends AppCompatActivity {
                     rvMessage.scrollToPosition(chatMessages.size() - 1);
                 }
             });
+        });
+        swipeRefreshMessage.setOnRefreshListener(() -> {
+            //TODO load more message > end end refresh swipeRefreshMessage
         });
     }
 
