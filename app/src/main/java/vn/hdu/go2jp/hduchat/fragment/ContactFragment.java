@@ -23,7 +23,7 @@ import vn.hdu.go2jp.hduchat.widget.UserDialog;
 public class ContactFragment extends Fragment {
     private RecyclerView contactsRecycler;
     private ContactListAdapter contactListAdapter;
-    private List<User> userList = new ArrayList<>();
+    public List<User> userList = new ArrayList<>();
 
     public ContactFragment() {
         // Required empty public constructor

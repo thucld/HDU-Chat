@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
+    private  RoomFragment roomFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,13 +138,18 @@ public class MainActivity extends AppCompatActivity {
 
             popup.show();//showing popup menu
         });
+        findViewById(R.id.btCreateGroupChat).setOnClickListener(view -> {
+            Intent intent = new Intent(getApplication(), CreateRoomActivity.class);
+            startActivity(intent);
+        });
     }
 
     @NonNull
     private ArrayList<Fragment> getFragments() {
         ArrayList<Fragment> fragments = new ArrayList<>();
+        roomFragment = new RoomFragment();
         fragments.add(new ContactFragment());
-        fragments.add(new RoomFragment());
+        fragments.add(roomFragment);
         fragments.add(new TimelineFragment());
         fragments.add(new CallFragment());
         fragments.add(new MoreFragment());

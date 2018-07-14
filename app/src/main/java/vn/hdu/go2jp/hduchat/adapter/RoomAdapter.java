@@ -33,13 +33,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> im
     @Override
     public RoomAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflatedView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_chat_list, parent, false);
+                .inflate(R.layout.item_room, parent, false);
         return new RoomAdapter.ViewHolder(inflatedView, this.mItemListener);
     }
 
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(RoomAdapter.ViewHolder holder, int position) {
         Room item = mDataSet.get(position);
 //        if(TextUtils.isEmpty(item.getTitle())){
 //            holder.tvNote.setVisibility(View.GONE);

@@ -42,8 +42,8 @@ public class RoomFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_room, container, false);
         initView(view);
-        getRooms();
         setupEvents();
+        getRooms();
         return view;
     }
 
@@ -68,6 +68,8 @@ public class RoomFragment extends Fragment {
                     LinearLayoutManager.VERTICAL, false);
             rvRooms.setLayoutManager(layoutManager);
             rvRooms.setAdapter(roomAdapter);
+            llEmpty.setVisibility(listRoom.isEmpty() ? View.VISIBLE : View.GONE);
+            rvRooms.setVisibility(View.VISIBLE);
         });
     }
 

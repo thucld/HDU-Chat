@@ -16,7 +16,7 @@ import java.util.List;
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.model.data.User;
 
-public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ViewHolder> implements View.OnClickListener {
+public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ContactViewHolder> implements View.OnClickListener {
     private Context mContext;
     private List<User> mDataSet;
     private PostItemListener mItemListener;
@@ -37,7 +37,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     }
 
     @Override
-    public ContactListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ContactListAdapter.ContactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflatedView;
         if (viewType == 1) {
             inflatedView = LayoutInflater.from(parent.getContext())
@@ -46,12 +46,12 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             inflatedView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_contact_list, parent, false);
         }
-        return new ContactListAdapter.ViewHolder(inflatedView, this.mItemListener);
+        return new ContactListAdapter.ContactViewHolder(inflatedView, this.mItemListener);
     }
 
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ContactListAdapter.ContactViewHolder holder, int position) {
         User item = mDataSet.get(position);
         if (position == 0) {
             holder.tvNote.setText(item.getUserId());
@@ -126,14 +126,14 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imAvatar;
         TextView tvName;
         TextView tvNote;
         private PostItemListener mItemListener;
 
-        ViewHolder(View itemView, PostItemListener postItemListener) {
+        ContactViewHolder(View itemView, PostItemListener postItemListener) {
             super(itemView);
             imAvatar = itemView.findViewById(R.id.imAvatar);
             tvName = itemView.findViewById(R.id.tvName);
