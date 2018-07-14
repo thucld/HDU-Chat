@@ -91,7 +91,10 @@ public class UserDialog {
             showUserAction();
             btnKeep.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_keep)));
             btnHome.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_home)));
-            btnEdit.setOnClickListener(v -> activity.startActivity(new Intent(activity, ProfileActivity.class)));
+            btnEdit.setOnClickListener(v -> {
+                activity.startActivity(new Intent(activity, ProfileActivity.class));
+                dialog.dismiss();
+            });
         } else {
             showFriendAction();
             btnChat.setOnClickListener(v -> {
@@ -101,6 +104,7 @@ public class UserDialog {
                 bundle.putString(AppConst.KEY_ROOM_TITLE, user.getUserName());
                 intent.putExtras(bundle);
                 activity.startActivity(intent);
+                dialog.dismiss();
             });
             btnCall.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_call)));
             btnVideo.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_video_call)));

@@ -146,6 +146,15 @@ public class FireBaseUtil {
                 });
     }
 
+    public void updateUser(User user, OnResult<Boolean> onResult) {
+        mDatabase.child("users/" + user.getUserId()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                onResult.onResult(task.isSuccessful());
+            }
+        });
+    }
+
     public void addContact(String uId) {
         mDatabase.child("users").child(user.getUid()).child("contacts").push().setValue(uId);
         mDatabase.child("users").child(uId).child("contacts").push().setValue(user.getUid());
@@ -269,7 +278,7 @@ public class FireBaseUtil {
     }
 
     public void getListMessage(String roomId, OnResult<Message> onResult) {
-        mDatabase.child("rooms/"+roomId+"/messages").orderByChild("timestamp").limitToLast(10)
+        mDatabase.child("rooms/" + roomId + "/messages").orderByChild("timestamp").limitToLast(10)
                 .addChildEventListener(new ChildEventListener() {
 
                     @Override

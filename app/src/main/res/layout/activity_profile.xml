@@ -89,10 +89,12 @@
                 tools:ignore="SpUsage" />
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/btnHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_4dp"
                 android:background="@drawable/btn_round_home"
+                android:clickable="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/spacing_4dp"
@@ -196,6 +198,7 @@
             tools:ignore="SpUsage" />
 
         <TextView
+            android:id="@+id/tvDisplayName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -232,6 +235,7 @@
             tools:ignore="SpUsage" />
 
         <TextView
+            android:id="@+id/tvStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -303,6 +307,7 @@
         android:id="@+id/titleQrCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
         android:paddingBottom="@dimen/spacing_16dp"
         android:paddingEnd="0dp"
         android:paddingStart="@dimen/spacing_16dp"
@@ -336,11 +341,13 @@
             tools:ignore="SpUsage" />
 
         <TextView
+            android:id="@+id/btnBirthDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/titleBirthday"
             android:layout_marginBottom="@dimen/spacing_16dp"
+            android:clickable="true"
             android:text="@string/str_not_set"
             android:textColor="@color/aluminium"
             android:textSize="@dimen/text_size_12dp"
