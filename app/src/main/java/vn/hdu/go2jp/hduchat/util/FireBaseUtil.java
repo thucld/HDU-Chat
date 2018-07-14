@@ -83,6 +83,66 @@ public class FireBaseUtil {
 //        });
     }
 
+
+    /*
+    Get List Room by OnChildEventListener
+    TODO hautv - constructing Get List Room by OnChildEventListener
+     */
+    public void getListRoomTest(OnResult<Room> onResult) {
+        mDatabase.child("users").child(user.getUid()).child("roomsId")
+                .addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        if (dataSnapshot.getValue() != null) {
+                            String roomId = dataSnapshot.getValue(String.class);
+                            getRoomInfoTest(roomId, new OnResult<Room>() {
+                                @Override
+                                public void onResult(Room room) {
+                                    onResult.onResult(room);
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+
+    }
+
+    public void getRoomInfoTest(String roomId, OnResult<Room> onResult) {
+        mDatabase.child("rooms").child(roomId)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.getValue() != null) {
+                            Room roomInfo = dataSnapshot.getValue(Room.class);
+                            onResult.onResult(roomInfo);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.e("getRoomInfo", databaseError.toString());
+                        onResult.onResult(null);
+                    }
+                });
+    }
+
+
     public void getThisUser(final OnResult<User> onResult) {
         if (thisUser == null) {
             mDatabase.child("users").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -237,26 +297,6 @@ public class FireBaseUtil {
                 });
     }
 
-    public void getContactsInfo(List<String> ids, OnResult<User> onResult) {
-        String id = ids.remove(0);
-        mDatabase.child("users").child(id)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.getValue() != null) {
-                            User userInfo = dataSnapshot.getValue(User.class);
-                            onResult.onResult(userInfo);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.e("getContactInfo", databaseError.toString());
-                        onResult.onResult(null);
-                    }
-                });
-    }
-
     public void getRoomsInfo(List<String> ids, OnResult<Room> onResult) {
         String id = ids.remove(0);
         mDatabase.child("rooms").child(id)
@@ -272,6 +312,26 @@ public class FireBaseUtil {
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         Log.e("getRoomInfo", databaseError.toString());
+                        onResult.onResult(null);
+                    }
+                });
+    }
+
+    public void getContactsInfo(List<String> ids, OnResult<User> onResult) {
+        String id = ids.remove(0);
+        mDatabase.child("users").child(id)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.getValue() != null) {
+                            User userInfo = dataSnapshot.getValue(User.class);
+                            onResult.onResult(userInfo);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.e("getContactInfo", databaseError.toString());
                         onResult.onResult(null);
                     }
                 });

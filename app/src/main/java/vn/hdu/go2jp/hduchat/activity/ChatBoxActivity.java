@@ -64,7 +64,7 @@ public class ChatBoxActivity extends AppCompatActivity {
     private ImageButton btnBack;
     private RecyclerView rvMessage;
     private MessageAdapter adapterMessage;
-    private List<Message> chatMessages;
+    private List<Message> chatMessages = new ArrayList<>();
     private String uId = FirebaseAuth.getInstance().getUid();
     private String title;
     private String idRoom;
@@ -138,7 +138,6 @@ public class ChatBoxActivity extends AppCompatActivity {
         btnSend = findViewById(R.id.ivSend);
         swipeRefreshMessage = findViewById(R.id.swipeRefreshMessage);
         rvMessage = findViewById(R.id.rvChat);
-        chatMessages = new ArrayList<>();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         adapterMessage = new MessageAdapter(this, chatMessages, item -> {
         });

@@ -30,6 +30,7 @@ public class RoomFragment extends Fragment {
     private RecyclerView rvRooms;
     private Button btnNewChat;
     private List<Room> listRoom = new ArrayList<>();
+    private List<String> listIdRoom = new ArrayList<>();
     private RoomAdapter roomAdapter;
 
     public RoomFragment() {
@@ -51,23 +52,40 @@ public class RoomFragment extends Fragment {
         llEmpty = view.findViewById(R.id.llEmpty);
         btnNewChat = view.findViewById(R.id.btnNewChat);
         rvRooms = view.findViewById(R.id.rvRooms);
+
+
+        roomAdapter = new RoomAdapter(getContext(), listRoom, roomChat -> {
+            Intent intent = new Intent(getContext(), ChatBoxActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(AppConst.KEY_ROOM_ID, roomChat.getRoomId());
+            bundle.putString(AppConst.KEY_ROOM_TITLE, roomChat.getTitle());
+            intent.putExtras(bundle);
+            startActivity(intent);
+        });
+        //RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true);
+        layoutManager.setStackFromEnd(true);
+        rvRooms.setLayoutManager(layoutManager);
+        rvRooms.setAdapter(roomAdapter);
     }
 
     private void getRooms() {
-        FireBaseUtil.getInstance().getListRoom(rooms -> {
-            listRoom = rooms;
-            roomAdapter = new RoomAdapter(getContext(), listRoom, roomChat -> {
-                Intent intent = new Intent(getContext(), ChatBoxActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString(AppConst.KEY_ROOM_ID, roomChat.getRoomId());
-                bundle.putString(AppConst.KEY_ROOM_TITLE, roomChat.getTitle());
-                intent.putExtras(bundle);
-                startActivity(intent);
-            });
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
-                    LinearLayoutManager.VERTICAL, false);
-            rvRooms.setLayoutManager(layoutManager);
-            rvRooms.setAdapter(roomAdapter);
+//        FireBaseUtil.getInstance().getListRoom(rooms -> {
+//            listRoom = rooms;
+
+        // Begin changed
+        FireBaseUtil.getInstance().getListRoomTest(rooms -> {
+            String roomId = rooms.getRoomId();
+            if (listIdRoom.contains(roomId)) {
+                int indexRoom = listIdRoom.indexOf(roomId);
+                listIdRoom.remove(indexRoom);
+                listRoom.remove(indexRoom);
+            }
+            listIdRoom.add(roomId);
+            listRoom.add(rooms);
+            roomAdapter.notifyDataSetChanged();
+            // End changed
+
             llEmpty.setVisibility(listRoom.isEmpty() ? View.VISIBLE : View.GONE);
             rvRooms.setVisibility(listRoom.isEmpty() ? View.GONE : View.VISIBLE);
         });

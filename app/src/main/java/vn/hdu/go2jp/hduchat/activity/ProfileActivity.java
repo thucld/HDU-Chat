@@ -88,8 +88,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void updateProfile() {
         // thuoc tinh userId dang su dung lam dinh danh nen ko doi truong nay
-        user.setUserName("testerChange");
-        changeProfile = true;
+//        user.setUserName("testerChange");
+//        changeProfile = true;
 
         if (changeProfile) {
             FireBaseUtil.getInstance().updateUser(user, new OnResult<Boolean>() {
