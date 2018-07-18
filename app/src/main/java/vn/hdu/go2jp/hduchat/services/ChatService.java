@@ -7,6 +7,7 @@ import android.app.RemoteInput;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -15,7 +16,6 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -59,9 +59,6 @@ public class ChatService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("LocalService", "Received start id " + startId + ": " + intent);
-        // We want this service to continue running until it is explicitly
-        // stopped, so return sticky.
         return START_STICKY;
     }
 
@@ -151,51 +148,56 @@ public class ChatService extends Service {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    //@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void pushNotification(Context context, String roomId, String roomTitle, Message message) {
+        Intent resultIntent;
+        PendingIntent pendingIntent, pendingIntentView;
 
-        Intent resultIntent = new Intent(this, NotificationBroadcastReceiver.class);
-        resultIntent.setAction(KEY_REPLY);
+        resultIntent = new Intent();
         resultIntent.putExtra(AppConst.KEY_ROOM_ID, roomId);
         resultIntent.putExtra(AppConst.KEY_ROOM_TITLE, roomTitle);
 
-        Intent resultIntentView = new Intent(this, NotificationBroadcastReceiver.class);
-        resultIntentView.setAction(KEY_VIEW);
-        resultIntentView.putExtra(AppConst.KEY_ROOM_ID, roomId);
-        resultIntentView.putExtra(AppConst.KEY_ROOM_TITLE, roomTitle);
-
-        PendingIntent resultPendingIntent = PendingIntent.getBroadcast(this, roomId.hashCode(), resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent resultPendingIntentView = PendingIntent.getBroadcast(this, roomId.hashCode(), resultIntentView, PendingIntent.FLAG_UPDATE_CURRENT);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            resultIntent.setClass(this, NotificationBroadcastReceiver.class);
+            pendingIntent = PendingIntent.getBroadcast(this, roomId.hashCode(), resultIntent.setAction(KEY_REPLY), PendingIntent.FLAG_UPDATE_CURRENT);
+            pendingIntentView = PendingIntent.getBroadcast(this, roomId.hashCode(), resultIntent.setAction(KEY_VIEW), PendingIntent.FLAG_UPDATE_CURRENT);
+        } else {
+            resultIntent.setClass(this, ChatBoxActivity.class);
+            pendingIntent = PendingIntent.getActivity(this, roomId.hashCode(), resultIntent.setAction(KEY_REPLY), PendingIntent.FLAG_UPDATE_CURRENT);
+            pendingIntentView = PendingIntent.getActivity(this, roomId.hashCode(), resultIntent.setAction(KEY_VIEW), PendingIntent.FLAG_UPDATE_CURRENT);
+        }
 
         //Notification Action with RemoteInput instance added.
         RemoteInput remoteInput = new RemoteInput.Builder(KEY_REPLY).setLabel("Enter text here!").build();
-        Notification.Action replyAction = new Notification.Action.Builder(android.R.drawable.sym_action_chat, "REPLY", resultPendingIntent)
+        Notification.Action replyAction = new Notification.Action.Builder(android.R.drawable.sym_action_chat, "REPLY", pendingIntent)
                 .addRemoteInput(remoteInput)
                 //.setAllowGeneratedReplies(true)
                 .build();
-        Notification.Action viewAction = new Notification.Action.Builder(android.R.drawable.sym_action_chat, "VIEW", resultPendingIntentView).build();
+        Notification.Action viewAction = new Notification.Action.Builder(android.R.drawable.sym_action_chat, "VIEW", pendingIntentView).build();
 
-        Notification notification = new Notification.Builder(context)
+        Notification.Builder notification = new Notification.Builder(context)
                 .setSmallIcon(R.drawable.icon_status)
                 .setContentTitle(roomTitle)
                 .setContentText(message.getMessage())
-                .setLights(Color.BLUE, 500, 500)
-                .setColor(ContextCompat.getColor(context, R.color.green))
+                .setLights(Color.WHITE, 500, 500)
                 .setVibrate(patternVibrate)
                 .setSound(alarmSound)
                 .addAction(viewAction)
                 .addAction(replyAction)
-                .setContentIntent(resultPendingIntent)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                //.setContentIntent(pendingIntent)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
                 //.setLargeIcon(null) set USER_IMAGE in here, (Bitmap) <!-- TODO: Tuanter - add Glide Bitmap Image of User -->
                 .setTicker("Notification Ticker")
-                .setAutoCancel(true)
-                .build();
+                .setAutoCancel(true);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            notification.setColor(ContextCompat.getColor(context, R.color.green)).setVisibility(Notification.VISIBILITY_PUBLIC);
+        }
 
         wakeUp();
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(roomId.hashCode(), notification);
+        notificationManager.notify(roomId.hashCode(), notification.build());
     }
 
     private void wakeUp() {
