@@ -13,6 +13,7 @@ import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.adapter.ContactListAdapter;
+import vn.hdu.go2jp.hduchat.listener.OnResult;
 import vn.hdu.go2jp.hduchat.model.data.User;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 import vn.hdu.go2jp.hduchat.widget.UserDialog;
@@ -34,22 +35,39 @@ public class ContactFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
-        FireBaseUtil.getInstance().getThisUser(user -> {
-            userList.add(user);
-            FireBaseUtil.getInstance().getListContact(users -> {
-                userList.addAll(users);
-                contactsRecycler = view.findViewById(R.id.rv_contact);
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
-                        LinearLayoutManager.VERTICAL, false);
-                contactListAdapter = new ContactListAdapter(getContext(), userList
-                        , item -> new UserDialog().showDialog(getActivity(), item));
-                contactsRecycler.setLayoutManager(layoutManager);
-                contactsRecycler.setAdapter(contactListAdapter);
-            });
-        });
-
+        initView(view);
+        setupEvent();
+        getContacts();
 
         return view;
+    }
+
+    private void initView(View view){
+        contactsRecycler = view.findViewById(R.id.rv_contact);
+
+        contactListAdapter = new ContactListAdapter(getContext(), userList
+                , item -> new UserDialog().showDialog(getActivity(), item));
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                LinearLayoutManager.VERTICAL, false);
+        contactsRecycler.setLayoutManager(layoutManager);
+        contactsRecycler.setAdapter(contactListAdapter);
+    }
+
+    private void setupEvent(){
+
+    }
+
+    private void getContacts(){
+        FireBaseUtil.getInstance().getThisUser(user -> {
+            userList.add(user);
+            FireBaseUtil.getInstance().getListContactTest(new OnResult<User>() {
+                @Override
+                public void onResult(User user) {
+                    userList.add(user);
+                    contactListAdapter.notifyDataSetChanged();
+                }
+            });
+        });
     }
 
 }

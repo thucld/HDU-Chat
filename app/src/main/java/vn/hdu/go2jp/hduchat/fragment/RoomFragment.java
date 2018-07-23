@@ -69,10 +69,6 @@ public class RoomFragment extends Fragment {
     }
 
     private void getRooms() {
-//        FireBaseUtil.getInstance().getListRoom(rooms -> {
-//            listRoom = rooms;
-
-        // Begin changed
         FireBaseUtil.getInstance().getListRoom(rooms -> {
             String roomId = rooms.getRoomId();
             if (listIdRoom.contains(roomId)) {
@@ -83,7 +79,6 @@ public class RoomFragment extends Fragment {
             listIdRoom.add(roomId);
             listRoom.add(rooms);
             roomAdapter.notifyDataSetChanged();
-            // End changed
 
             llEmpty.setVisibility(listRoom.isEmpty() ? View.VISIBLE : View.GONE);
             rvRooms.setVisibility(listRoom.isEmpty() ? View.GONE : View.VISIBLE);

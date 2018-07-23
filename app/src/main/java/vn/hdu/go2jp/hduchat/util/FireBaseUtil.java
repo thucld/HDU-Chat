@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -45,7 +46,8 @@ public class FireBaseUtil {
         }
         return instance;
     }
-//dang lam
+
+    //dang lam
     public void test() {
         String uId = FirebaseAuth.getInstance().getUid();
 
@@ -192,17 +194,33 @@ public class FireBaseUtil {
         });
     }
 
-    public void addFriend(String uId) {
+    public String addContact(String uId) {
         mDatabase.child("users").child(user.getUid()).child("contacts").push().setValue(uId);
         mDatabase.child("users").child(uId).child("contacts").push().setValue(user.getUid());
 
+        return createRoom(Arrays.asList(uId));
     }
 
-    public void createRoom() {
-        DatabaseReference rmref = mDatabase.child("rooms").push();
-        String idRoom = rmref.getKey();
+    public String createRoom(List<String> uIds) {
+        DatabaseReference rmref;
+        String idRoom;
+        if (uIds.size() < 2) {
+            idRoom = user.getUid().compareTo(uIds.get(0)) < 0 ? user.getUid() + uIds.get(0) : uIds.get(0) + user.getUid();
+            rmref = mDatabase.child("rooms").child(idRoom).push();
+        } else {
+            rmref = mDatabase.child("rooms").push();
+            idRoom = rmref.getKey();
+        }
+
         Room newRoom = new Room();
+        newRoom.setRoomId(idRoom);
+        newRoom.setTitle("new Room");
+
         rmref.setValue(newRoom);
+        for (String item : uIds) {
+            rmref.child("contacts").push().setValue(item);
+        }
+        return idRoom;
     }
 
     public void sendMessage(String roomId, Message message, OnResult<Boolean> status) {
@@ -210,6 +228,63 @@ public class FireBaseUtil {
                 .addOnCompleteListener(task -> {
                     status.onResult(task.isSuccessful());
                     mDatabase.child("rooms").child(roomId).child("lastMessage").setValue(message);
+                });
+    }
+
+    public void getListContactTest(OnResult<User> onResult) {
+        mDatabase.child("users").child(user.getUid()).child("contacts")
+                .addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        if (dataSnapshot.getValue() != null) {
+                            String userId = dataSnapshot.getValue(String.class);
+                            getContactsInfoTest(userId, new OnResult<User>() {
+                                @Override
+                                public void onResult(User user) {
+                                    onResult.onResult(user);
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    public void getContactsInfoTest(String userId, OnResult<User> onResult) {
+        mDatabase.child("users").child(userId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.getValue() != null) {
+                            User userInfo = dataSnapshot.getValue(User.class);
+                            onResult.onResult(userInfo);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.e("getContactInfo", databaseError.toString());
+                        onResult.onResult(null);
+                    }
                 });
     }
 

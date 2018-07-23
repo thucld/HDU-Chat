@@ -87,33 +87,35 @@ public class UserDialog {
         tvName.setText(user.getUserName());
         tvId.setText(user.getUserId());
 
-        if (user.getUserId().equals(FirebaseAuth.getInstance().getUid())) {
-            showUserAction();
-            btnKeep.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_keep)));
-            btnHome.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_home)));
-            btnEdit.setOnClickListener(v -> {
-                activity.startActivity(new Intent(activity, ProfileActivity.class));
-                dialog.dismiss();
-            });
-        } else {
-            showFriendAction();
-            btnChat.setOnClickListener(v -> {
-                Intent intent = new Intent(activity, ChatBoxActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString(AppConst.KEY_ROOM_ID, getRoomId(user));
-                bundle.putString(AppConst.KEY_ROOM_TITLE, user.getUserName());
-                intent.putExtras(bundle);
-                activity.startActivity(intent);
-                dialog.dismiss();
-            });
-            btnCall.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_call)));
-            btnVideo.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_video_call)));
+        if (!TextUtils.isEmpty(user.getUserId())) {
+            if (FirebaseAuth.getInstance().getUid().equals(user.getUserId())) {
+                showUserAction();
+                btnKeep.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_keep)));
+                btnHome.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_home)));
+                btnEdit.setOnClickListener(v -> {
+                    activity.startActivity(new Intent(activity, ProfileActivity.class));
+                    dialog.dismiss();
+                });
+            } else {
+                showFriendAction();
+                btnChat.setOnClickListener(v -> {
+                    Intent intent = new Intent(activity, ChatBoxActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(AppConst.KEY_ROOM_ID, getRoomId(user));
+                    bundle.putString(AppConst.KEY_ROOM_TITLE, user.getUserName());
+                    intent.putExtras(bundle);
+                    activity.startActivity(intent);
+                    dialog.dismiss();
+                });
+                btnCall.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_call)));
+                btnVideo.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_video_call)));
+            }
+            if (!TextUtils.isEmpty(user.getAvatarPath())) {
+                Glide.with(activity)
+                        .load(user.getAvatarPath())
+                        .into(ivAvatar);
+            }
+            dialog.show();
         }
-        if (!TextUtils.isEmpty(user.getAvatarPath())) {
-            Glide.with(activity)
-                    .load(user.getAvatarPath())
-                    .into(ivAvatar);
-        }
-        dialog.show();
     }
 }
