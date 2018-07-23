@@ -13,6 +13,10 @@ public class Room {
     public Room() {
     }
 
+    public Room(String roomId, String title, HashMap<String, String> contacts) {
+
+    }
+
     public String getRoomId() {
         return roomId;
     }

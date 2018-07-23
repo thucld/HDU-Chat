@@ -53,7 +53,6 @@ public class RoomFragment extends Fragment {
         btnNewChat = view.findViewById(R.id.btnNewChat);
         rvRooms = view.findViewById(R.id.rvRooms);
 
-
         roomAdapter = new RoomAdapter(getContext(), listRoom, roomChat -> {
             Intent intent = new Intent(getContext(), ChatBoxActivity.class);
             Bundle bundle = new Bundle();
@@ -74,7 +73,7 @@ public class RoomFragment extends Fragment {
 //            listRoom = rooms;
 
         // Begin changed
-        FireBaseUtil.getInstance().getListRoomTest(rooms -> {
+        FireBaseUtil.getInstance().getListRoom(rooms -> {
             String roomId = rooms.getRoomId();
             if (listIdRoom.contains(roomId)) {
                 int indexRoom = listIdRoom.indexOf(roomId);

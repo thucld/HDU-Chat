@@ -32,6 +32,7 @@ import java.util.Date;
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.activity.ChatBoxActivity;
 import vn.hdu.go2jp.hduchat.common.AppConst;
+import vn.hdu.go2jp.hduchat.listener.OnResult;
 import vn.hdu.go2jp.hduchat.model.data.Message;
 import vn.hdu.go2jp.hduchat.model.data.Room;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
@@ -63,8 +64,9 @@ public class ChatService extends Service {
     }
 
     public void listenerForRoom() {
-        fireBaseUtil.getListRoom(rooms -> {
-            for (Room room : rooms) {
+        fireBaseUtil.getListRoom(new OnResult<Room>() {
+            @Override
+            public void onResult(Room room) {
                 DatabaseReference referenceRoom = FirebaseDatabase.getInstance().getReference().child("rooms/" + room.getRoomId() + "/messages");
                 referenceRoom.orderByChild("timestamp").startAt(timestamp)
                         .addChildEventListener(new ChildEventListener() {
@@ -100,6 +102,43 @@ public class ChatService extends Service {
                         });
             }
         });
+//        fireBaseUtil.getListRoom(rooms -> {
+//            for (Room room : rooms) {
+//                DatabaseReference referenceRoom = FirebaseDatabase.getInstance().getReference().child("rooms/" + room.getRoomId() + "/messages");
+//                referenceRoom.orderByChild("timestamp").startAt(timestamp)
+//                        .addChildEventListener(new ChildEventListener() {
+//                            @Override
+//                            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                                Message message = dataSnapshot.getValue(Message.class);
+//                                Log.i("my_message", "\n" + message.getUserId() + uId);
+//                                if (!room.getRoomId().equals(ChatBoxActivity.onChatBoxRoom) && !uId.equals(message.getUserId())) {
+//                                    pushNotification(getApplicationContext(), room.getRoomId(), room.getTitle(), message);
+//                                }
+//                                timestamp = (long) message.getTimestamp() - 1;
+//                            }
+//
+//                            @Override
+//                            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                                Log.i("my_message", "onChildChanged");
+//                            }
+//
+//                            @Override
+//                            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//                                Log.i("my_message", "onChildRemoved");
+//                            }
+//
+//                            @Override
+//                            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                                Log.i("my_message", "onChildMoved");
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                                Log.i("my_message", "onCancelled");
+//                            }
+//                        });
+//            }
+//        });
     }
 
     public void listenerForSingleRoom() {

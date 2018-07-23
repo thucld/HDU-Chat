@@ -45,34 +45,11 @@ public class FireBaseUtil {
         }
         return instance;
     }
-
+//dang lam
     public void test() {
         String uId = FirebaseAuth.getInstance().getUid();
-//        instance.sendMessage("QYYMQmqKrZfkbiflH6EK34WWaTA3ZRpPa2aHQcZJ23MpVauI0o72u5I2", new Message("Anh nghi la nen load tung phan 1 cua message", new Date(), UserType.SELF, Status.SENT), new OnResult<Boolean>() {
-//            @Override
-//            public void onResult(Boolean aBoolean) {
-//                if(aBoolean){
-//                    Log.i("my_sendMessage","Successful");
-//                }
-//            }
-//        });
-//        mDatabase.child("testTimestamp").push().setValue(new Message("test lan 2", UserType.SELF, Status.SENT));
-//        mDatabase.child("testTimestamp").child("-LGyHolQeBIHQ8ZpGQ8K").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if(dataSnapshot.getValue()!=null){
-//                    Message msg = dataSnapshot.getValue(Message.class);
-//                    Log.i("my_timestamp",String.valueOf(msg.getTimestamp()));
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-        /*
 
+        /*
         Get list room by OnChildEventListener
          */
 //        instance.getListRoomTest(new OnResult<Room>() {
@@ -88,14 +65,14 @@ public class FireBaseUtil {
     Get List Room by OnChildEventListener
     TODO hautv - constructing Get List Room by OnChildEventListener
      */
-    public void getListRoomTest(OnResult<Room> onResult) {
+    public void getListRoom(OnResult<Room> onResult) {
         mDatabase.child("users").child(user.getUid()).child("roomsId")
                 .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         if (dataSnapshot.getValue() != null) {
                             String roomId = dataSnapshot.getValue(String.class);
-                            getRoomInfoTest(roomId, new OnResult<Room>() {
+                            getRoomInfo(roomId, new OnResult<Room>() {
                                 @Override
                                 public void onResult(Room room) {
                                     onResult.onResult(room);
@@ -123,7 +100,7 @@ public class FireBaseUtil {
 
     }
 
-    public void getRoomInfoTest(String roomId, OnResult<Room> onResult) {
+    public void getRoomInfo(String roomId, OnResult<Room> onResult) {
         mDatabase.child("rooms").child(roomId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -215,9 +192,17 @@ public class FireBaseUtil {
         });
     }
 
-    public void addContact(String uId) {
+    public void addFriend(String uId) {
         mDatabase.child("users").child(user.getUid()).child("contacts").push().setValue(uId);
         mDatabase.child("users").child(uId).child("contacts").push().setValue(user.getUid());
+
+    }
+
+    public void createRoom() {
+        DatabaseReference rmref = mDatabase.child("rooms").push();
+        String idRoom = rmref.getKey();
+        Room newRoom = new Room();
+        rmref.setValue(newRoom);
     }
 
     public void sendMessage(String roomId, Message message, OnResult<Boolean> status) {
@@ -263,59 +248,59 @@ public class FireBaseUtil {
 
     }
 
-    public void getListRoom(OnResult<List<Room>> onResult) {
-        List<Room> listRoom = new ArrayList<>();
-        mDatabase.child("users").child(user.getUid()).child("roomsId")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        if (dataSnapshot.getValue() != null) {
-                            HashMap mapRecord = (HashMap) dataSnapshot.getValue();
-
-                            Iterator listKey = mapRecord.keySet().iterator();
-                            while (listKey.hasNext()) {
-                                String key = listKey.next().toString();
-                                listRoomID.add(mapRecord.get(key).toString());
-                            }
-                            List<String> newList = new ArrayList<>(listRoomID);
-                            while (listRoomID.size() > 0) {
-                                instance.getRoomsInfo(listRoomID, room -> {
-                                    listRoom.add(room);
-                                    if (listRoom.size() == newList.size()) {
-                                        onResult.onResult(listRoom);
-                                    }
-                                });
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        onResult.onResult(listRoom);
-                    }
-                });
-    }
-
-    public void getRoomsInfo(List<String> ids, OnResult<Room> onResult) {
-        String id = ids.remove(0);
-        mDatabase.child("rooms").child(id)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.getValue() != null) {
-                            Room roomInfo = dataSnapshot.getValue(Room.class);
-                            onResult.onResult(roomInfo);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.e("getRoomInfo", databaseError.toString());
-                        onResult.onResult(null);
-                    }
-                });
-    }
+//    public void getListRoom(OnResult<List<Room>> onResult) {
+//        List<Room> listRoom = new ArrayList<>();
+//        mDatabase.child("users").child(user.getUid()).child("roomsId")
+//                .addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                        if (dataSnapshot.getValue() != null) {
+//                            HashMap mapRecord = (HashMap) dataSnapshot.getValue();
+//
+//                            Iterator listKey = mapRecord.keySet().iterator();
+//                            while (listKey.hasNext()) {
+//                                String key = listKey.next().toString();
+//                                listRoomID.add(mapRecord.get(key).toString());
+//                            }
+//                            List<String> newList = new ArrayList<>(listRoomID);
+//                            while (listRoomID.size() > 0) {
+//                                instance.getRoomsInfo(listRoomID, room -> {
+//                                    listRoom.add(room);
+//                                    if (listRoom.size() == newList.size()) {
+//                                        onResult.onResult(listRoom);
+//                                    }
+//                                });
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//                        onResult.onResult(listRoom);
+//                    }
+//                });
+//    }
+//
+//    public void getRoomsInfo(List<String> ids, OnResult<Room> onResult) {
+//        String id = ids.remove(0);
+//        mDatabase.child("rooms").child(id)
+//                .addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        if (dataSnapshot.getValue() != null) {
+//                            Room roomInfo = dataSnapshot.getValue(Room.class);
+//                            onResult.onResult(roomInfo);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//                        Log.e("getRoomInfo", databaseError.toString());
+//                        onResult.onResult(null);
+//                    }
+//                });
+//    }
 
     public void getContactsInfo(List<String> ids, OnResult<User> onResult) {
         String id = ids.remove(0);
