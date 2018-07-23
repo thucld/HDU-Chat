@@ -35,4 +35,8 @@
         <item name="android:dropDownVerticalOffset">4dp</item>
     </style>
 
+    <style name="popup_timeline" >
+        <item name="android:drawablePadding">32dp</item>
+    </style>
+
 </resources>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rlToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60dp"
+        android:background="@color/river_bed">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="@dimen/size_60dp"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_keyboard_arrow_left_white_24dp" />
+
+        <TextView
+            android:id="@+id/tvReceiver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/btnBack"
+            android:padding="4dp"
+            android:text="Scanner QR Code"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_20dp" />
+
+
+    </RelativeLayout>
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/rlScanner"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_above="@+id/llBottom"-->
+    <!--android:layout_below="@+id/rlToolBar">-->
+    <!--</RelativeLayout>-->
+
+    <com.journeyapps.barcodescanner.CompoundBarcodeView
+        android:id="@+id/barcode_scanner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/llBottom"
+        android:layout_below="@+id/rlToolBar">
+        >
+    </com.journeyapps.barcodescanner.CompoundBarcodeView>
+
+    <ImageView
+        android:id="@+id/imMyQrCode"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/llBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/aluminium"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnGallery"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_48dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@color/river_bed"
+            android:text="Bộ sưu tập"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18dp" />
+
+        <Button
+            android:id="@+id/btnMyQrCode"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_48dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@color/river_bed"
+            android:text="Mã QR của tôi"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18dp" />
+
+
+    </LinearLayout>
+</RelativeLayout>
+
+
+
+
+

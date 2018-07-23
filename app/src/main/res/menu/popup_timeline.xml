@@ -5,15 +5,17 @@
 
     <item
         android:id="@+id/one"
+        style="@style/popup_timeline"
         android:icon="@drawable/timeline_ic_write"
         android:title="Viết bài" />
     <item
         android:id="@+id/two"
-
+        style="@style/popup_timeline"
         android:icon="@drawable/timeline_ic_popup_photo"
         android:title="Camera" />
     <item
         android:id="@+id/three"
+        style="@style/popup_timeline"
         android:icon="@drawable/timeline_ic_relay"
         android:title="Replay" />
 

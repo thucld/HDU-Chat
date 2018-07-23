@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="vn.hdu.go2jp.hduchat">
 
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:name=".application.App"
         android:allowBackup="true"
@@ -46,7 +51,9 @@
             android:exported="false"
             android:persistent="true" />
 
-        <activity android:name=".activity.CreateRoomActivity"></activity>
+        <activity android:name=".activity.CreateRoomActivity" />
+        <activity android:name=".activity.ScannerActivity" />
+        <activity android:name=".activity.MyQrActivity"></activity>
     </application>
 
 </manifest>

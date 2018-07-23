@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.activity.ProfileActivity;
+import vn.hdu.go2jp.hduchat.activity.ScannerActivity;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
 /**
@@ -23,6 +25,7 @@ public class MoreFragment extends Fragment {
 
     FrameLayout btnProfile;
     CircleImageView civProfile;
+    ImageView btnQrCode;
 
     public MoreFragment() {
         // Required empty public constructor
@@ -42,6 +45,7 @@ public class MoreFragment extends Fragment {
     private void initViews(View view) {
         civProfile = view.findViewById(R.id.civProfile);
         btnProfile = view.findViewById(R.id.btnProfile);
+        btnQrCode = view.findViewById(R.id.btnQrCode);
     }
 
     private void getData() {
@@ -56,6 +60,10 @@ public class MoreFragment extends Fragment {
     private void setupEvents() {
         btnProfile.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), ProfileActivity.class);
+            startActivity(intent);
+        });
+        btnQrCode.setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), ScannerActivity.class);
             startActivity(intent);
         });
     }

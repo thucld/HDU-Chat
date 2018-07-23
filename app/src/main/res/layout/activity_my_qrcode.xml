@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rlToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60dp"
+        android:background="@color/river_bed">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="@dimen/size_60dp"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_keyboard_arrow_left_white_24dp" />
+
+        <TextView
+            android:id="@+id/tvReceiver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/btnBack"
+            android:padding="4dp"
+            android:text="Mã QR của tôi"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_20dp" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlScanner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/llBottom"
+        android:layout_below="@+id/rlToolBar">
+
+        <ImageView
+            android:id="@+id/imMyQrCode"
+            android:layout_width="@dimen/size_250dp"
+            android:layout_height="@dimen/size_250dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/size_50dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/size_20dp"
+            android:layout_marginLeft="@dimen/size_10dp"
+            android:layout_marginRight="@dimen/size_10dp"
+            android:text="Nhờ ai đó quét mã QR cảu bạn để thêm vào làm bạn bè của họ. Họ cũng có thể thêm bạn bằng âm thanh hoặc Bluetooth."
+            android:textAlignment="center" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/llBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/aluminium"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnQrScanner"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_48dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@color/malachite"
+            android:text="Đọc mã QR"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18dp" />
+
+
+    </LinearLayout>
+</RelativeLayout>
+
+
+
+
+
