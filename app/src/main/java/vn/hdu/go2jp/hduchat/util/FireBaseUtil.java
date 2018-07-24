@@ -48,6 +48,11 @@ public class FireBaseUtil {
         return instance;
     }
 
+    public static String generateSingleRoomNameById(String friendId) {
+        String ownerId = user.getUid();
+        return ownerId.compareTo(friendId) < 0 ? ownerId + friendId : friendId + ownerId;
+    }
+
     //dang lam
     public void test() {
         String uId = FirebaseAuth.getInstance().getUid();
@@ -62,7 +67,6 @@ public class FireBaseUtil {
 //            }
 //        });
     }
-
 
     /*
     Get List Room by OnChildEventListener
@@ -120,7 +124,6 @@ public class FireBaseUtil {
                     }
                 });
     }
-
 
     public void getThisUser(final OnResult<User> onResult) {
         if (thisUser == null) {
@@ -200,7 +203,7 @@ public class FireBaseUtil {
         String idRoom;
         if (uIds.size() < 2) {
             idRoom = user.getUid().compareTo(uIds.get(0)) < 0 ? user.getUid() + uIds.get(0) : uIds.get(0) + user.getUid();
-            rmref = mDatabase.child("rooms").child(idRoom).push();
+            rmref = mDatabase.child("rooms").child(idRoom);
         } else {
             rmref = mDatabase.child("rooms").push();
             idRoom = rmref.getKey();
@@ -215,8 +218,10 @@ public class FireBaseUtil {
                 onResult.onResult(idRoom);
             }
         });
+
+        rmref.child("contacts").child(user.getUid()).setValue(true);
         for (String item : uIds) {
-            rmref.child("contacts").push().setValue(item);
+            rmref.child("contacts").child(item).setValue(true);
         }
         return idRoom;
     }
@@ -234,8 +239,8 @@ public class FireBaseUtil {
                 .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                        if (dataSnapshot.getValue() != null) {
-                            String userId = dataSnapshot.getValue(String.class);
+                        if (dataSnapshot.getKey() != null) {
+                            String userId = dataSnapshot.getKey();
                             getContactsInfoTest(userId, user -> onResult.onResult(user));
                         }
                     }
@@ -263,6 +268,7 @@ public class FireBaseUtil {
     }
 
     public void getContactsInfoTest(String userId, OnResult<User> onResult) {
+        Log.e("my_userId",userId);
         mDatabase.child("users").child(userId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

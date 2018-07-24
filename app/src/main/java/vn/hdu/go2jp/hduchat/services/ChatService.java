@@ -35,6 +35,7 @@ import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.listener.OnResult;
 import vn.hdu.go2jp.hduchat.model.data.Message;
 import vn.hdu.go2jp.hduchat.model.data.Room;
+import vn.hdu.go2jp.hduchat.model.data.User;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 import vn.hdu.go2jp.hduchat.widget.NotificationBroadcastReceiver;
 
@@ -144,47 +145,91 @@ public class ChatService extends Service {
     public void listenerForSingleRoom() {
         fireBaseUtil.getThisUser(user -> {
             if (user != null && !TextUtils.isEmpty(user.getUserId()) && user.getContacts() != null) {
-                String ownerId = user.getUserId();
-                for (String friendId : user.getContacts().values()) {
-                    String singleRoomId = ownerId.compareTo(friendId) < 0 ? ownerId + friendId : friendId + ownerId;
+                fireBaseUtil.getListContactTest(new OnResult<User>() {
+                    @Override
+                    public void onResult(User user) {
+                        String singleRoomId = FireBaseUtil.generateSingleRoomNameById(user.getUserId());
 
-                    DatabaseReference referenceRoom = FirebaseDatabase.getInstance().getReference().child("rooms/" + singleRoomId + "/messages");
-                    referenceRoom.orderByChild("timestamp").startAt(timestamp)
-                            .addChildEventListener(new ChildEventListener() {
-
-                                @Override
-                                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                                    Message message = dataSnapshot.getValue(Message.class);
-                                    Log.i("my_message", "\n" + message.getUserId() + uId);
-                                    if (!singleRoomId.equals(ChatBoxActivity.onChatBoxRoom) && !uId.equals(message.getUserId())) {
-                                        pushNotification(getApplicationContext(), singleRoomId, user.getUserName(), message);
+                        DatabaseReference referenceRoom = FirebaseDatabase.getInstance().getReference().child("rooms/" + singleRoomId + "/messages");
+                        referenceRoom.orderByChild("timestamp").startAt(timestamp)
+                                .addChildEventListener(new ChildEventListener() {
+                                    @Override
+                                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                                        Message message = dataSnapshot.getValue(Message.class);
+                                        Log.i("my_message", "\n" + message.getUserId() + uId);
+                                        if (!singleRoomId.equals(ChatBoxActivity.onChatBoxRoom) && !uId.equals(message.getUserId())) {
+                                            pushNotification(getApplicationContext(), singleRoomId, user.getUserName(), message);
+                                        }
+                                        timestamp = (long) message.getTimestamp() - 1;
                                     }
-                                    timestamp = (long) message.getTimestamp() - 1;
-                                }
 
-                                @Override
-                                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                                    @Override
+                                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                                }
+                                    }
 
-                                @Override
-                                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                                    @Override
+                                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                                        referenceRoom.removeEventListener(this);
+                                    }
 
-                                }
+                                    @Override
+                                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                                @Override
-                                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                                    }
 
-                                }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
-                }
+                                    }
+                                });
+                    }
+                });
             }
         });
+//        fireBaseUtil.getThisUser(user -> {
+//            if (user != null && !TextUtils.isEmpty(user.getUserId()) && user.getContacts() != null) {
+//                String ownerId = user.getUserId();
+//                for (String friendId : user.getContacts().values()) {
+//                    String singleRoomId = ownerId.compareTo(friendId) < 0 ? ownerId + friendId : friendId + ownerId;
+//
+//                    DatabaseReference referenceRoom = FirebaseDatabase.getInstance().getReference().child("rooms/" + singleRoomId + "/messages");
+//                    referenceRoom.orderByChild("timestamp").startAt(timestamp)
+//                            .addChildEventListener(new ChildEventListener() {
+//
+//                                @Override
+//                                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                                    Message message = dataSnapshot.getValue(Message.class);
+//                                    Log.i("my_message", "\n" + message.getUserId() + uId);
+//                                    if (!singleRoomId.equals(ChatBoxActivity.onChatBoxRoom) && !uId.equals(message.getUserId())) {
+//                                        pushNotification(getApplicationContext(), singleRoomId, user.getUserName(), message);
+//                                    }
+//                                    timestamp = (long) message.getTimestamp() - 1;
+//                                }
+//
+//                                @Override
+//                                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                                }
+//                            });
+//                }
+//            }
+//        });
     }
 
     //@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

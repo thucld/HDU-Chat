@@ -10,7 +10,7 @@ public class User {
     private HashMap<String, String> roomsId;
     private String phoneNumber;
     private String email;
-    private HashMap<String, String> contacts;
+    private HashMap<String, Boolean> contacts;
     private String avatarPath;
     private String note;
 
@@ -23,7 +23,7 @@ public class User {
         this.email = email;
     }
 
-    public User(String userId, String passWord, String userName, HashMap<String, String> roomsId, String phoneNumber, String email, HashMap<String, String> contacts, String avatarPath, String note) {
+    public User(String userId, String passWord, String userName, HashMap<String, String> roomsId, String phoneNumber, String email, HashMap<String, Boolean> contacts, String avatarPath, String note) {
         this.userId = userId;
         this.passWord = passWord;
         this.userName = userName;
@@ -91,11 +91,11 @@ public class User {
         this.note = note;
     }
 
-    public HashMap<String, String> getContacts() {
+    public HashMap<String, Boolean> getContacts() {
         return contacts;
     }
 
-    public void setContacts(HashMap<String, String> contacts) {
+    public void setContacts(HashMap<String, Boolean> contacts) {
         this.contacts = contacts;
     }
 
