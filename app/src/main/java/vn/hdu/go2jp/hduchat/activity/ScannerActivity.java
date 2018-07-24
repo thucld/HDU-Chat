@@ -13,6 +13,7 @@ import com.journeyapps.barcodescanner.CompoundBarcodeView;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
+import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
 
@@ -49,7 +50,14 @@ public class ScannerActivity extends Activity {//implements ZXingScannerView.Res
         @Override
         public void barcodeResult(BarcodeResult result) {
             if (result.getText() != null) {
-                FireBaseUtil.getInstance().addContact(result.getText());
+                FireBaseUtil.getInstance().addContact(result.getText(), roomId -> {
+                    Intent intent = new Intent(getApplication(), ChatBoxActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(AppConst.KEY_ROOM_ID, roomId);
+                    bundle.putString(AppConst.KEY_ROOM_TITLE,"");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                });
             }
 
             //Do something with code result

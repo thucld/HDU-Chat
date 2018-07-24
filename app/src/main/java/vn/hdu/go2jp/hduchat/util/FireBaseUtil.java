@@ -2,6 +2,7 @@ package vn.hdu.go2jp.hduchat.util;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -74,17 +75,16 @@ public class FireBaseUtil {
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         if (dataSnapshot.getValue() != null) {
                             String roomId = dataSnapshot.getValue(String.class);
-                            getRoomInfo(roomId, new OnResult<Room>() {
-                                @Override
-                                public void onResult(Room room) {
-                                    onResult.onResult(room);
-                                }
-                            });
+                            getRoomInfo(roomId, room -> onResult.onResult(room));
                         }
                     }
 
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        if (dataSnapshot.getValue() != null) {
+                            String roomId = dataSnapshot.getValue(String.class);
+                            getRoomInfo(roomId, room -> onResult.onResult(room));
+                        }
                     }
 
                     @Override
@@ -177,31 +177,25 @@ public class FireBaseUtil {
 
     public void signInWithEmail(String email, String password, OnResult<Boolean> onResult) {
         auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        onResult.onResult(task.isSuccessful());
-                    }
-                });
+                .addOnCompleteListener(task -> onResult.onResult(task.isSuccessful()));
     }
 
     public void updateUser(User user, OnResult<Boolean> onResult) {
-        mDatabase.child("users/" + user.getUserId()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                onResult.onResult(task.isSuccessful());
+        mDatabase.child("users/" + user.getUserId()).setValue(user).addOnCompleteListener(task -> onResult.onResult(task.isSuccessful()));
+    }
+
+    public String addContact(String uId, OnResult<String> onResult) {
+        mDatabase.child("users").child(user.getUid()).child("contacts").push().setValue(uId);
+        mDatabase.child("users").child(uId).child("contacts").push().setValue(user.getUid());
+
+        return createRoom(Arrays.asList(uId), roomId -> {
+            if (!TextUtils.isEmpty(roomId)) {
+                onResult.onResult(roomId);
             }
         });
     }
 
-    public String addContact(String uId) {
-        mDatabase.child("users").child(user.getUid()).child("contacts").push().setValue(uId);
-        mDatabase.child("users").child(uId).child("contacts").push().setValue(user.getUid());
-
-        return createRoom(Arrays.asList(uId));
-    }
-
-    public String createRoom(List<String> uIds) {
+    public String createRoom(List<String> uIds, OnResult<String> onResult) {
         DatabaseReference rmref;
         String idRoom;
         if (uIds.size() < 2) {
@@ -216,7 +210,11 @@ public class FireBaseUtil {
         newRoom.setRoomId(idRoom);
         newRoom.setTitle("new Room");
 
-        rmref.setValue(newRoom);
+        rmref.setValue(newRoom).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                onResult.onResult(idRoom);
+            }
+        });
         for (String item : uIds) {
             rmref.child("contacts").push().setValue(item);
         }
@@ -238,12 +236,7 @@ public class FireBaseUtil {
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         if (dataSnapshot.getValue() != null) {
                             String userId = dataSnapshot.getValue(String.class);
-                            getContactsInfoTest(userId, new OnResult<User>() {
-                                @Override
-                                public void onResult(User user) {
-                                    onResult.onResult(user);
-                                }
-                            });
+                            getContactsInfoTest(userId, user -> onResult.onResult(user));
                         }
                     }
 
