@@ -24,6 +24,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.listener.OnResult;
+import vn.hdu.go2jp.hduchat.model.constant.Status;
+import vn.hdu.go2jp.hduchat.model.constant.UserType;
 import vn.hdu.go2jp.hduchat.model.data.Message;
 import vn.hdu.go2jp.hduchat.model.data.Room;
 import vn.hdu.go2jp.hduchat.model.data.User;
@@ -70,7 +72,6 @@ public class FireBaseUtil {
 
     /*
     Get List Room by OnChildEventListener
-    TODO hautv - constructing Get List Room by OnChildEventListener
      */
     public void getListRoom(OnResult<Room> onResult) {
         mDatabase.child("users").child(user.getUid()).child("roomsId")
@@ -78,7 +79,8 @@ public class FireBaseUtil {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         if (dataSnapshot.getValue() != null) {
-                            String roomId = dataSnapshot.getValue(String.class);
+                            String roomId = dataSnapshot.getKey();
+                            Log.e("my_getListRoomKey", roomId);
                             getRoomInfo(roomId, room -> onResult.onResult(room));
                         }
                     }
@@ -86,7 +88,7 @@ public class FireBaseUtil {
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         if (dataSnapshot.getValue() != null) {
-                            String roomId = dataSnapshot.getValue(String.class);
+                            String roomId = dataSnapshot.getKey();
                             getRoomInfo(roomId, room -> onResult.onResult(room));
                         }
                     }
@@ -188,17 +190,18 @@ public class FireBaseUtil {
     }
 
     public String addContact(String uId, OnResult<String> onResult) {
-        mDatabase.child("users").child(user.getUid()).child("contacts").push().setValue(uId);
-        mDatabase.child("users").child(uId).child("contacts").push().setValue(user.getUid());
+        mDatabase.child("users").child(user.getUid()).child("contacts").child(uId).setValue(true);
+        mDatabase.child("users").child(uId).child("contacts").child(user.getUid()).setValue(true);
 
-        return createRoom(Arrays.asList(uId), roomId -> {
+        List<String> uIds = new ArrayList<String>(Arrays.asList(uId));
+        return createRoom(uIds, roomId -> {
             if (!TextUtils.isEmpty(roomId)) {
                 onResult.onResult(roomId);
             }
         });
     }
 
-    public String createRoom(List<String> uIds, OnResult<String> onResult) {
+    private String createRoom(List<String> uIds, OnResult<String> onResult) {
         DatabaseReference rmref;
         String idRoom;
         if (uIds.size() < 2) {
@@ -219,10 +222,23 @@ public class FireBaseUtil {
             }
         });
 
-        rmref.child("contacts").child(user.getUid()).setValue(true);
-        for (String item : uIds) {
-            rmref.child("contacts").child(item).setValue(true);
+        // push First Message
+        Message firstMessage = new Message(user.getUid(), "", UserType.SELF, Status.SENT);
+        sendMessage(idRoom, firstMessage, new OnResult<Boolean>() {
+            @Override
+            public void onResult(Boolean aBoolean) {
+
+            }
+        });
+
+        uIds.add(user.getUid());
+        for (String uId : uIds) {
+            // push users to room's contacts
+            rmref.child("contacts").child(uId).setValue(true);
+            // push roomId to users
+            mDatabase.child("users/" + uId + "/roomsId/" + idRoom).setValue(true);
         }
+
         return idRoom;
     }
 
@@ -268,7 +284,7 @@ public class FireBaseUtil {
     }
 
     public void getContactsInfoTest(String userId, OnResult<User> onResult) {
-        Log.e("my_userId",userId);
+        Log.e("my_userId", userId);
         mDatabase.child("users").child(userId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

@@ -7,7 +7,7 @@ public class User {
     private String userId;
     private String passWord;
     private String userName;
-    private HashMap<String, String> roomsId;
+    private HashMap<String, Boolean> roomsId;
     private String phoneNumber;
     private String email;
     private HashMap<String, Boolean> contacts;
@@ -23,7 +23,7 @@ public class User {
         this.email = email;
     }
 
-    public User(String userId, String passWord, String userName, HashMap<String, String> roomsId, String phoneNumber, String email, HashMap<String, Boolean> contacts, String avatarPath, String note) {
+    public User(String userId, String passWord, String userName, HashMap<String, Boolean> roomsId, String phoneNumber, String email, HashMap<String, Boolean> contacts, String avatarPath, String note) {
         this.userId = userId;
         this.passWord = passWord;
         this.userName = userName;
@@ -99,11 +99,11 @@ public class User {
         this.contacts = contacts;
     }
 
-    public HashMap<String, String> getRoomsId() {
+    public HashMap<String, Boolean> getRoomsId() {
         return roomsId;
     }
 
-    public void setRoomsId(HashMap<String, String> roomsId) {
+    public void setRoomsId(HashMap<String, Boolean> roomsId) {
         this.roomsId = roomsId;
     }
 }

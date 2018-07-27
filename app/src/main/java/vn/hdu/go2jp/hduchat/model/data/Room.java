@@ -8,12 +8,12 @@ public class Room {
     private String title;
     private Message lastMessage;
     private HashMap<String, Message> messages;
-    private HashMap<String, String> contacts;
+    private HashMap<String, Boolean> contacts;
 
     public Room() {
     }
 
-    public Room(String roomId, String title, HashMap<String, String> contacts) {
+    public Room(String roomId, String title, HashMap<String, Boolean> contacts) {
 
     }
 
@@ -41,11 +41,11 @@ public class Room {
         this.messages = messages;
     }
 
-    public HashMap<String, String> getContacts() {
+    public HashMap<String, Boolean> getContacts() {
         return contacts;
     }
 
-    public void setContacts(HashMap<String, String> contacts) {
+    public void setContacts(HashMap<String, Boolean> contacts) {
         this.contacts = contacts;
     }
 
