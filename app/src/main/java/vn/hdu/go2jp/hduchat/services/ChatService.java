@@ -148,7 +148,7 @@ public class ChatService extends Service {
                 fireBaseUtil.getListContactTest(new OnResult<User>() {
                     @Override
                     public void onResult(User user) {
-                        String singleRoomId = FireBaseUtil.generateSingleRoomNameById(user.getUserId());
+                        String singleRoomId = FireBaseUtil.getInstance().generateSingleRoomNameById(user.getUserId());
 
                         DatabaseReference referenceRoom = FirebaseDatabase.getInstance().getReference().child("rooms/" + singleRoomId + "/messages");
                         referenceRoom.orderByChild("timestamp").startAt(timestamp)

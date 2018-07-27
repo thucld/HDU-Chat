@@ -1,9 +1,12 @@
 package vn.hdu.go2jp.hduchat.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,6 +25,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     public User user;
     public boolean changeProfile = false;
+
+    private FireBaseUtil firebase = FireBaseUtil.getInstance();
 
     private ImageView btnBack;
     private CircleImageView civAvatar;
@@ -71,6 +76,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void setEvents() {
         btnBack.setOnClickListener(click -> finish());
+        civAvatar.setOnClickListener(click -> {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "text"), 1);
+        });
     }
 
     @SuppressLint("ResourceAsColor")
@@ -100,6 +111,21 @@ public class ProfileActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(getApplicationContext(), "Update profile failure", Toast.LENGTH_SHORT).show();
                     }
+                }
+            });
+        }
+    }
+
+    // TODO [hautv] avatar upload constructing
+    protected void onActivityResult(int reqCode, int resCode, Intent data) {
+        super.onActivityResult(reqCode, resCode, data);
+
+        if (reqCode == 1 && resCode == RESULT_OK && data != null) {
+            Uri imageUri = data.getData();
+            firebase.uploadAvatar(imageUri, new OnResult<String>() {
+                @Override
+                public void onResult(String s) {
+                    Log.i("my_uploadImageInProfile", s);
                 }
             });
         }

@@ -1,11 +1,13 @@
 package vn.hdu.go2jp.hduchat.util;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,7 +18,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -37,6 +43,11 @@ public class FireBaseUtil {
     private static DatabaseReference mDatabase;
     private static List<String> listContactID = new ArrayList<>();
     private static List<String> listRoomID = new ArrayList<>();
+
+    //FireBase Storage
+    private static StorageReference storageReference;
+    private static StorageReference avatarReference;
+
     private static FireBaseUtil instance;
 
     public static synchronized FireBaseUtil getInstance() {
@@ -44,35 +55,55 @@ public class FireBaseUtil {
         user = auth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        if (instance == null) {
-            instance = new FireBaseUtil();
-        }
-        return instance;
+        storageReference = FirebaseStorage.getInstance().getReference();
+        avatarReference = storageReference.child("images/avatar");
+
+//        if (instance == null) {
+//            instance = new FireBaseUtil();
+//        }
+        //return instance;
+        return instance == null ? instance = new FireBaseUtil() : instance;
     }
 
-    public static String generateSingleRoomNameById(String friendId) {
-        String ownerId = user.getUid();
-        return ownerId.compareTo(friendId) < 0 ? ownerId + friendId : friendId + ownerId;
-    }
-
-    //dang lam
-    public void test() {
-        String uId = FirebaseAuth.getInstance().getUid();
-
-        /*
-        Get list room by OnChildEventListener
-         */
-//        instance.getListRoomTest(new OnResult<Room>() {
+    public static void test() {
+//        Uri imageUri = Uri.fromFile(new File("filePath"));
+//        FireBaseUtil.getInstance().uploadAvatar(imageUri, new OnResult<String>() {
 //            @Override
-//            public void onResult(Room room) {
-//                Log.i("my_OnResultRoom",room.getTitle());
+//            public void onResult(String s) {
+//
 //            }
 //        });
     }
 
-    /*
-    Get List Room by OnChildEventListener
-     */
+    // TODO FireBase Storage functions
+    /* upload from local file */
+    public void uploadAvatar(Uri imageUri, OnResult<String> onResult) {
+        StorageReference ref = avatarReference.child(user.getUid());
+        ref.putFile(imageUri)
+                .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Log.i("my_uploadAvatar", uri.getPath());
+                                    onResult.onResult(uri.getPath());
+                                }
+                            });
+                        }
+                    }
+                });
+    }
+
+
+    // TODO FireBase RealTime Database functions
+    public String generateSingleRoomNameById(String friendId) {
+        String ownerId = user.getUid();
+        return ownerId.compareTo(friendId) < 0 ? ownerId + friendId : friendId + ownerId;
+    }
+
+    /* Get List Room by OnChildEventListener */
     public void getListRoom(OnResult<Room> onResult) {
         mDatabase.child("users").child(user.getUid()).child("roomsId")
                 .addChildEventListener(new ChildEventListener() {

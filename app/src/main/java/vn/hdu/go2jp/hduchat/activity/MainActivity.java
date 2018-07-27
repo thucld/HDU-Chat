@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setupTabLayout();
         setupViewPager();
         setupEvents();
-        FireBaseUtil.getInstance().test();
+        FireBaseUtil.test();
         startService(new Intent(this, ChatService.class));
     }
 
