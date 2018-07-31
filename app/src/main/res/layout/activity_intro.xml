@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="vn.hdu.go2jp.hduchat.activity.IntroActivity">
+    <LinearLayout
+        android:id="@+id/llBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/aluminium"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnSignIn"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_48dp"
+            android:layout_gravity="bottom"
+
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:text="Đăng nhập"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_18dp" />
+
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_48dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:text="Đăng ký"
+            android:textAllCaps="false"
+            android:textColor="@color/malachite"
+            android:textSize="@dimen/text_size_18dp" />
+
+
+    </LinearLayout>
+</RelativeLayout>
