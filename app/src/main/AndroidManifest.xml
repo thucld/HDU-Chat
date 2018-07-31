@@ -32,6 +32,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activity.IntroActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait" />
@@ -53,7 +57,8 @@
 
         <activity android:name=".activity.CreateRoomActivity" />
         <activity android:name=".activity.ScannerActivity" />
-        <activity android:name=".activity.MyQrActivity"></activity>
+        <activity android:name=".activity.MyQrActivity" />
+        <activity android:name=".activity.SignUpActivity"></activity>
     </application>
 
 </manifest>
