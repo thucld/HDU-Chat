@@ -1,8 +1,11 @@
 package vn.hdu.go2jp.hduchat.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.google.zxing.ResultPoint;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -15,6 +18,7 @@ import java.util.List;
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.common.AppConst;
 import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
+import vn.hdu.go2jp.hduchat.util.PermissionUtil;
 
 
 public class ScannerActivity extends Activity {//implements ZXingScannerView.ResultHandler
@@ -25,6 +29,8 @@ public class ScannerActivity extends Activity {//implements ZXingScannerView.Res
     public void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_scanner);
+
+        checkPermission();
         barcodeView = findViewById(R.id.barcode_scanner);
         barcodeView.decodeContinuous(callback);
         IntentIntegrator integrator = new IntentIntegrator(this);
@@ -45,6 +51,23 @@ public class ScannerActivity extends Activity {//implements ZXingScannerView.Res
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PermissionUtil.REQUEST_PERMISSION_PHONE_STATE) {
+        } else if (requestCode == PermissionUtil.REQUEST_ALL_DANGEROUS_PERMISSION) {
+            for (int i = 0; i < permissions.length; i++) {
+                String permission = permissions[i];
+                int grantResult = grantResults[i];
+                if (permission.equals(Manifest.permission.READ_PHONE_STATE)) {
+                    if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                    }
+                    break;
+                }
+            }
+        }
+    }
 
     private BarcodeCallback callback = new BarcodeCallback() {
         @Override
@@ -54,10 +77,11 @@ public class ScannerActivity extends Activity {//implements ZXingScannerView.Res
                     Intent intent = new Intent(getApplication(), ChatBoxActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString(AppConst.KEY_ROOM_ID, roomId);
-                    bundle.putString(AppConst.KEY_ROOM_TITLE,"");
+                    bundle.putString(AppConst.KEY_ROOM_TITLE, "");
                     intent.putExtras(bundle);
                     startActivity(intent);
                 });
+                barcodeView.pauseAndWait();
             }
 
             //Do something with code result
@@ -85,7 +109,7 @@ public class ScannerActivity extends Activity {//implements ZXingScannerView.Res
         super.onPause();
     }
 
-//    @Override
+    //    @Override
 //    public void handleResult(Result result) {
 //        QRCodeEncoder qrCodeEncoder = new QRCodeEncoder(
 //                qrInputText,
@@ -102,4 +126,7 @@ public class ScannerActivity extends Activity {//implements ZXingScannerView.Res
 //            e.printStackTrace();
 //        }
 //    }
+    private void checkPermission() {
+        PermissionUtil.checkPermissions(this);
+    }
 }
