@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.hdu.go2jp.hduchat.R;
@@ -26,6 +28,7 @@ public class ProfileActivity extends AppCompatActivity {
     public User user;
     public boolean changeProfile = false;
 
+    private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     private FireBaseUtil firebase = FireBaseUtil.getInstance();
 
     private ImageView btnBack;
@@ -80,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "text"), 1);
+            startActivityForResult(Intent.createChooser(intent, "Choose a picture"), 1);
         });
     }
 
@@ -90,10 +93,21 @@ public class ProfileActivity extends AppCompatActivity {
         tvEmail.setText(user.getEmail());
         tvDisplayName.setText(user.getUserName());
         tvDisplayName.setTextColor(R.color.blue_steel);
-        if (!TextUtils.isEmpty(user.getAvatarPath())) {
-            Glide.with(this)
-                    .load(user.getAvatarPath())
-                    .into(civAvatar);
+        setAvatar();
+    }
+
+    private void setAvatar() {
+        String avatarPath = user.getAvatarPath();
+        if (!TextUtils.isEmpty(avatarPath)) {
+            try {
+                StorageReference ref = firebaseStorage.getReference(avatarPath);
+                Glide.with(this)
+                        .using(new FirebaseImageLoader())
+                        .load(ref)
+                        .into(civAvatar);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -124,8 +138,10 @@ public class ProfileActivity extends AppCompatActivity {
             Uri imageUri = data.getData();
             firebase.uploadAvatar(imageUri, new OnResult<String>() {
                 @Override
-                public void onResult(String s) {
-                    Log.i("my_uploadImageInProfile", s);
+                public void onResult(String referenceUrl) {
+                    user.setAvatarPath(referenceUrl);
+                    setAvatar();
+                    changeProfile = true;
                 }
             });
         }

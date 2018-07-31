@@ -44,7 +44,6 @@ public class FireBaseUtil {
     //FireBase Storage
     private static StorageReference storageReference;
     private static StorageReference avatarReference;
-
     private static FireBaseUtil instance;
 
     public static synchronized FireBaseUtil getInstance() {
@@ -65,21 +64,14 @@ public class FireBaseUtil {
     /* upload from local file */
     public void uploadAvatar(Uri imageUri, OnResult<String> onResult) {
         StorageReference ref = avatarReference.child(user.getUid());
-        ref.putFile(imageUri)
-                .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    Log.i("my_uploadAvatar", uri.getPath());
-                                    onResult.onResult(uri.getPath());
-                                }
-                            });
-                        }
-                    }
-                });
+        ref.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()) {
+                    onResult.onResult(ref.getPath());
+                }
+            }
+        });
     }
 
 
@@ -321,11 +313,12 @@ public class FireBaseUtil {
                             }
                             onResult.onResult(messages);
                         }
+                        onResult.onResult(null);
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                        onResult.onResult(null);
                     }
                 });
     }

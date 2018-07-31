@@ -165,7 +165,9 @@ public class ChatBoxActivity extends AppCompatActivity {
             //TODO load more message > end end refresh swipeRefreshMessage
             Long oldest = (long) chatMessages.get(0).getTimestamp();
             FireBaseUtil.getInstance().getMoreMessage(idRoom, oldest, messages -> {
-                chatMessages.addAll(0, messages);
+                if (messages != null) {
+                    chatMessages.addAll(0, messages);
+                }
                 swipeRefreshMessage.setRefreshing(false);
                 adapterMessage.notifyDataSetChanged();
             });
