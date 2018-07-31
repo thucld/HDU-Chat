@@ -309,6 +309,27 @@ public class FireBaseUtil {
                 });
     }
 
+    public void getMoreMessage(String roomId, Long endAtTimestamp, OnResult<List<Message>> onResult) {
+        mDatabase.child("messages/" + roomId).orderByChild("timestamp").endAt(endAtTimestamp - 1).limitToFirst(10)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.getValue() != null) {
+                            List<Message> messages = new ArrayList<Message>();
+                            for (DataSnapshot message : dataSnapshot.getChildren()) {
+                                messages.add(message.getValue(Message.class));
+                            }
+                            onResult.onResult(messages);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
     public void getListMessage(String roomId, OnResult<Message> onResult) {
         mDatabase.child("messages/" + roomId).orderByChild("timestamp").limitToLast(10)
                 .addChildEventListener(new ChildEventListener() {

@@ -163,12 +163,16 @@ public class ChatBoxActivity extends AppCompatActivity {
         });
         swipeRefreshMessage.setOnRefreshListener(() -> {
             //TODO load more message > end end refresh swipeRefreshMessage
+            Long oldest = (long) chatMessages.get(0).getTimestamp();
+            FireBaseUtil.getInstance().getMoreMessage(idRoom, oldest, messages -> {
+                chatMessages.addAll(0, messages);
+                swipeRefreshMessage.setRefreshing(false);
+                adapterMessage.notifyDataSetChanged();
+            });
         });
     }
 
     private void getData() {
-        chatMessages.add(new Message("QYYMQmqKrZfkbiflH6EK34WWaTA3", "はじめまして。 私たちは　Mobile-Team　です。", UserType.OTHER, Status.DELIVERED));
-        chatMessages.add(new Message("QYYMQmqKrZfkbiflH6EK34WWaTA3", "どうぞ。ぞろしく　おねがいします。", UserType.OTHER, Status.DELIVERED));
         FireBaseUtil.getInstance().getListMessage(idRoom, messages -> {
             chatMessages.add(messages);
             adapterMessage.notifyDataSetChanged();
