@@ -60,7 +60,7 @@ public class ContactFragment extends Fragment {
     private void getContacts(){
         FireBaseUtil.getInstance().getThisUser(user -> {
             userList.add(user);
-            FireBaseUtil.getInstance().getListContactTest(new OnResult<User>() {
+            FireBaseUtil.getInstance().getListContact(new OnResult<User>() {
                 @Override
                 public void onResult(User user) {
                     userList.add(user);

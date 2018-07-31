@@ -103,8 +103,8 @@ public class CreateRoomActivity extends BaseActivity {
     }
 
     private void getData() {
-        FireBaseUtil.getInstance().getListContact(users -> {
-            this.users.addAll(users);
+        FireBaseUtil.getInstance().getListContact(user -> {
+            this.users.add(user);
             adapter.notifyDataSetChanged();
             tvFriendNumber.setText(getString(R.string.str_num_of_friend, this.users.size()));
         });
@@ -157,6 +157,7 @@ public class CreateRoomActivity extends BaseActivity {
     private void back() {
         new ToastUtil().showShort(getApplicationContext(), "back");
         this.onBackPressed();
+        this.finish();
     }
 
     private void createRoom() {

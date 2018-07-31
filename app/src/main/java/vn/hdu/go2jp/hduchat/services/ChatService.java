@@ -145,7 +145,7 @@ public class ChatService extends Service {
     public void listenerForSingleRoom() {
         fireBaseUtil.getThisUser(user -> {
             if (user != null && !TextUtils.isEmpty(user.getUserId()) && user.getContacts() != null) {
-                fireBaseUtil.getListContactTest(new OnResult<User>() {
+                fireBaseUtil.getListContact(new OnResult<User>() {
                     @Override
                     public void onResult(User user) {
                         String singleRoomId = FireBaseUtil.getInstance().generateSingleRoomNameById(user.getUserId());

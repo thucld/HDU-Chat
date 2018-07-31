@@ -65,7 +65,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         try {
             date = new Date((long) item.getTimestamp());
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         DateFormat formatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
         holder.messageTextView.setText(item.getMessage());

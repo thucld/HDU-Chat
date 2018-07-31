@@ -22,11 +22,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.listener.OnResult;
@@ -58,21 +55,10 @@ public class FireBaseUtil {
         storageReference = FirebaseStorage.getInstance().getReference();
         avatarReference = storageReference.child("images/avatar");
 
-//        if (instance == null) {
-//            instance = new FireBaseUtil();
-//        }
-        //return instance;
         return instance == null ? instance = new FireBaseUtil() : instance;
     }
 
     public static void test() {
-//        Uri imageUri = Uri.fromFile(new File("filePath"));
-//        FireBaseUtil.getInstance().uploadAvatar(imageUri, new OnResult<String>() {
-//            @Override
-//            public void onResult(String s) {
-//
-//            }
-//        });
     }
 
     // TODO FireBase Storage functions
@@ -189,11 +175,6 @@ public class FireBaseUtil {
         }
     }
 
-    public void writeNewUser(String userId, String passWord, String email) {
-        User user = new User(userId, passWord, email);
-        mDatabase.child("users").child(userId).setValue(user);
-    }
-
     public boolean isLogin() {
         return user != null;
     }
@@ -204,9 +185,6 @@ public class FireBaseUtil {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         onResult.onResult(task.isSuccessful());
-                        if (task.isSuccessful()) {
-                            instance.writeNewUser(user.getUid(), password, email);
-                        }
                     }
                 });
     }
@@ -274,21 +252,18 @@ public class FireBaseUtil {
     }
 
     public void sendMessage(String roomId, Message message, OnResult<Boolean> status) {
-        mDatabase.child("rooms").child(roomId).child("messages").push().setValue(message)
-                .addOnCompleteListener(task -> {
-                    status.onResult(task.isSuccessful());
-                    mDatabase.child("rooms").child(roomId).child("lastMessage").setValue(message);
-                });
+        mDatabase.child("messages").child(roomId).push().setValue(message)
+                .addOnCompleteListener(task -> status.onResult(task.isSuccessful()));
     }
 
-    public void getListContactTest(OnResult<User> onResult) {
+    public void getListContact(OnResult<User> onResult) {
         mDatabase.child("users").child(user.getUid()).child("contacts")
                 .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         if (dataSnapshot.getKey() != null) {
                             String userId = dataSnapshot.getKey();
-                            getContactsInfoTest(userId, user -> onResult.onResult(user));
+                            getContactsInfo(userId, user -> onResult.onResult(user));
                         }
                     }
 
@@ -314,7 +289,7 @@ public class FireBaseUtil {
                 });
     }
 
-    public void getContactsInfoTest(String userId, OnResult<User> onResult) {
+    public void getContactsInfo(String userId, OnResult<User> onResult) {
         Log.e("my_userId", userId);
         mDatabase.child("users").child(userId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -334,117 +309,8 @@ public class FireBaseUtil {
                 });
     }
 
-    public void getListContact(OnResult<List<User>> onResult) {
-        List<User> listUser = new ArrayList<>();
-        mDatabase.child("users").child(user.getUid()).child("contacts")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.getValue() != null) {
-                            HashMap mapRecord = (HashMap) dataSnapshot.getValue();
-
-                            Iterator listKey = mapRecord.keySet().iterator();
-                            while (listKey.hasNext()) {
-                                String key = listKey.next().toString();
-                                listContactID.add(mapRecord.get(key).toString());
-                            }
-                            List<String> newList = new ArrayList<>(listContactID);
-                            while (listContactID.size() > 0) {
-                                instance.getContactsInfo(listContactID, user -> {
-                                    listUser.add(user);
-                                    if (listUser.size() == newList.size()) {
-                                        onResult.onResult(listUser);
-                                    }
-                                });
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        onResult.onResult(listUser);
-                    }
-                });
-
-    }
-
-//    public void getListRoom(OnResult<List<Room>> onResult) {
-//        List<Room> listRoom = new ArrayList<>();
-//        mDatabase.child("users").child(user.getUid()).child("roomsId")
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                        if (dataSnapshot.getValue() != null) {
-//                            HashMap mapRecord = (HashMap) dataSnapshot.getValue();
-//
-//                            Iterator listKey = mapRecord.keySet().iterator();
-//                            while (listKey.hasNext()) {
-//                                String key = listKey.next().toString();
-//                                listRoomID.add(mapRecord.get(key).toString());
-//                            }
-//                            List<String> newList = new ArrayList<>(listRoomID);
-//                            while (listRoomID.size() > 0) {
-//                                instance.getRoomsInfo(listRoomID, room -> {
-//                                    listRoom.add(room);
-//                                    if (listRoom.size() == newList.size()) {
-//                                        onResult.onResult(listRoom);
-//                                    }
-//                                });
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//                        onResult.onResult(listRoom);
-//                    }
-//                });
-//    }
-//
-//    public void getRoomsInfo(List<String> ids, OnResult<Room> onResult) {
-//        String id = ids.remove(0);
-//        mDatabase.child("rooms").child(id)
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        if (dataSnapshot.getValue() != null) {
-//                            Room roomInfo = dataSnapshot.getValue(Room.class);
-//                            onResult.onResult(roomInfo);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//                        Log.e("getRoomInfo", databaseError.toString());
-//                        onResult.onResult(null);
-//                    }
-//                });
-//    }
-
-    public void getContactsInfo(List<String> ids, OnResult<User> onResult) {
-        String id = ids.remove(0);
-        mDatabase.child("users").child(id)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.getValue() != null) {
-                            User userInfo = dataSnapshot.getValue(User.class);
-                            onResult.onResult(userInfo);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.e("getContactInfo", databaseError.toString());
-                        onResult.onResult(null);
-                    }
-                });
-    }
-
     public void getListMessage(String roomId, OnResult<Message> onResult) {
-        mDatabase.child("rooms/" + roomId + "/messages").orderByChild("timestamp").limitToLast(10)
+        mDatabase.child("messages/" + roomId).orderByChild("timestamp").limitToLast(10)
                 .addChildEventListener(new ChildEventListener() {
 
                     @Override
