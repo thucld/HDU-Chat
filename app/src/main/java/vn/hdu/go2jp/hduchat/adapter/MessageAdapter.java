@@ -2,13 +2,18 @@ package vn.hdu.go2jp.hduchat.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -18,12 +23,13 @@ import java.util.Locale;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.model.data.Message;
+import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> implements View.OnClickListener {
+    private static int mSelectedItem = -1;
     private Context mContext;
     private List<Message> mDataSet;
     private PostItemListener mItemListener;
-    private static int mSelectedItem = -1;
     private String ownerId;
 
     //public MessageAdapter(Context context, List<Message> dataSet, PostItemListener itemListener) {
@@ -65,13 +71,26 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         try {
             date = new Date((long) item.getTimestamp());
         } catch (Exception e) {
-            //e.printStackTrace();
         }
         DateFormat formatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
         holder.messageTextView.setText(item.getMessage());
         holder.timeTextView.setText(formatter.format(date));
-        if (position == 0) {
-        } else {
+
+        if (position != 0) {
+            FireBaseUtil.getInstance().getFriendInfo(item.getUserId(), friend -> {
+                if (!TextUtils.isEmpty(friend.getAvatarPath())) {
+                    try {
+                        holder.sender.setText(friend.getUserName());
+                        Glide.with(mContext)
+                                .using(new FirebaseImageLoader())
+                                .load(FirebaseStorage.getInstance().getReference(friend.getAvatarPath()))
+                                .centerCrop()
+                                .into(holder.userImage);
+                    } catch (Exception e) {
+                        Log.e("my_MessageAdaptor",e.getMessage());
+                    }
+                }
+            });
         }
     }
 
@@ -94,12 +113,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     }
 
+    public interface PostItemListener {
+        void onPostClick(Message item);
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView messageTextView;
         TextView timeTextView;
         TextView sender;
         ImageView messageStatus;
+        ImageView userImage;
 
         private PostItemListener mItemListener;
 
@@ -107,6 +131,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             super(itemView);
             messageTextView = itemView.findViewById(R.id.message_text);
             timeTextView = itemView.findViewById(R.id.time_text);
+
+            userImage = itemView.findViewById(R.id.user_image);
+            sender = itemView.findViewById(R.id.chat_company_reply_author);
 
             mItemListener = postItemListener;
             itemView.setOnClickListener(this);
@@ -122,9 +149,5 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             //this.mItemListener.onPostClick(item);
             //notifyDataSetChanged();
         }
-    }
-
-    public interface PostItemListener {
-        void onPostClick(Message item);
     }
 }

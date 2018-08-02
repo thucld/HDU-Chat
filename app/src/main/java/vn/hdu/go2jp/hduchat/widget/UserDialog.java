@@ -12,13 +12,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
 
 import vn.hdu.go2jp.hduchat.R;
 import vn.hdu.go2jp.hduchat.activity.ChatBoxActivity;
 import vn.hdu.go2jp.hduchat.activity.ProfileActivity;
 import vn.hdu.go2jp.hduchat.common.AppConst;
+import vn.hdu.go2jp.hduchat.listener.OnResult;
+import vn.hdu.go2jp.hduchat.model.data.Friend;
 import vn.hdu.go2jp.hduchat.model.data.User;
+import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 import vn.hdu.go2jp.hduchat.util.ToastUtil;
 
 public class UserDialog {
@@ -110,11 +115,30 @@ public class UserDialog {
                 btnCall.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_call)));
                 btnVideo.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_video_call)));
             }
-            if (!TextUtils.isEmpty(user.getAvatarPath())) {
-                Glide.with(activity)
-                        .load(user.getAvatarPath())
-                        .into(ivAvatar);
-            }
+
+            // TODO [hautv] moved Glide to Util
+            FireBaseUtil.getInstance().getFriendInfo(user.getUserId(), new OnResult<Friend>() {
+                @Override
+                public void onResult(Friend friend) {
+                    if (!TextUtils.isEmpty(friend.getAvatarPath())) {
+                        try {
+                            Glide.with(activity)
+                                    .using(new FirebaseImageLoader())
+                                    .load(FirebaseStorage.getInstance().getReference(friend.getAvatarPath()))
+                                    .centerCrop()
+                                    .into(ivAvatar);
+                        } catch (Exception error) {
+                            error.printStackTrace();
+                        }
+                    }
+                }
+            });
+
+//            if (!TextUtils.isEmpty(user.getAvatarPath())) {
+//                Glide.with(activity)
+//                        .load(user.getAvatarPath())
+//                        .into(ivAvatar);
+//            }
             dialog.show();
         }
     }

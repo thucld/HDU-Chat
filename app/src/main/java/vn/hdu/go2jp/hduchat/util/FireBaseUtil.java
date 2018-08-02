@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,11 +23,13 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.listener.OnResult;
 import vn.hdu.go2jp.hduchat.model.constant.Status;
 import vn.hdu.go2jp.hduchat.model.constant.UserType;
+import vn.hdu.go2jp.hduchat.model.data.Friend;
 import vn.hdu.go2jp.hduchat.model.data.Message;
 import vn.hdu.go2jp.hduchat.model.data.Room;
 import vn.hdu.go2jp.hduchat.model.data.User;
@@ -40,11 +41,11 @@ public class FireBaseUtil {
     private static DatabaseReference mDatabase;
     private static List<String> listContactID = new ArrayList<>();
     private static List<String> listRoomID = new ArrayList<>();
-
-    //FireBase Storage
     private static StorageReference storageReference;
     private static StorageReference avatarReference;
     private static FireBaseUtil instance;
+    //FireBase Storage
+    private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
 
     public static synchronized FireBaseUtil getInstance() {
         auth = FirebaseAuth.getInstance();
@@ -63,7 +64,7 @@ public class FireBaseUtil {
     // TODO FireBase Storage functions
     /* upload from local file */
     public void uploadAvatar(Uri imageUri, OnResult<String> onResult) {
-        StorageReference ref = avatarReference.child(user.getUid());
+        StorageReference ref = avatarReference.child(user.getUid() + "_" + new Date().getTime());
         ref.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -73,7 +74,6 @@ public class FireBaseUtil {
             }
         });
     }
-
 
     // TODO FireBase RealTime Database functions
     public String generateSingleRoomNameById(String friendId) {
@@ -89,7 +89,6 @@ public class FireBaseUtil {
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         if (dataSnapshot.getValue() != null) {
                             String roomId = dataSnapshot.getKey();
-                            Log.e("my_getListRoomKey", roomId);
                             getRoomInfo(roomId, room -> onResult.onResult(room));
                         }
                     }
@@ -282,7 +281,6 @@ public class FireBaseUtil {
     }
 
     public void getContactsInfo(String userId, OnResult<User> onResult) {
-        Log.e("my_userId", userId);
         mDatabase.child("users").child(userId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -299,6 +297,22 @@ public class FireBaseUtil {
                         onResult.onResult(null);
                     }
                 });
+    }
+
+    public void getFriendInfo(String friendId, OnResult<Friend> onResult) {
+        mDatabase.child("users_public").child(friendId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    Friend friend = dataSnapshot.getValue(Friend.class);
+                    onResult.onResult(friend);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     public void getMoreMessage(String roomId, Long endAtTimestamp, OnResult<List<Message>> onResult) {

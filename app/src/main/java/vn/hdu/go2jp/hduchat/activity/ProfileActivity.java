@@ -13,9 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.hdu.go2jp.hduchat.R;
@@ -26,7 +26,7 @@ import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 public class ProfileActivity extends AppCompatActivity {
 
     public User user;
-    public boolean changeProfile = false;
+    public boolean changeProfile;
 
     private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     private FireBaseUtil firebase = FireBaseUtil.getInstance();
@@ -52,6 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
         setUser();
         setEvents();
         setData();
+        changeProfile = false;
     }
 
     private void initViews() {
@@ -96,26 +97,23 @@ public class ProfileActivity extends AppCompatActivity {
         setAvatar();
     }
 
+
     private void setAvatar() {
         String avatarPath = user.getAvatarPath();
         if (!TextUtils.isEmpty(avatarPath)) {
-            try {
-                StorageReference ref = firebaseStorage.getReference(avatarPath);
-                Glide.with(this)
-                        .using(new FirebaseImageLoader())
-                        .load(ref)
-                        .into(civAvatar);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Glide.with(this).using(new FirebaseImageLoader())
+                    .load(FirebaseStorage.getInstance().getReference(avatarPath))
+                    .skipMemoryCache(changeProfile)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .centerCrop()
+                    .into(civAvatar);
         }
     }
 
     private void updateProfile() {
-        // thuoc tinh userId dang su dung lam dinh danh nen ko doi truong nay
+//         thuoc tinh userId dang su dung lam dinh danh nen ko doi truong nay
 //        user.setUserName("testerChange");
 //        changeProfile = true;
-
         if (changeProfile) {
             FireBaseUtil.getInstance().updateUser(user, new OnResult<Boolean>() {
                 @Override
@@ -140,8 +138,9 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onResult(String referenceUrl) {
                     user.setAvatarPath(referenceUrl);
-                    setAvatar();
                     changeProfile = true;
+                    updateProfile();
+                    setAvatar();
                 }
             });
         }

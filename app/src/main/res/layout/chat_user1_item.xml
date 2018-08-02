@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:autoLink="web"
-                android:maxWidth="@dimen/size_280dp"
+                android:maxWidth="@dimen/size_250dp"
                 android:text="Rahul Agrawal is a good boy but he does not know what he wants." />
 
         </LinearLayout>
@@ -67,6 +67,7 @@
             android:layout_toRightOf="@id/chat_company_reply_text"
             android:paddingBottom="@dimen/spacing_3dp"
             android:text="17:10"
+            android:maxLines="1"
             android:textColor="@color/gray" />
     </RelativeLayout>
 </RelativeLayout>

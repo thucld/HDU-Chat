@@ -10,17 +10,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
+import vn.hdu.go2jp.hduchat.listener.OnResult;
+import vn.hdu.go2jp.hduchat.model.data.Friend;
 import vn.hdu.go2jp.hduchat.model.data.User;
+import vn.hdu.go2jp.hduchat.util.FireBaseUtil;
 
 public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ContactViewHolder> implements View.OnClickListener {
+    private static int mSelectedItem = -1;
     private Context mContext;
     private List<User> mDataSet;
     private PostItemListener mItemListener;
-    private static int mSelectedItem = -1;
 
     public ContactListAdapter(Context context, List<User> dataSet, PostItemListener itemListener) {
         this.mContext = context;
@@ -63,9 +68,25 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         holder.tvName.setText(item.getUserName());
 
 
-        Glide.with(mContext)
-                .load(item.getAvatarPath())
-                .into(holder.imAvatar);
+        //Glide.with(mContext).load(item.getAvatarPath()).into(holder.imAvatar);
+        //String avatarPath = item.getAvatarPath();
+        FireBaseUtil.getInstance().getFriendInfo(item.getUserId(), new OnResult<Friend>() {
+            @Override
+            public void onResult(Friend friend) {
+                if (!TextUtils.isEmpty(friend.getAvatarPath())) {
+                    try {
+                        Glide.with(mContext)
+                                .using(new FirebaseImageLoader())
+                                .load(FirebaseStorage.getInstance().getReference(friend.getAvatarPath()))
+                                .centerCrop()
+                                .into(holder.imAvatar);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
 //        int resId = R.drawable.ic_files_bad;
 //        if (ItemRepository.isGood(this.mInsRecordId, item.getId())) {
 //            resId = R.drawable.ic_files_good;
@@ -126,6 +147,10 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
     }
 
+    public interface PostItemListener {
+        void onPostClick(User item);
+    }
+
     class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imAvatar;
@@ -152,9 +177,5 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             this.mItemListener.onPostClick(item);
             notifyDataSetChanged();
         }
-    }
-
-    public interface PostItemListener {
-        void onPostClick(User item);
     }
 }
