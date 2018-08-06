@@ -95,7 +95,7 @@ public class UserDialog {
         if (!TextUtils.isEmpty(user.getUserId())) {
             if (FirebaseAuth.getInstance().getUid().equals(user.getUserId())) {
                 showUserAction();
-                btnKeep.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_keep)));
+                btnKeep.setOnClickListener(v -> FireBaseUtil.getInstance().signOut());
                 btnHome.setOnClickListener(v -> new ToastUtil().showShort(dialog.getContext(), activity.getString(R.string.str_home)));
                 btnEdit.setOnClickListener(v -> {
                     activity.startActivity(new Intent(activity, ProfileActivity.class));

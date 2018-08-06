@@ -7,7 +7,6 @@ public class Room {
     private String roomId;
     private String title;
     private Message lastMessage;
-    private HashMap<String, Message> messages;
     private HashMap<String, Boolean> contacts;
 
     public Room() {
@@ -31,14 +30,6 @@ public class Room {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public HashMap<String, Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(HashMap<String, Message> messages) {
-        this.messages = messages;
     }
 
     public HashMap<String, Boolean> getContacts() {
