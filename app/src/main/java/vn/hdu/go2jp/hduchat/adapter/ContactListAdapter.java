@@ -67,25 +67,24 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         }
         holder.tvName.setText(item.getUserName());
 
-
-        //Glide.with(mContext).load(item.getAvatarPath()).into(holder.imAvatar);
-        //String avatarPath = item.getAvatarPath();
-        FireBaseUtil.getInstance().getFriendInfo(item.getUserId(), new OnResult<Friend>() {
-            @Override
-            public void onResult(Friend friend) {
-                if (!TextUtils.isEmpty(friend.getAvatarPath())) {
-                    try {
-                        Glide.with(mContext)
-                                .using(new FirebaseImageLoader())
-                                .load(FirebaseStorage.getInstance().getReference(friend.getAvatarPath()))
-                                .centerCrop()
-                                .into(holder.imAvatar);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+        if (!TextUtils.isEmpty(item.getUserId())) {
+            FireBaseUtil.getInstance().getFriendInfo(item.getUserId(), new OnResult<Friend>() {
+                @Override
+                public void onResult(Friend friend) {
+                    if (!TextUtils.isEmpty(friend.getAvatarPath())) {
+                        try {
+                            Glide.with(mContext)
+                                    .using(new FirebaseImageLoader())
+                                    .load(FirebaseStorage.getInstance().getReference(friend.getAvatarPath()))
+                                    .centerCrop()
+                                    .into(holder.imAvatar);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
 
 //        int resId = R.drawable.ic_files_bad;
 //        if (ItemRepository.isGood(this.mInsRecordId, item.getId())) {

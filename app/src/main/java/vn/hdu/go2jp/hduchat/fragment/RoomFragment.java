@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import vn.hdu.go2jp.hduchat.R;
@@ -61,23 +63,39 @@ public class RoomFragment extends Fragment {
             intent.putExtras(bundle);
             startActivity(intent);
         });
-        //RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true);
-        layoutManager.setStackFromEnd(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rvRooms.setLayoutManager(layoutManager);
         rvRooms.setAdapter(roomAdapter);
+    }
+
+    private void sortByTimestamp() {
+        Collections.sort(listRoom, new Comparator<Room>() {
+            @Override
+            public int compare(Room o1, Room o2) {
+                long lo1 = (long) o1.getLastMessage().getTimestamp();
+                long lo2 = (long) o2.getLastMessage().getTimestamp();
+                return (int) (lo2 - lo1);
+            }
+        });
+    }
+
+    private void sortByUnread() {
     }
 
     private void getRooms() {
         FireBaseUtil.getInstance().getListRoom(rooms -> {
             String roomId = rooms.getRoomId();
-            if (listIdRoom.contains(roomId)) {
-                int indexRoom = listIdRoom.indexOf(roomId);
-                listIdRoom.remove(indexRoom);
-                listRoom.remove(indexRoom);
+            Room temp = null;
+            for (Room room : listRoom) {
+                if (roomId.equals(room.getRoomId())) {
+                    temp = room;
+                }
             }
-            listIdRoom.add(roomId);
+
+            listRoom.remove(temp);
             listRoom.add(rooms);
+
+            sortByTimestamp();
             roomAdapter.notifyDataSetChanged();
 
             llEmpty.setVisibility(listRoom.isEmpty() ? View.VISIBLE : View.GONE);

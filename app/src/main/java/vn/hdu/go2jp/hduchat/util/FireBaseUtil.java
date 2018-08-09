@@ -89,7 +89,7 @@ public class FireBaseUtil {
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         if (dataSnapshot.getValue() != null) {
                             String roomId = dataSnapshot.getKey();
-                            getRoomInfo(roomId, room -> onResult.onResult(room));
+                            getRoomInfo(roomId, onResult::onResult);
                         }
                     }
 
@@ -299,20 +299,22 @@ public class FireBaseUtil {
                 });
     }
 
-    public void getFriendInfo(String friendId, OnResult<Friend> onResult) {
-        mDatabase.child("users_public").child(friendId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null) {
-                    Friend friend = dataSnapshot.getValue(Friend.class);
-                    onResult.onResult(friend);
-                }
-            }
+    public void getFriendInfo(@NonNull String friendId, OnResult<Friend> onResult) {
+        mDatabase.child("users_public").child(friendId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.getValue() != null) {
+                            Friend friend = dataSnapshot.getValue(Friend.class);
+                            onResult.onResult(friend);
+                        }
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        onResult.onResult(null);
+                    }
+                });
     }
 
     public void getMoreMessage(String roomId, Long endAtTimestamp, OnResult<List<Message>> onResult) {
